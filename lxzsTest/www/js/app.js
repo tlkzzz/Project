@@ -94,8 +94,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           url: '/unfinished',
           views: {
               'tab-rw-unfinished': {
-                  templateUrl: 'templates/tab-rw-unfinished.html',
-                  controller: 'DashCtrl'
+                  templateUrl: 'templates/tab-rw-unfinished.html'
+               //   controller: 'DashCtrl'
               }
           }
       })
@@ -103,8 +103,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           url: '/outdated',
           views: {
               'tab-rw-outdated': {
-                  templateUrl: 'templates/tab-rw-outdated.html',
-                  controller: 'DashCtrl'
+                  templateUrl: 'templates/tab-rw-outdated.html'
+                 // controller: 'DashCtrl'
               }
           }
       })
@@ -112,8 +112,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           url: '/finished',
           views: {
               'tab-rw-finished': {
-                  templateUrl: 'templates/tab-rw-finished.html',
-                  controller: 'DashCtrl'
+                  templateUrl: 'templates/tab-rw-finished.html'
+                //  controller: 'DashCtrl'
               }
           }
       })
@@ -164,7 +164,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           controller: 'xmxqCtrl'
 
       })
+      .state('wdxx', { //我的消息
+          url: '/wdxx',
+          templateUrl: 'templates/wd-xiaoxi.html',
+          controller: 'wdxxCtrl'
 
+      })
+      .state('wdsz', { //我的设置
+          url: '/wdsz',
+          templateUrl: 'templates/wd-sz.html',
+          controller: 'wdszCtrl'
+
+      })
+      .state('addrw', { //新增任务
+          url: '/addrw',
+          templateUrl: 'templates/rw-add.html',
+          controller: 'addrwCtrl'
+      })
+      .state('xgmm', { //修改密码
+          url: '/xgmm',
+          templateUrl: 'templates/sz-xgmm.html',
+          controller: 'xgmmCtrl'
+      })
   ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/rw');

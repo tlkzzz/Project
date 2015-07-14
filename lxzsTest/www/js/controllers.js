@@ -43,13 +43,17 @@ angular.module('starter.controllers', [])
             $ionicHistory.goBack();
         }
     }])
-//我的同事
-    .controller('bmCtrl',['$scope', function($scope) {
-
+//我的部门
+    .controller('bmCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
     }])
 //新增客户
- .controller('addkhCtrl',['$scope', function($scope) {
-
+ .controller('addkhCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
     }])
 //新增项目
     .controller('addxmCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
@@ -59,6 +63,30 @@ angular.module('starter.controllers', [])
     }])
 //项目详情
     .controller('xmxqCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
+    }])
+//我的消息
+    .controller('wdxxCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
+    }])
+//我的设置
+    .controller('wdszCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
+    }])
+//新增任务
+    .controller('addrwCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
+    }])
+//修改密码
+    .controller('xgmmCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }

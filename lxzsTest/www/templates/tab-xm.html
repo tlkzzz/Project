@@ -5,11 +5,11 @@
     <ion-nav-title >
         <div class="h1 title">项目</div>
     </ion-nav-title>
-    <ion-nav-buttons side="left">
-        <button class="button icon ion-plus-round" > </button>
-    </ion-nav-buttons>
+    <!--<ion-nav-buttons side="left">-->
+        <!--<button class="button icon ion-plus-round" > </button>-->
+    <!--</ion-nav-buttons>-->
     <ion-nav-buttons side="right">
-        <button class="button icon ion-plus-round" > </button>
+        <button class="button icon ion-plus-round" ng-click="xzxm()"> </button>
     </ion-nav-buttons>
     <!--<a href="#" class=" item-icon-right">-->
         <!--<i class="icon ion-android-mail"></i>-->
@@ -37,7 +37,7 @@
 
         <div class="list card">
 
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
+            <div class="item item-divider " ng-click="xmxq()"><b>项目名称项目名称项目名称项目</b></div>
             <div class="item item-button-right">
                 <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
                 <button ng-show="true" class="button icon-left ion-ios-checkmark-empty button-clear button-positive">

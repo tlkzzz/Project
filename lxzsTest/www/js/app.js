@@ -127,25 +127,45 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
 //          }
 //      })
 
-            .state('wdts', {  //跳到其他页面不显示tabs  在视图view herf="#/news" 这样写
-                url: '/wdts',  //herf跳转必须加入/与上面的news无关上面tab.accunt是有父类才这么写 如果没有父类上下可以写一样  /id为参数  $state.go('news') js页面跳转  <a ui-sref="news">指令跳转就不需要url
+            .state('wdts', {
+                url: '/wdts',
                 templateUrl: 'templates/wd-ts.html',
                 controller: 'wdtsCtrl'
 
             })
-      .state('bm', {  //跳到其他页面不显示tabs  在视图view herf="#/news" 这样写
-          url: '/bm',  //herf跳转必须加入/与上面的news无关上面tab.accunt是有父类才这么写 如果没有父类上下可以写一样  /id为参数  $state.go('news') js页面跳转  <a ui-sref="news">指令跳转就不需要url
+      .state('bm', {
+          url: '/bm',
           templateUrl: 'templates/wd-ts-bm.html',
           controller: 'bmCtrl'
 
       })
-      .state('khxx', {  //跳到其他页面不显示tabs  在视图view herf="#/news" 这样写
-          url: '/khxx',  //herf跳转必须加入/与上面的news无关上面tab.accunt是有父类才这么写 如果没有父类上下可以写一样  /id为参数  $state.go('news') js页面跳转  <a ui-sref="news">指令跳转就不需要url
-                  templateUrl: 'templates/kh-khxx.html',
-                  controller: 'khxxtCtrl'
+      .state('addkh', {  //新增客户
+          url: '/addkh',
+          templateUrl: 'templates/kh-add.html',
+          controller: 'addkhCtrl'
 
-      });
+      })
 
+        .state('khxx', { //客户信息
+            url: '/khxx',
+            templateUrl: 'templates/kh-khxx.html',
+            controller: 'khxxtCtrl'
+
+        })
+      .state('addxm', { //项目新增 项目报备
+          url: '/addxm',
+          templateUrl: 'templates/xm-add.html',
+          controller: 'addxmCtrl'
+
+      })
+      .state('xmxq', { //项目详情
+          url: '/xmxq',
+          templateUrl: 'templates/xm-xq.html',
+          controller: 'xmxqCtrl'
+
+      })
+
+  ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/rw');
 

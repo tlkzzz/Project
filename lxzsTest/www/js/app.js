@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.filter'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.filter','ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$location,$cordovaToast,$rootScope,$cordovaKeyboard,$ionicHistory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,7 +19,41 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
       StatusBar.styleLightContent();
     }
   });
+    $ionicPlatform.registerBackButtonAction(function (e) {
+
+            //判断处于哪个页面时双击退出
+            if ($location.path() == '/tab/rw'||$location.path() == '/tab/xm'||$location.path() == '/tab/kh'||$location.path() == '/tab/wd'|| $location.path() == '/tab/rw/finished'||$location.path() == '/tab/rw/outdated'||$location.path() == '/tab/rw/unfinished') {
+                if ($rootScope.backButtonPressedOnceToExit) {
+                    ionic.Platform.exitApp();
+                } else {
+                    $rootScope.backButtonPressedOnceToExit = true;
+                    $cordovaToast.showShortCenter('再按一次退出系统');
+                    setTimeout(function () {
+                        $rootScope.backButtonPressedOnceToExit = false;
+                    }, 2000);
+                }
+            }
+            else if ($ionicHistory.backView()) {
+                if($cordovaKeyboard.isVisible()){
+                    $cordovaKeyboard.close();
+                }else{
+                    $ionicHistory.goBack();
+                }
+
+            } else {
+                $rootScope.backButtonPressedOnceToExit = true;
+                $cordovaToast.showShortCenter('再按一次退出系统');
+                setTimeout(function () {
+                    $rootScope.backButtonPressedOnceToExit = false;
+                }, 2000);
+            }
+            e.preventDefault();
+            return false;
+        }, 101);
+
 })
+
+
 
 .config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
 
@@ -185,6 +219,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           url: '/xgmm',
           templateUrl: 'templates/sz-xgmm.html',
           controller: 'xgmmCtrl'
+      })
+      .state('khxxqk', { //客户详细情况
+          url: '/khxxqk',
+          templateUrl: 'templates/kh-xxqk.html',
+          controller: 'khxxqkCtrl'
+      })
+      .state('editkh', { //修改客户资料
+          url: '/editkh',
+          templateUrl: 'templates/kh-edit.html',
+          controller: 'editkhCtrl'
       })
   ;
   // if none of the above states are matched, use this as the fallback

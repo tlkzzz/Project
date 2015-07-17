@@ -5,7 +5,7 @@ angular.module('starter.controllers', ['ionic'])
            if(index==1){
               console.log(index);
            }else if(index==2){
-             //  console.log(index);
+              console.log(index);
             //  $cordovaToast.showShortCenter($location.path());
            }else if(index==3){
                console.log(index);

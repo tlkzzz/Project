@@ -65,7 +65,7 @@ h5 { margin-left:10px; font-size:13px; color:#999; font-weight:bold;}
 .Suspended-button { position:fixed; bottom:80px; right:30px; width:44px; height:44px; z-index:9;}
 .Suspended-button img { width:100%; height:100%;}
 
-.tabs { background:#FFF; border-bottom:1px solid #DBDBDB; bottom:20px;}
+.tabs { background:#FFF; border-bottom:1px solid #DBDBDB; bottom:0;}
 .tab-item { font-size:16px; color:#000; font-family:"微软雅黑";}
 .tabs a.on { color:#6A8DCF; font-weight:bold;}
 .tabs-top > .tabs, .tabs.tabs-top {}

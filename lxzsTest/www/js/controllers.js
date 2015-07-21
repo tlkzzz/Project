@@ -1,4 +1,26 @@
 angular.module('starter.controllers', ['ionic'])
+.constant('$ionicLoadingConfig', {
+    template: "<a class=''>Loading...</a>"
+  //icon ion-load-d
+})
+
+////登陆
+.controller('loginController',['$scope','$state','$ionicHistory','$ionicLoading','$cordovaProgress', function($scope,$state,$ionicHistory,$ionicLoading,$cordovaProgress) {
+
+        $scope.login=function(){
+            $ionicLoading.show();
+           // $cordovaProgress.showSimpleWithLabelDetail(true, "Loading", "detail");
+            setTimeout(function () {
+                $ionicLoading.hide();
+               // $cordovaProgress.hide();
+                $state.go("tab.rw");
+                }, 2000);
+
+        }
+        $scope.wjmm=function(){
+            $state.go("wjmm");
+        }
+}])
 //任务
 .controller('rwController',['$scope','$cordovaToast','$location',function($scope,$cordovaToast,$location) {
        $scope.onTabSelected=function(index){
@@ -11,8 +33,6 @@ angular.module('starter.controllers', ['ionic'])
                console.log(index);
            }
        };
-
-
 }])
 //项目
 .controller('xmController',['$scope','$state', function($scope,$state) {
@@ -22,7 +42,6 @@ angular.module('starter.controllers', ['ionic'])
         $scope.xmxq=function(){
             $state.go("xmxq");
         }
-
 }])
 
 
@@ -31,6 +50,7 @@ angular.module('starter.controllers', ['ionic'])
 
         $scope.xzkh=function(){
              $state.go("addkh");
+            // $state.href("login.html");
         }
 
 }])
@@ -85,10 +105,31 @@ angular.module('starter.controllers', ['ionic'])
         }
     }])
 //我的设置
-    .controller('wdszCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+    .controller('wdszCtrl',['$scope','$ionicHistory','$ionicPopup','$state', function($scope,$ionicHistory,$ionicPopup,$state) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
+        };
+        $scope.exti=function(){
+            $ionicPopup.confirm({
+                title: '确认',
+                content: '是否确认退出当前用户?',
+                cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
+                cancelType: '', // String (默认: 'button-default')。取消按钮的类型。
+                okText: '确认', // String (默认: 'OK')。OK按钮的文字。
+                okType: '' // String (默认: 'button-positive')。OK按钮的类型。
+            }).then(function (res) {
+                if (res) {
+                  //  $ionicHistory.clearCache();
+                    $state.go("login");
+                  //  $ionicHistory.clearHistory();
+
+                } else {
+                    //console.log('You are not sure');
+                }
+            });
         }
+
+
     }])
 //新增任务
     .controller('addrwCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
@@ -129,6 +170,12 @@ angular.module('starter.controllers', ['ionic'])
     }])
 //修改客户信息
     .controller('editkhCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
+    }])
+//忘记密码
+    .controller('wjmmCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }

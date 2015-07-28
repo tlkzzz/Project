@@ -241,6 +241,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           templateUrl: 'templates/kh-edit.html',
           controller: 'editkhCtrl'
       })
+      .state('rcb', { //日程表
+          url: '/rcb',
+          templateUrl: 'templates/rw-rcb.html',
+          controller: 'rcbCtrl'
+      })
   ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['ionic'])
 .constant('$ionicLoadingConfig', {
-    template: "<a class=''>Loading...</a>"
-  //icon ion-load-d
+    template: "<ion-spinner icon='android'></ion-spinner>"
+  //
 })
 
 ////登陆
@@ -22,10 +22,13 @@ angular.module('starter.controllers', ['ionic'])
         }
 }])
 //任务
-.controller('rwController',['$scope','$cordovaToast','$location',function($scope,$cordovaToast,$location) {
+.controller('rwController',['$scope','$cordovaToast','$location','$state',function($scope,$cordovaToast,$location,$state) {
        $scope.onTabSelected=function(index){
            if(index==1){
-              console.log(index);
+        $scope.rcb=function(){
+            $state.go('rcb');//日程表
+        }
+
            }else if(index==2){
               console.log(index);
             //  $cordovaToast.showShortCenter($location.path());
@@ -35,13 +38,21 @@ angular.module('starter.controllers', ['ionic'])
        };
 }])
 //项目
-.controller('xmController',['$scope','$state', function($scope,$state) {
+.controller('xmController',['$scope','$state','$cordovaContacts', function($scope,$state,$cordovaContacts) {
         $scope.xzxm=function(){
             $state.go("addxm");
         };
         $scope.xmxq=function(){
             $state.go("xmxq");
-        }
+        };
+        $scope.lxr=function(){
+//            $cordovaContacts.clone().then(function(result) {
+//                // Contact saved
+//            }, function(err) {
+//                // Contact error
+//            });
+        };
+
 }])
 
 
@@ -81,9 +92,44 @@ angular.module('starter.controllers', ['ionic'])
         }
     }])
 //新增客户
- .controller('addkhCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+ .controller('addkhCtrl',['$scope','$ionicHistory','$ionicModal','$cordovaContacts', function($scope,$ionicHistory,$ionicModal,$cordovaContacts) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
+        }
+
+
+        $ionicModal.fromTemplateUrl('templates/add_lxr.html', {  //打开view所在的model
+            scope: $scope,    //注入一个对象
+            animation: 'slide-in-up', //动画
+            backdropClickToClose:true  //点击背景是否隐藏默认true
+            //第一个输入是否获取焦点
+        }).then(function(modal){
+            $scope.newReplieModal = modal; //显示视图
+        });
+
+        $scope.xzlxr=function(){
+            //  $scope.lxr="888";
+            var n='';
+            $scope.change();
+            $scope.newReplieModal.show();   //显示model
+
+        }
+        $scope.newReplie=function(){
+            $scope.newReplieModal.hide();
+           // $scope.newReplieModal.remove();
+        }
+//        $scope.clearinput=function(){
+//              alert("6");
+//           // $scope.lxr=" ";
+//        }
+        $scope.change=function(){
+            $cordovaContacts.find({'fields':''}).then(function(data){
+              //  alert(data);
+                console.log(data);
+                             $scope.contacts=data;
+            },function(err){
+                console.log("err:"+err);
+            });
         }
     }])
 //新增项目
@@ -179,5 +225,29 @@ angular.module('starter.controllers', ['ionic'])
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
+    }])
+//日程表
+    .controller('rcbCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
+        $(".ui_timepicker").datetimepicker({
+            //  showOn: "button",
+            //   buttonImage: "./css/images/icon_calendar.gif",
+            //   buttonImageOnly: true,
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+//         $scope.selectTime=function(dateStr){
+//         alert(dateStr);
+//       }
+//        function selectTime (dateStr){
+//            alert(dateStr);
+//        }
+
+
     }])
 ;

@@ -221,13 +221,35 @@ angular.module('starter.controllers', ['ionic'])
         }
     }])
 //忘记密码
-    .controller('wjmmCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+    .controller('wjmmCtrl',['$scope','$ionicHistory','$interval', function($scope,$ionicHistory,$interval) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
+       $scope.ss=false;
+       $scope.wjmmclass="button button-block button-positive";
+       $scope.wjmm="获取验证码";
+
+        $scope.hqyzm=function(){//点击获取验证码
+            console.log($scope.tels);
+          // alert($scope.tel);
+           $scope.ss=true;
+           $scope.wjmmclass="button button-block button-calm";
+            $scope.n=30;
+            $scope.wjmm= $scope.n+'秒';
+            var time=$interval(function(){
+                $scope.n--;
+                $scope.wjmm= $scope.n+'秒';
+                if($scope.n==0){
+                    $scope.ss=false;
+                    $scope.wjmmclass="button button-block button-positive";
+                    $scope.wjmm="重新获取验证码";
+                    $interval.cancel(time);
+                }
+            },1000);
+        }
     }])
 //日程表
-    .controller('rcbCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
+    .controller('rcbCtrl',['$scope','$ionicHistory','$filter', function($scope,$ionicHistory,$filter) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
@@ -239,15 +261,15 @@ angular.module('starter.controllers', ['ionic'])
             timeFormat: 'hh:mm:ss',
             stepHour: 1,
             stepMinute: 1,
-            stepSecond: 1
+            stepSecond: 1,
+            onSelect: function(dateText, inst) {
+                   alert(dateText);
+                   }
         })
-//         $scope.selectTime=function(dateStr){
-//         alert(dateStr);
-//       }
-//        function selectTime (dateStr){
-//            alert(dateStr);
-//        }
-
+            var currentDate = jQuery( ".ui_timepicker" ).datepicker( "getDate" );
+           // currentDate=new Date(currentDate);currentDate.valueOf()
+            //alert(currentDate);
+        alert($filter("date")(currentDate.valueOf(), "yyyy-MM-dd hh:mm:ss"));
 
     }])
 ;

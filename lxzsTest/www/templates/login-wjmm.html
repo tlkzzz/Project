@@ -4,19 +4,29 @@
     </ion-nav-buttons>
 
 
-    <ion-content class="padding" style="background:#EBEBEB;">
+    <ion-content class="padding" >
+
         <div class="warrper">
 
             <div class="list list-inset">
                 <label class="item item-input">
                     <i class="icon ion-ios-telephone ion-ios-telephone-02"></i>
-                    <input type="text" placeholder="请输入手机号码">
+                    <input type="tel" ng-model="tels" placeholder="请输入手机号码">
                 </label>
-                <label class="item item-input" style="position:relative;">
-                    <i class="icon ion-android-apps ion-android-apps-01"></i>
-                    <input type="text" placeholder="请输入验证码">
-                    <a class="code" href="#">获取验证码</a>
-                </label>
+                <div class="item item-input-inset">
+                    <label class="item item-input" style="position:relative;">
+                        <i class="icon ion-android-apps ion-android-apps-01"></i>
+                        <input type="text" placeholder="请输入验证码">
+                    </label>
+                    <button ng-class="wjmmclass" ng-disabled="ss" ng-click="hqyzm()">
+                        {{wjmm}}
+                    </button>
+                </div>
+                <!--<label class="item item-input" style="position:relative;">-->
+                    <!--<i class="icon ion-android-apps ion-android-apps-01"></i>-->
+                    <!--<input type="text" placeholder="请输入验证码">-->
+                <!--</label>-->
+                <!--<button ng-class="wjmmclass" ng-disabled="ss" ng-click="hqyzm()">{{wjmm}}</button>-->
                 <label class="item item-input">
                     <i class="ion-android-unlock ion-android-unlock-01"></i>
                     <input type="text" placeholder="请输入新密码">
@@ -28,11 +38,10 @@
                 </label>
             </div>
 
-
         </div>
 
         <div class="button-box" style=" margin-top: 8px;">
-            <button class="button button-block button-positive" >提交</button>
+            <button class="button button-block button-positive" ng-click="tj()">提交</button>
         </div>
 
 

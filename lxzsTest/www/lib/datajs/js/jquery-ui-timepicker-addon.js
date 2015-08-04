@@ -967,8 +967,8 @@ $.fn.extend({
 //########################################################################
 $.datepicker._base_selectDate = $.datepicker._selectDate;
 $.datepicker._selectDate = function (id, dateStr) {
-	  selectTime(dateStr);
-	  //alert(dateStr);
+	 // selectTime(dateStr);
+	 // alert(dateStr);
 	var inst = this._getInst($(id)[0]),
 		tp_inst = this._get(inst, 'timepicker');
 		

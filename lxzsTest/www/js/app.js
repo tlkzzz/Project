@@ -5,7 +5,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.filter','ngCordova'])
-.run(function($ionicPlatform,$location,$cordovaToast,$rootScope,$cordovaKeyboard,$ionicHistory) {
+.run(function($ionicPlatform,$location,$cordovaToast,$rootScope,$cordovaKeyboard,$ionicHistory,localStorageServices) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -17,10 +17,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           // org.apache.cordova.statusbar required
           StatusBar.styleLightContent();
       }
-
   });
     $ionicPlatform.registerBackButtonAction(function (e) {
-
             //判断处于哪个页面时双击退出
             if ($location.path() == '/tab/rw'||$location.path() == '/tab/xm'||$location.path() == '/tab/kh'||$location.path() == '/tab/wd'|| $location.path() == '/tab/rw/finished'||$location.path() == '/tab/rw/outdated'||$location.path() == '/tab/rw/unfinished') {
                 if ($rootScope.backButtonPressedOnceToExit) {
@@ -33,26 +31,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
                     }, 2000);
                 }
             }else if ($ionicHistory.backView()) {
-              //  $cordovaToast.showShortCenter($cordovaKeyboard.isVisible());
-                if($cordovaKeyboard.isVisible()){
-                    $cordovaKeyboard.close();
-                    $cordovaToast.showShortCenter("关闭键盘");
-                }else{
-                    $ionicHistory.goBack();
-                  //  $cordovaToast.showShortCenter('返回');
-                }
-
-            } else {
-//                alert("7");
-//                $rootScope.backButtonPressedOnceToExit = true;
-//                $cordovaToast.showShortCenter('再按一次退出系统');
-//                setTimeout(function () {
-//                    $rootScope.backButtonPressedOnceToExit = false;
-//                }, 2000);
+                    if($location.path() == '/login'){
+                        ionic.Platform.exitApp();
+                    }else{
+                        $ionicHistory.goBack();
+                    }
+            }else if($location.path() == '/login'){
+                ionic.Platform.exitApp();
             }
             e.preventDefault();
             return false;
         }, 101);
+
+//    $ionicPlatform.registerBackButtonAction(function(e) {
+//            $cordovaKeyboard.close();
+//            alert("6");
+//            e.preventDefault();
+//            return false;
+//        }, 101);
+
+
 
 })
 
@@ -79,6 +77,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
   $stateProvider
       .state('login', {
           url: '/login',
+          cache:'false',
           templateUrl: 'templates/login.html',
           controller: 'loginController'
 

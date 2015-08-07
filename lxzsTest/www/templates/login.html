@@ -8,14 +8,14 @@
             <div class="list list-inset" style="margin-left:20px; margin-right:20px; background:none; overflow:hidden; zoom:1;">
                 <label class="item item-input" style=" border:0; border-bottom:1px solid #CCCCD4; margin-bottom:12px; background:none;">
                     <i class="icon ion-person placeholder-icon" style="font-size:14px; color:#FFF;"></i>
-                    <input type="text" placeholder="请输入用户名" style="font-size:14px; color:#FFF;">
+                    <input type="text" ng-model="pp.user" placeholder="请输入用户名" style="font-size:14px; color:#FFF;">
                 </label>
                 <label class="item item-input" style=" border:0; border-bottom:1px solid #CCCCD4; margin-bottom:12px; background:none;">
                     <i class="icon ion-unlocked placeholder-icon" style="font-size:14px; color:#FFF;"></i>
-                    <input type="text" placeholder="请输入密码" style="font-size:14px; color:#FFF;">
+                    <input type="text" ng-model="pp.pass" placeholder="请输入密码" style="font-size:14px; color:#FFF;">
                 </label>
                 <label ng-click="wjmm()" style="float:left; font-size:12px; color:#FF8800;">忘记密码？</label>
-                <label style="float:right; font-size:12px; color:#FF8800; vertical-align:top;"><input type="checkbox" style="vertical-align:middle; margin-right:5px;" />记住密码</label>
+                <label style="float:right; font-size:12px; color:#FF8800; vertical-align:top;"><input type="checkbox"   ng-model="pp.check" style="vertical-align:middle; margin-right:5px;" />记住密码</label>
             </div>
 
             <div>

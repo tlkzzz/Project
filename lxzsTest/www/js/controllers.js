@@ -5,13 +5,39 @@ angular.module('starter.controllers', ['ionic'])
 })
 
 ////登陆
-.controller('loginController',['$scope','$state','$ionicHistory','$ionicLoading','$cordovaProgress', function($scope,$state,$ionicHistory,$ionicLoading,$cordovaProgress) {
+.controller('loginController',['$scope','$state','$ionicHistory','$ionicLoading','$cordovaProgress','localStorageServices','$cordovaToast', function($scope,$state,$ionicHistory,$ionicLoading,$cordovaProgress,localStorageServices,$cordovaToast) {
+       $scope.pp={};
+       $scope.pp.user=localStorageServices.getUser("user");
+       $scope.pp.pass=localStorageServices.getPass("pass");
+       if(localStorageServices.getCheck("check")==null ||localStorageServices.getCheck("check")==false){
+           $scope.pp.check=false;
+       }else{
+           $scope.pp.check=true;
+       }
 
-        $scope.login=function(){
+       // console.log(localStorageServices.getUser("user"),localStorageServices.getPass("pass"),localStorageServices.getCheck("check"));
+        $scope.login=function(){//登陆
+            var us=$scope.pp.user;
+            var ps=$scope.pp.pass;
+            var ck=$scope.pp.check;
+            if(us==null){
+                $cordovaToast.showShortCenter('请输入用户名');
+                return false;
+            }
+            if(ps==null){
+                $cordovaToast.showShortCenter('请输入密码');
+                return  false;
+            }
+
             $ionicLoading.show();
            // $cordovaProgress.showSimpleWithLabelDetail(true, "Loading", "detail");
             setTimeout(function () {
                 $ionicLoading.hide();
+                if(ck==true){
+                 localStorageServices.addMm(us,ps,ck); //保存密码
+                }else{
+                 localStorageServices.delAll();
+                }
                // $cordovaProgress.hide();
                 $state.go("tab.rw");
                 }, 2000);
@@ -221,17 +247,23 @@ angular.module('starter.controllers', ['ionic'])
         }
     }])
 //忘记密码
-    .controller('wjmmCtrl',['$scope','$ionicHistory','$interval', function($scope,$ionicHistory,$interval) {
+    .controller('wjmmCtrl',['$scope','$ionicHistory','$interval','$cordovaToast', function($scope,$ionicHistory,$interval,$cordovaToast) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
+       $scope.test={};
        $scope.ss=false;
        $scope.wjmmclass="button button-block button-positive";
        $scope.wjmm="获取验证码";
 
         $scope.hqyzm=function(){//点击获取验证码
-            console.log($scope.tels);
-          // alert($scope.tel);
+            // alert(angular.element(document.querySelector('#tel')).val());//内置对象获取
+            var tel=$scope.test.tels;
+            if(tel==undefined){
+                $cordovaToast.showShortCenter('请输入手机号码');
+                return  false;
+            }
+
            $scope.ss=true;
            $scope.wjmmclass="button button-block button-calm";
             $scope.n=30;

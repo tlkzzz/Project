@@ -33,8 +33,8 @@
             </div>
 
             <div class="drop-down-box">
-                <div class="drop-down-list"><p>业主方</p><i class="drop-down"><img src="img/drop-down.png" /></i></div>
-                <div class="hide-box">
+                <div ng-click="showyzf()" class="drop-down-list"><p>业主方</p><i class="drop-down"><img src="img/drop-down.png" /></i></div>
+                <div  ng-show="pp.yzf">
                     <div class="list list-inset margin-top-none">
                         <label class="item item-input">
                             <input type="text" placeholder="单位名称">
@@ -60,8 +60,8 @@
 
 
             <div class="drop-down-box">
-                <div class="drop-down-list"><p>设计单位</p><i class="drop-down"><img src="img/drop-down.png" /></i></div>
-                <div class="hide-box">
+                <div ng-click="showsjdw()" class="drop-down-list"><p>设计单位</p><i class="drop-down"><img src="img/drop-down.png" /></i></div>
+                <div ng-show="pp.sjdw">
                     <div class="list list-inset margin-top-none">
                         <label class="item item-input">
                             <input type="text" placeholder="单位名称">
@@ -81,8 +81,8 @@
 
 
             <div class="drop-down-box">
-                <div class="drop-down-list"><p>土建总包方（未做深化图纸项目可不填）</p><i class="drop-down"><img src="img/drop-down.png" /></i></div>
-                <div class="hide-box">
+                <div ng-click="zbfshow()" class="drop-down-list"><p>土建总包方（未做深化图纸项目可不填）</p><i class="drop-down"><img src="img/drop-down.png" /></i></div>
+                <div ng-show="pp.zbf">
                     <div class="list list-inset margin-top-none">
                         <label class="item item-input">
                             <input type="text" placeholder="单位名称">

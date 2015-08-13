@@ -18,7 +18,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           StatusBar.styleLightContent();
       }
   });
+
+        $ionicPlatform.onHardwareBackButton(function(e) {
+           // alert("6");
+            //  $cordovaKeyboard.close();
+            //alert($cordovaKeyboard.isVisible());
+           // e.preventDefault();
+           // e.stopPropagation();
+
+        });
     $ionicPlatform.registerBackButtonAction(function (e) {
+          //  alert("8");
+           // alert($cordovaKeyboard.isVisible()+"4");
             //判断处于哪个页面时双击退出
             if ($location.path() == '/tab/rw'||$location.path() == '/tab/xm'||$location.path() == '/tab/kh'||$location.path() == '/tab/wd'|| $location.path() == '/tab/rw/finished'||$location.path() == '/tab/rw/outdated'||$location.path() == '/tab/rw/unfinished') {
                 if ($rootScope.backButtonPressedOnceToExit) {
@@ -43,12 +54,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
             return false;
         }, 101);
 
-//    $ionicPlatform.registerBackButtonAction(function(e) {
-//            $cordovaKeyboard.close();
-//            alert("6");
-//            e.preventDefault();
-//            return false;
-//        }, 101);
 
 
 
@@ -69,6 +74,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
 //        $ionicConfigProvider.backButton.icon('ion-ios-arrow-left'); //设置返回的按钮样式
 //        $ionicConfigProvider.backButton.text('');  //隐藏文字
 //        $ionicConfigProvider.backButton.previousTitleText(false);
+
+
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router

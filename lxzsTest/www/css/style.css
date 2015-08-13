@@ -23,7 +23,7 @@ h5 { margin-left:10px; font-size:13px; color:#999; font-weight:bold;}
 .call-history-list .min { float:right;}
 
 .drop-down-box { margin-bottom:10px;}
-.drop-down-list { border:1px solid #ddd; font-size:14px; margin:0 10px; margin-bottom:-1px; background:#FFF; border-top-left-radius:2px; border-top-right-radius:2px; padding:6px 0 5px 16px; position:relative;}
+.drop-down-list { border:1px solid #ddd; font-size:14px; margin-bottom:-1px; background:#FFF; border-top-left-radius:2px; border-top-right-radius:2px; padding:6px 0 5px 16px; position:relative;}
 .drop-down-list p { height:34px; line-height:34px; margin-bottom:0;}
 .drop-down-list .drop-down { position:absolute; top:16px; right:0;}
 

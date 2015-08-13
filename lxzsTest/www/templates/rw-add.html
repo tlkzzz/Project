@@ -9,31 +9,33 @@
 
     <ion-content class="padding" style="background:#EBEBEB;">
 
+      <form name="fn" ng-submit="reqister(tlk)">
 
         <div class="warrper">
 
             <div class="list list-inset">
                 <label class="item item-input">
-                    <textarea placeholder="任务描述"></textarea>
+                    <input type="text" ng-model="tlk.rwms" ng-minlength="5" placeholder="任务描述"  required > <!--required必填-->
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="完成时间">
+                    <input type="text" ng-model="tlk.wcsj"  placeholder="完成时间">
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="关联项目">
+                    <input type="text" ng-model="tlk.glxm" placeholder="关联项目">
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="截止时间">
+                    <input type="text" ng-model="tlk.jzsj" placeholder="截止时间">
                 </label>
 
             </div>
 
         </div>
 
-        <div class="button-box" style=" margin-top: 8px;">
-            <button class="button button-block button-positive" >提交</button>
+        <div class="button-box" style=" margin-top: 8px;"><!--f.$invalid-->
+            <button type="submit"   ng-disabled="fn.$invalid" class="button button-block button-positive" >提交</button>
         </div>
 
+      </form>
     </ion-content>
 
 

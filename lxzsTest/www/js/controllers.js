@@ -56,7 +56,7 @@ angular.module('starter.controllers', ['ionic'])
         }
 
            }else if(index==2){
-              console.log(index);
+               console.log(index);
             //  $cordovaToast.showShortCenter($location.path());
            }else if(index==3){
                console.log(index);
@@ -163,6 +163,35 @@ angular.module('starter.controllers', ['ionic'])
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
+        $scope.pp={};
+        $scope.pp.yzf=false;
+        $scope.pp.sjdw=false;
+        $scope.pp.zbf=false;
+        //$scope.visible = !$scope.visible;
+        $scope.showyzf=function(){
+          var t=$scope.pp.yzf;
+            if(t==true){
+                $scope.pp.yzf=false;
+            }else{
+                $scope.pp.yzf=true;
+            }
+        }
+        $scope.showsjdw=function(){
+            var t=$scope.pp.sjdw;
+            if(t==true){
+                $scope.pp.sjdw=false;
+            }else{
+                $scope.pp.sjdw=true;
+            }
+        }
+        $scope.zbfshow=function(){
+            var t=$scope.pp.zbf;
+            if(t==true){
+                $scope.pp.zbf=false;
+            }else{
+                $scope.pp.zbf=true;
+            }
+        }
     }])
 //项目详情
     .controller('xmxqCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
@@ -207,6 +236,11 @@ angular.module('starter.controllers', ['ionic'])
     .controller('addrwCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
+        }
+        $scope.tlk={rwms:'',wcsj:'',glxm:'',jzsj:''};
+
+        $scope.reqister=function(u){
+           console.log(u);
         }
     }])
 //修改密码

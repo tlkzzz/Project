@@ -5,7 +5,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.filter','ngCordova'])
-.run(function($ionicPlatform,$location,$cordovaToast,$rootScope,$cordovaKeyboard,$ionicHistory,localStorageServices) {
+.run(function($ionicPlatform,$cordovaNetwork,$location,$cordovaToast,$rootScope,$cordovaKeyboard,$ionicHistory,localStorageServices) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -17,16 +17,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           // org.apache.cordova.statusbar required
           StatusBar.styleLightContent();
       }
+      //网络状态
+      $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+          var onlineState = networkState;
+          alert(event+onlineState);
+      })
+
+
   });
 
-        $ionicPlatform.onHardwareBackButton(function(e) {
-           // alert("6");
-            //  $cordovaKeyboard.close();
-            //alert($cordovaKeyboard.isVisible());
-           // e.preventDefault();
-           // e.stopPropagation();
 
-        });
+
+
     $ionicPlatform.registerBackButtonAction(function (e) {
           //  alert("8");
            // alert($cordovaKeyboard.isVisible()+"4");
@@ -36,7 +38,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
                     ionic.Platform.exitApp();
                 } else {
                     $rootScope.backButtonPressedOnceToExit = true;
-                    $cordovaToast.showShortCenter('再按一次退出系统');
+                    $cordovaToast.showShortCenter(ALERTMSG.ZAYCTCCX);
                     setTimeout(function () {
                         $rootScope.backButtonPressedOnceToExit = false;
                     }, 2000);

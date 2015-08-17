@@ -17,7 +17,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           // org.apache.cordova.statusbar required
           StatusBar.styleLightContent();
       }
-      //网络状态
+      //网络状态ss
       $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
           var onlineState = networkState;
           alert(event+onlineState);

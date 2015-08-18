@@ -3,9 +3,14 @@ angular.module('starter.controllers', ['ionic'])
     template: "<ion-spinner icon='android'></ion-spinner>"
   //
 })
+.config([ '$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.headers.post["Content-Type"] = $httpProvider.defaults.headers.put["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8;";
+       // $httpProvider.interceptors.push($httpProvider.defaults.headers.post["Content-Type"] = $httpProvider.defaults.headers.put["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8;");
+        $httpProvider.interceptors.push('httpInterceptor');
+} ])
 
 ////登陆
-.controller('loginController',['$scope','$state','$ionicHistory','$ionicLoading','$cordovaProgress','localStorageServices','$cordovaToast', function($scope,$state,$ionicHistory,$ionicLoading,$cordovaProgress,localStorageServices,$cordovaToast) {
+.controller('loginController',['$scope',"$http",'sessionService','loginServer','$state','$ionicHistory','$ionicLoading','$cordovaProgress','localStorageServices','$cordovaToast','$cordovaDevice', function($scope,$http,sessionService,loginServer,$state,$ionicHistory,$ionicLoading,$cordovaProgress,localStorageServices,$cordovaToast,$cordovaDevice) {
        $scope.pp={};
        $scope.pp.user=localStorageServices.getUser("user");
        $scope.pp.pass=localStorageServices.getPass("pass");
@@ -15,7 +20,6 @@ angular.module('starter.controllers', ['ionic'])
            $scope.pp.check=true;
        }
 
-       // console.log(localStorageServices.getUser("user"),localStorageServices.getPass("pass"),localStorageServices.getCheck("check"));
         $scope.login=function(){//登陆
             var us=$scope.pp.user;
             var ps=$scope.pp.pass;
@@ -29,18 +33,77 @@ angular.module('starter.controllers', ['ionic'])
                 return  false;
             }
 
-            $ionicLoading.show();
-           // $cordovaProgress.showSimpleWithLabelDetail(true, "Loading", "detail");
-            setTimeout(function () {
-                $ionicLoading.hide();
-                if(ck==true){
-                 localStorageServices.addMm(us,ps,ck); //保存密码
-                }else{
-                 localStorageServices.delAll();
+            //$ionicLoading.show();
+
+            //登陆方法
+            var url=API.LOGIN;//获取url
+           // var hardIds=$cordovaDevice.getVersion();//系统版本号
+           // var systems=$cordovaDevice.getPlatform();//操作系统
+            var phoneTypes=1;//手机类型
+            var hardIds="yyx";//系统版本号
+            var systems="Android";//操作系统
+            var params={
+                    "hardId":hardIds,
+                    "system":systems,
+                    "phoneType":phoneTypes,
+                    "passWord":ps,
+                    "loginName":us
                 }
+            // console.log(params);
+//            $http({method: "POST",
+//                url: url,
+//                headers: {'Content-type': 'application/x-www-form-urlencoded'},
+//                data: params}).success(function(data, status) {
+//                alert(data.resultCode);
+//                console.log(data);
+//            // success handle code
+//            }).error(function(data, status) {
+//                alert(status);
+//            });
+
+
+            loginServer.login(url,params).success(function(data,status,headers,config) {
                // $cordovaProgress.hide();
-                $state.go("tab.rw");
-                }, 2000);
+                if(data.resultCode==1) {
+                   // alert(data.resultInfo);
+                    var seion={
+                        "sessionId" : data.sessionId,//会话id
+                        "userId" : data.userObject.userId,//用户id
+                        "userName" : data.userObject.userName,//用户名称
+                        "sex" : data.userObject.sex,//用户性别
+                        "phoneType" : phoneTypes,//手机类型
+                        "hardId" : hardIds,//系统版本号
+                        "system" : systems//操作系统
+                    }
+                  sessionService.addsession(seion);
+                 if(ck==true){
+                 localStorageServices.addMm(us,ps,ck); //保存密码
+                 }else{
+                 localStorageServices.delAll();
+                 }
+                    $state.go("tab.rw");//跳转首页
+                 }else{
+                    alert(data.resultCode);
+                 }
+                }).error(function(data,status){
+               // $cordovaProgress.hide();
+                   console.log(data);
+                   alert(status);
+                });
+
+
+
+           // $cordovaProgress.showSimpleWithLabelDetail(true, "Loading", "detail");
+//            setTimeout(function () {
+//                $ionicLoading.hide();
+//                if(ck==true){
+//                 localStorageServices.addMm(us,ps,ck); //保存密码
+//                }else{
+//                 localStorageServices.delAll();
+//                }
+//               // $cordovaProgress.hide();
+//                $state.go("tab.rw");
+//                }, 2000);
 
         }
         $scope.wjmm=function(){
@@ -83,13 +146,30 @@ angular.module('starter.controllers', ['ionic'])
 
 
 //客户
-.controller('khController',['$scope','$state', function($scope,$state) {
-
+.controller('khController',['$scope','$state','khlistServer', function($scope,$state,khlistServer) {
+        //添加客户
         $scope.xzkh=function(){
              $state.go("addkh");
             // $state.href("login.html");
         }
 
+        var custName=null; //客户名称或者手机号码
+        var currPage=1;  //当前页数
+        var pageSize=10; //每页条数
+
+        var url=API.KHLIST+PINGJ.hardId+'/'+USER.sessionId+'/'+custName+'/'+currPage+'/'+pageSize;//获取url
+       //客户列表查询
+        khlistServer.khlist(url).success(function(data,status,headers,config){
+            if(data.resultCode==1){
+              console.log(data);
+            }else{
+              console.log(data);
+              alert(data.resultCode);
+            }
+        }).error(function(data,status,headers,config){
+            console.log(data);
+            alert(status);
+        });
 }])
 //我的
 .controller('wdController',['$scope', function($scope) {

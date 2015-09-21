@@ -2,23 +2,30 @@
     <ion-nav-title >
         <div class="h1 title">任务</div>
     </ion-nav-title>
-  <ion-content class="padding">
-
-
+  <ion-content class="padding padding-scroll">
+      <!--<div style="padding: 50px; text-align: center;"  ng-if="rwlist3==null">-->
+          <!--<h3>亲~~没有数据啦！</h3>-->
+      <!--</div>-->
       <ion-list>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
+          <ion-item class=" item-icon-right item-list-noborder" ng-repeat="list in rwlist3">
+
+              <!--<span class="circle circle-blue" style="margin-left: 8px"></span>-->
+              <div class="overauto" style="overflow: auto;">{{list.taskDesc |strJq}}</div>
+              <span style="right:10px" class="badge badge-clear badge-date">{{list.completeDate | date:"yyyy-MM-dd"}}</span>
+
+
           </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
+
+
       </ion-list>
+      <!--<div class="daily-list">-->
+          <!--<ul>-->
+              <!--<li ng-repeat="list in rwlist3" ><span class="circle circle-unfinished"></span>{{list.taskDesc}}<span class="rw-date">{{list.completeDate | date:"yyyy-MM-dd"}}</span></li>-->
+          <!--</ul>-->
+
+      <!--</div>-->
+
+      <ion-infinite-scroll ng-if="shwomor" immediate-check="false" on-infinite="loadMores()"></ion-infinite-scroll>
 
 
   </ion-content>

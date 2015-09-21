@@ -8,30 +8,22 @@
         <div class="h1 title">任务</div>
     </ion-nav-title>
 
-  <ion-content class="padding">
+  <ion-content class="padding padding-scroll">
       <ion-list>
+          <ion-item class=" item-icon-right item-list-noborder" ng-repeat="list in rwlist2">
 
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
+              <!--<span class="circle circle-blue" style="margin-left: 8px"></span>-->
+              <div class="overauto" style="overflow: auto;">{{list.taskDesc |strJq}}</div>
+              <span style="right:10px" class="badge badge-clear badge-date">{{list.completeDate | date:"yyyy-MM-dd"}}</span>
+
           </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
+
+
       </ion-list>
+
+      <ion-infinite-scroll ng-if="shwomor" immediate-check="false" on-infinite="loadMoresss()"></ion-infinite-scroll>
+
+
 
 
 

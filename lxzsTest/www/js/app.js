@@ -5,10 +5,11 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','starter.filter','ngCordova'])
-.run(function($ionicPlatform,$cordovaNetwork,$location,$cordovaToast,$rootScope,$cordovaKeyboard,$ionicHistory,localStorageServices) {
+.run(function($ionicPlatform,$cordovaDevice,$cordovaAppVersion,appUpdateServer,$cordovaNetwork,$location,$cordovaToast,$rootScope,$ionicHistory,localStorageServices) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+        //cordova.plugins.Keyboard.disableScroll(true);
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
        // $cordovaToast.showShortCenter("ok");
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -17,10 +18,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
           // org.apache.cordova.statusbar required
           StatusBar.styleLightContent();
       }
+      //检测更新
+
+//      $cordovaAppVersion.getAppVersion().then(function (version) {
+//          alert(version);
+//      });
+      //appUpdateServer.appUpdate();
       //网络状态ss
       $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
           var onlineState = networkState;
-          alert(event+onlineState);
+          $cordovaToast.showShortCenter(onlineState);
       })
 
 
@@ -84,6 +91,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
+
+//      .state('tutorial', {
+//          url: '/tutorial',
+//          templateUrl: 'templates/tutorial.html',
+//          controller: 'TutorialCtrl'
+//      })
+
+
       .state('login', {
           url: '/login',
           cache:'false',
@@ -103,6 +118,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
 
       .state('tab.rw', { //继承父类tab
           url: '/rw',   //让其支持herf方式跳转
+          cache:'false',
           views: {       //子类显示的view
               'tab-rw': {  //tabs中view 的name  下面的html模板显示在tab-dash中
                   templateUrl: 'templates/tab-rw.html',  //显示的模板html
@@ -113,6 +129,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
 
       .state('tab.kh', {
           url: '/kh',
+          cache:'false',
           views: {
               'tab-kh': {
                   templateUrl: 'templates/tab-kh.html',
@@ -122,6 +139,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
       })
       .state('tab.xm', {
           url: '/xm',
+          cache:'false',
           views: {
               'tab-xm': {
                   templateUrl: 'templates/tab-xm.html',
@@ -138,8 +156,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
               }
           }
       })
-      .state('tab.rw.unfinished', {
+      .state('tab.rw.unfinished', {//
           url: '/unfinished',
+          cache:'false',
           views: {
               'tab-rw-unfinished': {
                   templateUrl: 'templates/tab-rw-unfinished.html'
@@ -149,6 +168,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
       })
       .state('tab.rw.outdated', {
           url: '/outdated',
+          cache:'false',
           views: {
               'tab-rw-outdated': {
                   templateUrl: 'templates/tab-rw-outdated.html'
@@ -158,6 +178,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
       })
       .state('tab.rw.finished', {
           url: '/finished',
+          cache:'false',
           views: {
               'tab-rw-finished': {
                   templateUrl: 'templates/tab-rw-finished.html'
@@ -177,24 +198,27 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
 
             .state('wdts', {
                 url: '/wdts',
+                cache:'false',
                 templateUrl: 'templates/wd-ts.html',
                 controller: 'wdtsCtrl'
 
             })
       .state('bm', {
-          url: '/bm',
+          url: '/bm/:ids',
+          cache:'false',
           templateUrl: 'templates/wd-ts-bm.html',
           controller: 'bmCtrl'
 
       })
       .state('addkh', {  //新增客户
           url: '/addkh',
+          cache:'false',
           templateUrl: 'templates/kh-add.html',
           controller: 'addkhCtrl'
 
       })
 
-        .state('khxx', { //客户信息
+        .state('khxx', { //用户信息
             url: '/khxx',
             templateUrl: 'templates/kh-khxx.html',
             controller: 'khxxtCtrl'
@@ -202,12 +226,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
         })
       .state('addxm', { //项目新增 项目报备
           url: '/addxm',
+          cache:'false',
           templateUrl: 'templates/xm-add.html',
           controller: 'addxmCtrl'
 
       })
       .state('xmxq', { //项目详情
-          url: '/xmxq',
+          url: '/xmxq/:ids',
+          cache:'false',
           templateUrl: 'templates/xm-xq.html',
           controller: 'xmxqCtrl'
 
@@ -226,26 +252,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
       })
       .state('addrw', { //新增任务
           url: '/addrw',
+          cache:'false',
           templateUrl: 'templates/rw-add.html',
           controller: 'addrwCtrl'
       })
       .state('wjmm', { //忘记密码
           url: '/wjmm',
+          cache:'false',
           templateUrl: 'templates/login-wjmm.html',
           controller: 'wjmmCtrl'
       })
       .state('xgmm', { //修改密码
           url: '/xgmm',
+          cache:'false',
           templateUrl: 'templates/sz-xgmm.html',
           controller: 'xgmmCtrl'
       })
       .state('khxxqk', { //客户详细情况
-          url: '/khxxqk',
+          url: '/khxxqk/:ids',
+          cache:'false',
           templateUrl: 'templates/kh-xxqk.html',
           controller: 'khxxqkCtrl'
       })
       .state('editkh', { //修改客户资料
-          url: '/editkh',
+          url: '/editkh/:idmodel',
           templateUrl: 'templates/kh-edit.html',
           controller: 'editkhCtrl'
       })

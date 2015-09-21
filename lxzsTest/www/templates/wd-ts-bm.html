@@ -7,72 +7,24 @@
 
 
     <ion-content class="padding">
+        <!--<div style="padding: 50px; text-align: center;"  ng-if="bmry==null">-->
+            <!--<h3>亲~~没有数据啦！</h3>-->
+        <!--</div>-->
         <div class="list">
-            <div class="item item-a-right item-inset">
+            <div class="item item-a-right item-inset"  ng-repeat="n in bmry">
                 <a href="#">
-                    <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                    <p class="font-size-small"><span class="date">组织部</span><span>部长</span></p>
+                    <p class="font-size-big"><span class="name">{{n.userName}}</span><span>{{n.userPhone}}</span></p>
+                    <p class="font-size-small"><span class="date">{{n.userDepart}}</span><span>{{n.userRole}}</span></p>
                 </a>
-                <a class="item-icon-right" style="padding:0;">
+                <a class="item-icon-right"  style="padding:0;"  ng-click="sendDx(n.userPhone)">
                     <i class="icon ion-email icon-email-01"></i>
                 </a>
                 <span class="line"></span>
-                <a class="item-icon-right"  style="padding:0;">
+                <a class="item-icon-right" ng-href="tel:{{n.userPhone}}"  style="padding:0;">
                     <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
                 </a>
             </div>
-            <div class="item item-button-right item-inset">
-                <a href="#">
-                    <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                    <p class="font-size-small"><span class="date">组织部</span><span>部长</span></p>
-                </a>
-                <a class="item-icon-right" style="padding:0;">
-                    <i class="icon ion-email icon-email-01"></i>
-                </a>
-                <span class="line"></span>
-                <a class="item-icon-right" style="padding:0;">
-                    <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
-                </a>
-            </div>
-            <div class="item item-button-right item-inset">
-                <a href="#">
-                    <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                    <p class="font-size-small"><span class="date">组织部</span><span>部长</span></p>
-                </a>
-                <a class="item-icon-right" style="padding:0;">
-                    <i class="icon ion-email icon-email-01"></i>
-                </a>
-                <span class="line"></span>
-                <a class="item-icon-right" style="padding:0;">
-                    <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
-                </a>
-            </div>
-            <div class="item item-button-right item-inset">
-                <a href="#">
-                    <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                    <p class="font-size-small"><span class="date">组织部</span><span>部长</span></p>
-                </a>
-                <a class="item-icon-right" style="padding:0;">
-                    <i class="icon ion-email icon-email-01"></i>
-                </a>
-                <span class="line"></span>
-                <a class="item-icon-right" style="padding:0;">
-                    <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
-                </a>
-            </div>
-            <div class="item item-button-right item-inset">
-                <a href="#">
-                    <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                    <p class="font-size-small"><span class="date">组织部</span><span>部长</span></p>
-                </a>
-                <a class="item-icon-right" style="padding:0;">
-                    <i class="icon ion-email icon-email-01"></i>
-                </a>
-                <span class="line"></span>
-                <a class="item-icon-right" style="padding:0;">
-                    <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
-                </a>
-            </div>
+
         </div>
 
 

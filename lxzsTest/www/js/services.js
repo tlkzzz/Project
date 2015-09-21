@@ -1,5 +1,5 @@
 angular.module('starter.services', [])
-
+//http拦截
 .factory('httpInterceptor', function() {
        return{
            request: function(config){
@@ -18,14 +18,21 @@ angular.module('starter.services', [])
     .factory('sessionService',function($cacheFactory){
         return{
             addsession:function(sion){
-              var cache=$cacheFactory('cacheId');  //设置一个缓存id,其他controller中就可以直接使用
-                cache.put('sion',sion);
-               console.log(cache.get('sion'));
+                var cache=$cacheFactory.get('cacheId');
+                if(cache==undefined){
+                    cache=$cacheFactory('cacheId');  //设置一个缓存id,其他controller中就可以直接使用
+                    cache.put('sion',sion);
+                    console.log(cache.get('sion'));
+                }else{
+                    cache.put('sion',sion);
+                }
             },
             getsession:function(){//取缓存
                var cache=$cacheFactory.get('cacheId');  //取缓存id
                return cache.get('sion');
+//                return  window.localStorage.getItem('sion');
             }
+
         }
 
     })
@@ -57,30 +64,39 @@ angular.module('starter.services', [])
      }
 })
 
-//登陆服务
-.factory('loginServer', function($http) {
-      return{
-         login:function(url,params){
-             return $http.post(url,params);
-         }
-      }
-})
-//客户列表查询
-    .factory('khlistServer',function($http){
+
+
+//get请求
+    .factory('getServer',function($http){
         return {
-            khlist:function(url){
+            get:function(url){
                 return $http.get(url);
             }
-
         }
+})
 
-
+//post请求
+    .factory('postServer',function($http){
+        return {
+            post:function(url,params){
+                return $http.post(url,params);
+            }
+        }
     })
 
+//检查更新
+    .factory('appUpdateServer',function($http,$cordovaAppVersion,$cordovaDevice){
+        return {
+            appUpdate:function(){
+                var versi=SETING.version;//获取版本号
 
+                //var url=API.APPUPDATE+"yyx"+'/'+"ios"+'/'+versi;
+               var url=API.APPUPDATE+$cordovaDevice.getUUID()+'/'+$cordovaDevice.getPlatform()+'/'+versi;
+                return $http.get(url);
+            }
+        }
 
-
-
+    })
 
 
 ;

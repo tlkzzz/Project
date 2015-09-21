@@ -5,38 +5,41 @@
 
 
     <ion-content class="padding" style="background:#EBEBEB;">
+        <form name="fn" ng-submit="reqister(kh)">
         <div class="warrper">
 
             <div class="list list-inset">
-                <label class="item item-input">
-                    <input type="text" placeholder="客户姓名">
-                </label>
-                <label class="item item-input">
-                    <input type="text" placeholder="联系电话">
-                </label>
-                <label class="item item-input">
-                    <input type="text" placeholder="项目名称">
-                </label>
-                <label class="item item-input">
-                    <input type="text" placeholder="单位名称">
-                </label>
 
                 <label class="item item-input">
-                    <textarea placeholder="单位地址"></textarea>
+
+                    <input type="text" ng-model="kh.customerName" ng-minlength="1" placeholder="客户姓名" required>
+                </label>
+                <label class="item item-input">
+                    <input type="tel" ng-model="kh.customerPhone" ng-minlength="11"  ng-minlength="11"  placeholder="联系电话" required >
+                </label>
+                <!--<label class="item item-input">-->
+                    <!--<input type="text" placeholder="项目名称">-->
+                <!--</label>-->
+                <label class="item item-input">
+                    <input type="text" ng-model="kh.unitName" ng-maxlength="20" placeholder="单位名称">
+                </label>
+                <label class="item item-input">
+                    <input type="text" ng-model="kh.customerJob" ng-maxlength="20" placeholder="单位职务">
+                </label>
+                <label class="item item-input">
+                    <textarea ng-model="kh.unitAddress" ng-maxlength="35" placeholder="单位地址"></textarea>
                 </label>
             </div>
-
-
 
 
         </div>
 
 
         <div class="button-box" style=" margin-top: 8px;">
-            <button class="button button-block button-positive" >提交</button>
+            <button  type="submit"  ng-disabled="fn.$invalid" class="button button-block button-positive" >提交</button>
         </div>
 
-
+</form>
     </ion-content>
 
 

@@ -14,19 +14,20 @@
     <ion-header-bar class="bar-light bar-subheader" style="padding:0;">
         <div class="bar bar-balanced  item-input-inset" style="border: 0; background: none;">
 
-            <label class="item-input-wrapper item-icon-left item-icon-red">
+            <label class="item-input-wrapper item-icon-left item-icon-red" style="border-radius: 0; -webkit-border-radius:0;">
                 <i class="icon ion-search" style="font-size: 20px; margin-right: 20px;"></i>
                 <input class="light-bg" style="padding-left: 20px;" type="search" placeholder="搜索"
-                       ng-model="search"
-                       ng-focus="searchFocused = true"
-                       ng-blur="searchFocused = false"
-                       ng-change="scrollTop()">
-                <button ng-if="search.length"
-                        class="button button-icon ion-android-close input-button"
-                        ng-click="clearSearch()">
-                </button>
-            </label>
+                       ng-model="xm">
+                       <!--ng-focus="searchFocused = true"-->
+                       <!--ng-blur="searchFocused = false"-->
+                       <!--ng-change="scrollTop()"-->
 
+                <!--<button ng-if="search.length"-->
+                        <!--class="button button-icon ion-android-close input-button"-->
+                        <!--ng-click="clearSearch()">-->
+                <!--</button>-->
+            </label>
+            <button class="" style="margin-left:10px; font-size:13px; color:#FFF; font-weight:400; border-radius:2px; padding:0 8px; background: #0c63ee; border: 0; height:28px" ng-click="clearSearch()">查询</button>
         </div>
     </ion-header-bar>
 
@@ -35,108 +36,35 @@
 
 
     <ion-content class="padding">
+        <!--<div style="padding: 50px; text-align: center;"  ng-if="xmlist==null">-->
+            <!--<h3>亲~~没有数据啦！</h3>-->
+        <!--</div>-->
+        <!--<div class="list card"  ng-repeat="list in xmlist |filter:xm ">-->
 
-        <div class="list card">
+            <!--<div class="item item-divider " ng-click="xmxq(list.projectsId)"><b>{{list.projectName}}</b></div>-->
+            <!--<div class="item item-button-right">-->
+                <!--<p class="font-size-small">{{list.projectCode}}</p>-->
+                <!--<a ng-href="#/xmxq/{{list.projectsId}}" ng-if="list.projectPower==1" class="button icon-left  button-clear button-positive">-->
+                    <!--审批-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
 
-            <div class="item item-divider " ng-click="xmxq()"><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <button ng-show="true" class="button icon-left ion-ios-checkmark-empty button-clear button-positive">
-                    审批
-                </button>
+
+        <div class="list">
+            <div class="item item-button-right item-inset" ng-repeat="list in xmlist">
+                <a ng-click="xmxq(list.projectsId)">
+                    <p class="font-size-big">{{list.projectName}}</p>
+                    <p class="font-size-small"><i class="icon ion-android-apps ion-android-apps-02"></i>{{list.projectCode}}</p>
+                </a>
+                <a ng-href="#/xmxq/{{list.projectsId}}" ng-if="list.projectPower==1" class="button button-positive button-background-red"><i class="sp"><img src="img/sp_icon.png" /></i>审批</a>
             </div>
+
+
         </div>
 
-        <div class="list card">
+        <ion-infinite-scroll ng-if="shwomor" immediate-check="false" on-infinite="loadMore()"></ion-infinite-scroll>
 
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <button class="button icon-left ion-ios-checkmark-empty button-clear button-positive">
-                    审批
-                </button>
-            </div>
-        </div>
-        <div class="list card">
-
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <!--<button class="button icon-left ion-ios-checkmark-empty button-clear button-positive">-->
-                <!--审批-->
-                <!--</button>-->
-            </div>
-        </div>
-        <div class="list card">
-
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <button class="button icon-left ion-ios-checkmark-empty button-clear button-positive">
-                    审批
-                </button>
-            </div>
-        </div>
-        <div class="list card">
-
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <!--<button class="button icon-left ion-ios-checkmark-empty button-clear button-positive">-->
-                <!--审批-->
-                <!--</button>-->
-            </div>
-        </div>
-        <div class="list card">
-
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <button class="button icon-left ion-ios-checkmark-empty button-clear button-positive">
-                    审批
-                </button>
-            </div>
-        </div>
-        <div class="list card">
-
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <!--<button class="button icon-left ion-ios-checkmark-empty button-clear button-positive">-->
-                <!--审批-->
-                <!--</button>-->
-            </div>
-        </div>
-        <div class="list card">
-
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <button class="button icon-left ion-ios-checkmark-empty button-clear button-positive">
-                    审批
-                </button>
-            </div>
-        </div>
-        <div class="list card">
-
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <!--<button class="button icon-left ion-ios-checkmark-empty button-clear button-positive">-->
-                <!--审批-->
-                <!--</button>-->
-            </div>
-        </div>
-        <div class="list card">
-
-            <div class="item item-divider "><b>项目名称项目名称项目名称项目</b></div>
-            <div class="item item-button-right">
-                <p class="font-size-small"><i class="num"><img src="img/number.png" /></i>HN85787989</p>
-                <button class="button icon-left ion-ios-checkmark-empty button-clear button-positive">
-                    审批
-                </button>
-            </div>
-        </div>
 
 
     </ion-content>

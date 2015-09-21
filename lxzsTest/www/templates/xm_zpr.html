@@ -4,8 +4,9 @@
 		<div class="buttons">
             <button side="left" class="button button-clear button-icon ion-android-close" ng-click="newReplieModals()"></button>
 
+
         </div>
-		<h1 class="title">手机联系人</h1>
+		<h1 class="title">人员</h1>
 		<div class="buttons">
             <button class="button button-clear button-icon ion-android-done" ng-click="newReplie()"></button>
 		</div>
@@ -13,7 +14,7 @@
     <ion-header-bar class="bar-light bar-subheader" style="padding:0;">
         <div class="bar bar-balanced  item-input-inset" style="border: 0; background: none;">
 
-            <label class="item-input-wrapper item-icon-left item-icon-red">
+            <label class="item-input-wrapper item-icon-left item-icon-red" style="border-radius: 0; -webkit-border-radius:0;">
                 <i class="icon ion-search" style="font-size: 20px; margin-right: 20px;"></i>
                 <input class="light-bg" style="padding-left: 20px;" type="search" placeholder="搜索"
                        ng-model="lxr">
@@ -28,30 +29,18 @@
     </ion-header-bar>
 
 
-	<ion-content class="new-topics" scroll="true">
-        <!--<ion-list>-->
-            <!--<ion-item ng-repeat="t in contacts |filter:lxr |orderBy:contactOrder" class="item item-icon-right">-->
-                <!--<p>{{t.displayName}}</p>-->
-                <!--<p ng-repeat="k in t.phoneNumbers">{{k.value}}</p>-->
-                <!--<span class="badge badge-clear">{{t.phoneNumbers}}</span>-->
-            <!--</ion-item>-->
+    <ion-content class="new-topics" scroll="true">
 
-        <!--</ion-list>-->
         <div class="list">
 
-            <label class="item item-radio" ng-repeat="t in contacts |filter:lxr |orderBy:contactOrder" ng-click="addsj(t.displayName,t.phoneNumbers)">
+            <label  class="item item-radio" ng-repeat="t in contacts |filter:lxr" ng-click="slectbu(t.userId)">
                 <input type="radio" name="group">
-                 <div class="item-content" >
-                     <!--<a ng-click="addsj(t.displayName,t.phoneNumbers)">-->
-                    {{t.displayName}}
-                    <!--<p ng-repeat="k in t.phoneNumbers">{{k.value}}</p>-->
-                    <span class="badge badge-clear">{{t.phoneNumbers}}</span>
-                     <!--</a>-->
+                <div class="item-content" >
+                    {{t.userName}}
                 </div>
-                    <i class="radio-icon ion-checkmark"></i>
-
+                <i class="radio-icon ion-checkmark"></i>
             </label>
         </div>
-	</ion-content>
+    </ion-content>
 
 </div>

@@ -8,28 +8,30 @@
 
 
     <ion-content style="background:#EBEBEB">
-        <div class="warrper">
+        <form name="fn" ng-submit="reqister(mm)">
+            <div class="form-group">
+            <div class="warrper">
 
             <div class="list list-inset">
                 <label class="item item-input">
-                    <input type="text" placeholder="旧密码">
+                    <input type="password" ng-model="mm.oldPassword" placeholder="旧密码" ng-maxlength="10"  required>
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="新密码">
+                    <input type="password" ng-model="mm.newPassword"  id="newPassword" name="newPassword"  ng-pattern="/^(?!\d+$)(?![A-Za-z]+$)[a-zA-Z0-9]{6,}$/" placeholder="新密码(6-10位字母和数字)" ng-maxlength="10" required>
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="确定新密码">
+                    <input type="password" ng-model="mm.newPasswords"  name="newPasswords" id="newPasswords" pw-check="password" ng-pattern="/^(?!\d+$)(?![A-Za-z]+$)[a-zA-Z0-9]{6,}$/" placeholder="确定新密码" ng-maxlength="10" required>
                 </label>
             </div>
 
             <div class="button-box">
-                <button class="button button-full button-positive">提交</button>
+                <button  type="submit" ng-disabled="fn.$invalid" class="button button-full button-positive">提交</button>
             </div>
 
         </div>
 
-
-
+</div>
+</form>
     </ion-content>
 
 

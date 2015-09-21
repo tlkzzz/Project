@@ -9,92 +9,35 @@
     <ion-header-bar class="bar-light bar-subheader" style="padding:0;">
         <div class="bar bar-balanced  item-input-inset" style="border: 0; background: none;">
 
-            <label class="item-input-wrapper item-icon-left item-icon-red">
+            <label class="item-input-wrapper item-icon-left item-icon-red" style="border-radius: 0; -webkit-border-radius:0;">
                 <i class="icon ion-search" style="font-size: 20px; margin-right: 20px;"></i>
-                <input class="light-bg" style="padding-left: 20px;" type="search" placeholder="搜索"
-                       ng-model="search"
-                       ng-focus="searchFocused = true"
-                       ng-blur="searchFocused = false"
-                       ng-change="scrollTop()">
-                <button ng-if="search.length"
-                        class="button button-icon ion-android-close input-button"
-                        ng-click="clearSearch()">
-                </button>
+                <input class="light-bg" style="padding-left: 20px;" type="search" placeholder="搜索"ng-model="khry">
             </label>
+            <button class="" style="margin-left:10px; font-size:13px; color:#FFF; font-weight:400; border-radius:2px; padding:0 8px; background: #0c63ee; border: 0; height:28px" ng-click="clearSearch()">查询</button>
         </div>
         </ion-header-bar>
 
   <ion-content>
-
-
+      <!--<div style="padding: 50px; text-align: center;"  ng-if="khlist==null">-->
+          <!--<h3>亲~~没有数据啦！</h3>-->
+      <!--</div>-->
 
       <div class="list">
-          <div class="item item-a-right item-inset">
-              <a ng-href="#/khxxqk">
-                  <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                  <p class="font-size-small"><span class="date">2015-06-27</span><span>18:09:21</span></p>
+          <div ng-repeat="list in khlist" class="item item-a-right item-inset">
+              <a ng-href="#/khxxqk/{{ list.customerId }}">
+                  <p class="font-size-big"><span class="name">{{list.customerName}}</span><span>{{list.customerPhone}}</span></p>
+                  <p class="font-size-small"><span class="date">{{list.createDate}}</span></p>
               </a>
-              <a class="item-icon-right" style="padding:0;">
+              <a class="item-icon-right" ng-click="sendDx(list.customerPhone)" style="padding:0;">
                   <i class="icon ion-email icon-email-01"></i>
               </a>
               <span class="line"></span>
-              <a class="item-icon-right" style="padding:0;">
+              <a class="item-icon-right" ng-href="tel:{{list.customerPhone}}" style="padding:0;">
                   <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
               </a>
           </div>
-          <div class="item item-button-right item-inset">
-              <a href="#">
-                  <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                  <p class="font-size-small"><span class="date">2015-06-27</span><span>18:09:21</span></p>
-              </a>
-              <a class="item-icon-right" style="padding:0;">
-                  <i class="icon ion-email icon-email-01"></i>
-              </a>
-              <span class="line"></span>
-              <a class="item-icon-right" style="padding:0;">
-                  <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
-              </a>
-          </div>
-          <div class="item item-button-right item-inset">
-              <a href="#">
-                  <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                  <p class="font-size-small"><span class="date">2015-06-27</span><span>18:09:21</span></p>
-              </a>
-              <a class="item-icon-right" style="padding:0;">
-                  <i class="icon ion-email icon-email-01"></i>
-              </a>
-              <span class="line"></span>
-              <a class="item-icon-right" style="padding:0;">
-                  <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
-              </a>
-          </div>
-          <div class="item item-button-right item-inset">
-              <a href="#">
-                  <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                  <p class="font-size-small"><span class="date">2015-06-27</span><span>18:09:21</span></p>
-              </a>
-              <a class="item-icon-right" style="padding:0;">
-                  <i class="icon ion-email icon-email-01"></i>
-              </a>
-              <span class="line"></span>
-              <a class="item-icon-right" style="padding:0;">
-                  <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
-              </a>
-          </div>
-          <div class="item item-button-right item-inset">
-              <a href="#">
-                  <p class="font-size-big"><span class="name">张三</span><span>18790527612</span></p>
-                  <p class="font-size-small"><span class="date">2015-06-27</span><span>18:09:21</span></p>
-              </a>
-              <a class="item-icon-right" style="padding:0;">
-                  <i class="icon ion-email icon-email-01"></i>
-              </a>
-              <span class="line"></span>
-              <a class="item-icon-right" style="padding:0;">
-                  <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
-              </a>
-          </div>
-      </div>
 
+      </div>
+      <ion-infinite-scroll ng-if="shwomor" immediate-check="false" on-infinite="loadMore()"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

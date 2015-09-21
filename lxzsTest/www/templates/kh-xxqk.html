@@ -10,72 +10,74 @@
             <div class="list">
                 <div class="item item-a-right item-inset">
                     <a href="#">
-                        <p class="font-size-big"><span>张三</span></p>
+                        <p class="font-size-big"><span>{{kh.customerName}}</span></p>
                     </a>
                 </div>
                 <div class="item item-a-right item-inset" style="border-bottom:0;">
                     <a href="#">
-                        <p class="font-size-big"><span class="gray">18790527612</span></p>
+                        <p class="font-size-big"><span class="gray">{{kh.customerPhone}}</span></p>
                     </a>
-                    <a class="item-icon-right" style="padding:0;">
+                    <a class="item-icon-right" style="padding:0;" ng-click="sendDx(kh.customerPhone)">
                         <i class="icon ion-email icon-email-01"></i>
                     </a>
                     <span class="line"></span>
-                    <a class="item-icon-right" style="padding:0;">
+                    <a class="item-icon-right" ng-href="tel:{{kh.customerPhone}}" style="padding:0;">
                         <i class="icon ion-ios-telephone ion-ios-telephone-01"></i>
                     </a>
                 </div>
             </div>
 
-            <div class="list">
-                <h5 style="margin-bottom:0;">通话记录</h5>
-                <div class="item item-inset">
-                    <a href="#" class="call-history-list">
-                        <i class="icon ion-ios-redo ion-call-in"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>
-                    </a>
-                    <a href="#" class="call-history-list">
-                        <i class="icon ion-ios-redo ion-call-in"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>
-                    </a>
-                    <a href="#" class="call-history-list">
-                        <i class="icon ion-ios-undo ion-call-out"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>
-                    </a>
-                    <a href="#" class="call-history-list">
-                        <i class="icon ion-ios-undo ion-call-out"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>
-                    </a>
-                    <a href="#" class="call-history-list">
-                        <i class="icon ion-ios-undo ion-call-out"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>
-                    </a>
-                </div>
-            </div>
+            <!--<div class="list">-->
+                <!--<h5 style="margin-bottom:0;">通话记录</h5>-->
+                <!--<div class="item item-inset">-->
+                    <!--<a href="#" class="call-history-list">-->
+                        <!--<i class="icon ion-ios-redo ion-call-in"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
+                    <!--</a>-->
+                    <!--<a href="#" class="call-history-list">-->
+                        <!--<i class="icon ion-ios-redo ion-call-in"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
+                    <!--</a>-->
+                    <!--<a href="#" class="call-history-list">-->
+                        <!--<i class="icon ion-ios-undo ion-call-out"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
+                    <!--</a>-->
+                    <!--<a href="#" class="call-history-list">-->
+                        <!--<i class="icon ion-ios-undo ion-call-out"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
+                    <!--</a>-->
+                    <!--<a href="#" class="call-history-list">-->
+                        <!--<i class="icon ion-ios-undo ion-call-out"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
 
             <div class="list">
-                <label class="item  item-inset item-input" style="height:30px; border-bottom:0;">
-                    <span class="input-label" style="width:70px; font-size:14px;">项目名称：</span>
-                    <input type="text" value="项目名称">
+                <!--<label class="item  item-inset item-input" style="height:30px; border-bottom:0;">-->
+                    <!--<span class="input-label" style="width:70px; font-size:14px;">项目名称：</span>-->
+                    <!--<input type="text" value="项目名称">-->
+                <!--</label>-->
+                <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
+                    <span class="input-label" style="...">单位名称：</span>
+                    <input type="text" ng-disabled="true" value="{{kh.unitName}}">
                 </label>
                 <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                    <span class="input-label" style="width:70px; font-size:14px;">单位名称：</span>
-                    <input type="text" value="单位名称单位名称单位名称称">
+                    <span class="input-label" style="width:70px; font-size:14px;">单位职务：</span>
+                    <input type="text" ng-disabled="true" value="{{kh.customerJob}}">
                 </label>
                 <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
                     <span class="input-label" style="width:70px; font-size:14px;">单位地址：</span>
-                    <input type="text" value="单位地址单位地址单位地址单位地址称称">
+                    <input type="text" ng-disabled="true" value="{{kh.unitAddress}}">
                 </label>
             </div>
 
 
-
-
         </div>
 
 
-
+        <div class="" style="border-top:1px solid #e4e4e4;">
+            <div class="button-box" style=" overflow:hidden; zoom:1;">
+                <a ng-href="#/editkh/{{kh}}" class="button button-block button-positive">修改</a>
+                <a ng-click="delkh()" class="button button-block button-positive">删除</a>
+            </div>
+        </div>
     </ion-content>
 
-    <div class="button-position-bottom" style="border-top:1px solid #e4e4e4;">
-        <div class="button-box" style=" overflow:hidden; zoom:1;">
-            <a ng-href="#/editkh" class="button button-block button-positive" style="width:47%; float:left;">修改</a>
-            <a ng-click="delkh()" class="button button-block button-positive" style="width:47%; float:right">删除</a>
-        </div>
-    </div>
+
 </ion-view>

@@ -2,39 +2,46 @@
     <ion-nav-title >
         <div class="h1 title">任务</div>
     </ion-nav-title>
-    <ion-nav-buttons side="right">
-        <button class="button button-clear icon ion-ios-calendar-outline"  ng-click="rcb()"></button>
-    </ion-nav-buttons>
+    <!--<ion-nav-buttons side="right">-->
+        <!--<button class="button button-clear icon ion-ios-calendar-outline"  ng-click="rcb()"></button>-->
+    <!--</ion-nav-buttons>-->
 <a class="Suspended-button" href="#/addrw"><img src="img/float_button.png" /></a>
-  <ion-content class="padding"  >
+  <ion-content class="padding padding-scroll"  start-y >
+      <!--<div style="padding: 50px; text-align: center;"  ng-if="rwlist==null">-->
+          <!--<h3>亲~~没有数据啦！</h3>-->
+      <!--</div>-->
 
 
       <ion-list>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
+          <ion-item class=" item-icon-right item-list-noborder" ng-repeat="list in rwlist">
+
+             <!--<span class="circle circle-blue" style="margin-left: 8px"></span>-->
+             <div class="overauto" style="overflow: auto;">{{list.taskDesc |strJq}}</div>
+             <span style="right:10px" class="badge badge-clear badge-date">{{list.completeDate | date:"yyyy-MM-dd"}}</span>
+
+             <ion-option-button class="button-assertive"
+                                ng-click="edit(list.taskId)">
+                 完成
+             </ion-option-button>
           </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
-          <ion-item class="item   item-icon-right">
-              <p>拜访十家材料商客户</p>
-              <span class="badge badge-clear">07-21</span>
-          </ion-item>
+
+
       </ion-list>
+
+      <!--<div class="daily-list">-->
+          <!--<ul>-->
+              <!--<li ng-repeat="list in rwlist" ><span class="circle circle-unfinished"></span>{{list.taskDesc}}<span class="rw-date">{{list.completeDate | date:"yyyy-MM-dd"}}</span></li>-->
+          <!--</ul>-->
+          <!--&lt;!&ndash;<ion-option-button class="button-info"&ndash;&gt;-->
+                             <!--&lt;!&ndash;ng-click="edit(list.taskId)">&ndash;&gt;-->
+              <!--&lt;!&ndash;完成&ndash;&gt;-->
+          <!--&lt;!&ndash;</ion-option-button>&ndash;&gt;-->
+      <!--</div>-->
+
+
+
+
+      <ion-infinite-scroll ng-if="shwomor" immediate-check="false" on-infinite="loadMore()"></ion-infinite-scroll>
 
   </ion-content>
 </ion-view>

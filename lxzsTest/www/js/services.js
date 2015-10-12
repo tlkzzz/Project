@@ -4,10 +4,13 @@ angular.module('starter.services', [])
        return{
            request: function(config){
                if(config.data && typeof config.data == "object"){
+
                   config.data =$.param(config.data);
                }
+
                return config;
            }
+
     }
     })
 

@@ -13,24 +13,24 @@
             <div class="list list-inset">
                 <div class="item item-input">
 
-                    <input type="text" ng-model="kh.customerName" ng-maxlength="10" placeholder="客户姓名" required>
+                    <input type="text" ng-model="kh.customerName" ng-maxlength="10" placeholder="客户姓名  (必填)" required>
                     <a style="z-index:9999" class="button button-clear icon ion-ios-plus-outline"  ng-click="xzlxr()"></a>
 
                 </div>
                 <label class="item item-input">
-                    <input type="tel" ng-model="kh.customerPhone" ng-pattern="/^1\d{10}$/" ng-maxlength="11" placeholder="联系电话" required>
+                    <input type="tel" ng-model="kh.customerPhone" ng-pattern="/^1\d{10}$/" ng-maxlength="11" placeholder="联系电话  (必填)" required>
                 </label>
                 <!--<label class="item item-input">-->
                     <!--<input type="text" placeholder="项目名称">-->
                 <!--</label>-->
                 <label class="item item-input">
-                    <input type="text" ng-model="kh.unitName" ng-maxlength="40" placeholder="单位名称" required>
+                    <input type="text" ng-model="kh.unitName" ng-maxlength="40" placeholder="单位名称" >
                 </label>
                 <label class="item item-input">
-                    <input type="text" ng-model="kh.customerJob" ng-maxlength="20" placeholder="客户职务" required>
+                    <input type="text" ng-model="kh.customerJob" ng-maxlength="20" placeholder="客户职务" >
                 </label>
                 <label class="item item-input">
-                    <textarea ng-model="kh.unitAddress" ng-maxlength="50" placeholder="单位地址" required></textarea>
+                    <textarea ng-model="kh.unitAddress" ng-maxlength="50" placeholder="单位地址" ></textarea>
                 </label>
             </div>
 

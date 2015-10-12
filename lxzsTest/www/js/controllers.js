@@ -54,6 +54,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
 //            var phoneTypes=1;//手机类型
 //            var hardIds="yyx";//系统版本号
 //            var systems="android";//操作系统
+
 //            var b = new Base64();
 //            var str = b.encode(ps);
             var hash = hex_md5(ps);
@@ -729,7 +730,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         }
     }])
 //新增项目
-    .controller('addxmCtrl',['$scope','$ionicHistory','postServer','sessionService','$cordovaToast', function($scope,$ionicHistory,postServer,sessionService,$cordovaToast) {
+    .controller('addxmCtrl',['$scope','$ionicPopup','getServer','$ionicModal','$ionicHistory','postServer','sessionService','$cordovaToast', function($scope,$ionicPopup,getServer,$ionicModal,$ionicHistory,postServer,sessionService,$cordovaToast) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
@@ -763,8 +764,45 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             }
         }
         var sion=sessionService.getsession();//获取缓存数据
+        //选择省市
+        var urlss=API.ADDXMS+sion.hardId+'/'+sion.sessionId;
+        getServer.get(urlss).success(function(data,status,headers,config){
+            if(data.resultCode==1){
+                console.log(data);
+                $scope.usss=data.provinceList;
+
+            }else{
+                console.log(data.resultInfo);
+//                $cordovaToast.showShortCenter(data.resultInfo);
+            }
+        }).error(function(data,status,headers,config){
+            $cordovaToast.showShortCenter('连接服务器失败啦!');
+        });
+
+        $scope.selectss=function(s){
+            if(s!=null){
+                var urlsss=API.ADDXMSS+sion.hardId+'/'+sion.sessionId+'/'+s;
+                getServer.get(urlsss).success(function(data,status,headers,config){
+                    if(data.resultCode==1){
+                        console.log(data);
+                        $scope.ussssr=data.cityList;
+
+                    }else{
+                        console.log(data.resultInfo);
+//                $cordovaToast.showShortCenter(data.resultInfo);
+                    }
+                }).error(function(data,status,headers,config){
+                    $cordovaToast.showShortCenter('连接服务器失败啦!');
+                });
+            }
+
+        }
+
             $scope.xm={
             'userId':sion.userId, //用户ID
+            'projectsheng':'',//省
+            'projectAreaCode':'',//市
+            'resourceSituation':'',//资源情况
             'projectsName':'',//项目名称
             'projectsAdd':'',//项目地址
             'projectsScale':'',//建设规模
@@ -788,24 +826,401 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             'enginAddress':'',//土建单位地址
             'hardId':sion.hardId,
             'sessionId':sion.sessionId,
-            'areaCode':sion.areaCode //区域id
+            'areaCode':sion.areaCode, //区域id
+             'yzflist':'',
+             'sjdwlist':''
 
             }
         var url=API.ADDXM;
 
         $scope.reqister=function(xm){
-            console.log(xm);
-            postServer.post(url,xm).success(function(data,status,headers,config){
+            var ax={
+                'id':'',
+                'ownerName':xm.ownerName,//业主单位名称
+                'ownerPerson':xm.ownerPerson,//业主单位负责人
+                'ownerPhone':xm.ownerPhone,//业主负责人电话
+                'ownerAddress':xm.ownerAddress,//业主单位地址
+                'technicalEngineer':xm.technicalEngineer,//技术总工
+                'engineerPhone':xm.engineerPhone//技术总工电话
+            }
+           var  as={
+                'id':'',
+                'designName':xm.designName,//设计单位名称
+                'designPerson':xm.designPerson,//设计单位负责人
+                'designPhone':xm.designPhone,//设计负责人电话
+                'designAddress':xm.designAddress//设计单位地址
+            }
+            yzfadd.push(ax);
+            sjdwadd.push(as);
+
+//            var osr=yzfadd.toString();
+//            console.log(angular.fromJson(osr));
+            xm.yzflist=yzfadd;
+            xm.sjdwlist=sjdwadd;
+//          pst=angular.fromJson(pst);
+//           var obj=angular.extend({}, xm, pst);//合并两个对象
+//            obj=angular.fromJson(xm);//字符串装json对象
+            obj=angular.toJson(xm);  //json对象转字符串
+            console.log(obj);
+            postServer.post(url,obj).success(function(data,status,headers,config){
+//                console.log(data);
+//                console.log(status);
+//                console.log(headers);
+//                console.log(config);
                 if(data.resultCode==1){
                 console.log(data.resultInfo);
                     $ionicHistory.goBack();
                     $cordovaToast.showShortCenter(data.resultInfo);
                 }else{
-                    $cordovaToast.showShortCenter(data.resultInfo);
+//                    console.log(data.resultInfo);
+                     $cordovaToast.showShortCenter(data.resultInfo);
                 }
             }).error(function(data,status,headers,config){
                 $cordovaToast.showShortCenter('连接服务器失败啦!');
             });
+        }
+//----------------------------------------业主方
+        $scope.addxzf={
+            'id':'',
+            'ownerName':'',//业主单位名称
+            'ownerPerson':'',//业主单位负责人
+            'ownerPhone':'',//业主负责人电话
+            'ownerAddress':'',//业主单位地址
+            'technicalEngineer':'',//技术总工
+            'engineerPhone':''//技术总工电话
+        }
+
+
+        //添加业主方页面
+        $ionicModal.fromTemplateUrl('templates/xm-addyzf.html', {  //打开view所在的model
+            scope: $scope,    //注入一个对象
+            animation: 'slide-in-up', //动画
+            backdropClickToClose:true  //点击背景是否隐藏默认true
+            //第一个输入是否获取焦点
+        }).then(function(modal){
+            $scope.newReplieModal = modal; //显示视图
+        });
+//        $scope.$on('$destroy', function() {
+//            $scope.modal.remove();
+//        });
+        //添加业主方弹出页面
+        $scope.showLayer=function(){
+            $scope.newReplieModal.show();
+        }
+        $scope.contact=[];
+        var yzfadd=[];
+        var obc=1;
+        //提交数据页面
+        var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+        $scope.newReplie=function(x){//
+
+//          if(x.ownerName==''){
+//              $cordovaToast.showShortCenter('请填写业单位名称!');
+//              return false;
+//          }
+            if(x.ownerPerson==''){
+                $cordovaToast.showShortCenter('请填写业主单位负责人!');
+                return false;
+            }
+            if(!reg.test(x.ownerPhone)){
+                $cordovaToast.showShortCenter('请填写正确的业主负责人手机号码!');
+                return false;
+            }
+            if(x.engineerPhone!=''){
+                if(!reg.test(x.engineerPhone)){
+                    $cordovaToast.showShortCenter('请填写正确的技术总工手机号码!');
+                    return false;
+                }
+            }
+
+
+            obc=obc+1;
+//            console.log(obc);
+            x.id=obc;
+//            console.log(x);
+            yzfadd.push(x);
+            console.log(yzfadd);
+            $scope.contact=yzfadd;
+            $scope.newReplieModal.hide();
+            newaccyzf();
+
+
+        }
+        //关闭页面
+        $scope.newReplieModalst=function(){
+            $scope.newReplieModal.hide();
+            newaccyzf();
+        }
+        //初始化对象业主方
+        function  newaccyzf(){
+            $scope.addxzf={
+                'id':'',
+                'ownerName':'',//业主单位名称
+                'ownerPerson':'',//业主单位负责人
+                'ownerPhone':'',//业主负责人电话
+                'ownerAddress':'',//业主单位地址
+                'technicalEngineer':'',//技术总工
+                'engineerPhone':''//技术总工电话
+            }
+        }
+        $ionicModal.fromTemplateUrl('templates/xm-edityzf.html', {  //打开view所在的model
+            scope: $scope,    //注入一个对象
+            animation: 'slide-in-up', //动画
+            backdropClickToClose:true  //点击背景是否隐藏默认true
+            //第一个输入是否获取焦点
+        }).then(function(modal){
+            $scope.newReplieModals = modal; //显示视图
+        });
+
+
+        $scope.editxzf={
+            'id':'',
+            'ownerName':'',//业主单位名称
+            'ownerPerson':'',//业主单位负责人
+            'ownerPhone':'',//业主负责人电话
+            'ownerAddress':'',//业主单位地址
+            'technicalEngineer':'',//技术总工
+            'engineerPhone':''//技术总工电话
+        }
+
+        //业主方详情
+        $scope.xqyzf=function(k){
+         for(var i=0;i<yzfadd.length;i++){
+             if(yzfadd[i].id==k){
+                 $scope.editxzf={
+                     'id':k,
+                     'ownerName':yzfadd[i].ownerName,//业主单位名称
+                     'ownerPerson':yzfadd[i].ownerPerson,//业主单位负责人
+                     'ownerPhone':yzfadd[i].ownerPhone,//业主负责人电话
+                     'ownerAddress':yzfadd[i].ownerAddress,//业主单位地址
+                     'technicalEngineer':yzfadd[i].technicalEngineer,//技术总工
+                     'engineerPhone':yzfadd[i].engineerPhone//技术总工电话
+                 }
+
+             }
+         }
+            $scope.newReplieModals.show();
+            console.log(k);
+
+        }
+        //关闭页面
+        $scope.scnewReplieModals=function(){
+            $scope.newReplieModals.hide();
+//            var array = [1,2,3,4,5,6,7,8,9];
+//            var filterarray = $.grep(array,function(value){
+//                return value > 5;//筛选出大于5的
+//            });
+//            console.log(filterarray);
+        }
+        //提交修改页面
+        $scope.tjnewReplie=function(y){
+            if(y.ownerPerson==''){
+                $cordovaToast.showShortCenter('请填写业主单位负责人!');
+                return false;
+            }
+            if(!reg.test(y.ownerPhone)){
+                $cordovaToast.showShortCenter('请填写正确的业主负责人手机号码!');
+                return false;
+            }
+            if(y.engineerPhone!=''){
+                if(!reg.test(y.engineerPhone)){
+                    $cordovaToast.showShortCenter('请填写正确的技术总工手机号码!');
+                    return false;
+                }
+            }
+
+               for(var z=0;z<yzfadd.length;z++){
+                   if(y.id==yzfadd[z].id){
+                           yzfadd[z].ownerName=y.ownerName,//业主单位名称
+                           yzfadd[z].ownerPerson=y.ownerPerson,//业主单位负责人
+                           yzfadd[z].ownerPhone=y.ownerPhone,//业主负责人电话
+                           yzfadd[z].ownerAddress=y.ownerAddress,//业主单位地址
+                           yzfadd[z].technicalEngineer=y.technicalEngineer,//技术总工
+                           yzfadd[z].engineerPhone=y.engineerPhone//技术总工电话
+                   }
+            }
+//            console.log(yzfadd);
+            $scope.contact=yzfadd;
+            $scope.newReplieModals.hide();
+        }
+        //删除方法
+        $scope.delyzf=function(y){
+            $ionicPopup.confirm({
+                title: '确认',
+                content: '确认删除?',
+                cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
+                cancelType: '', // String (默认: 'button-default')。取消按钮的类型。
+                okText: '确认', // String (默认: 'OK')。OK按钮的文字。
+                okType: '' // String (默认: 'button-positive')。OK按钮的类型。
+            }).then(function (res) {
+                if (res) {
+                    var filterarray = $.grep(yzfadd,function(value){
+                        return value.id != y;//筛选出大于5的
+                    });
+                    yzfadd=filterarray;
+                    $scope.contact=yzfadd;
+                    console.log(yzfadd);
+
+                } else {
+                    console.log('You are not sure');
+                }
+            });
+
+
+
+
+        }
+//------------------------------------------------------设计单位
+        $scope.addsjdw={
+            'id':'',
+            'designName':'',//设计单位名称
+            'designPerson':'',//设计单位负责人
+            'designPhone':'',//设计负责人电话
+            'designAddress':''//设计单位地址
+        }
+
+
+        //添加设计单位页面
+        $ionicModal.fromTemplateUrl('templates/xm-addsjdw.html', {  //打开view所在的model
+            scope: $scope,    //注入一个对象
+            animation: 'slide-in-up', //动画
+            backdropClickToClose:true  //点击背景是否隐藏默认true
+            //第一个输入是否获取焦点
+        }).then(function(modal){
+            $scope.newReplieModaladdsjdw = modal; //显示视图
+        });
+
+        //添加业主方弹出页面
+        $scope.showSjdw=function(){
+            $scope.newReplieModaladdsjdw.show();
+        }
+
+        $scope.sjdwlist=[];
+        var sjdwadd=[];
+        var cbo=1;
+        //提交数据页面
+        $scope.newRepliesjdw=function(x){
+
+            if(x.designPerson==''){
+                $cordovaToast.showShortCenter('请填写设计单位负责人!');
+                return false;
+            }
+            if(!reg.test(x.designPhone)){
+                $cordovaToast.showShortCenter('请填写正确的设计单位负责人手机号码!');
+                return false;
+            }
+
+            cbo=cbo+1;
+            x.id=cbo;
+            sjdwadd.push(x);
+            console.log(sjdwadd);
+            $scope.sjdwlist=sjdwadd;
+            $scope.newReplieModaladdsjdw.hide();
+            newaccsjdw();
+
+
+        }
+        //关闭页面
+        $scope.newReplieModalstsjdw=function(){
+            $scope.newReplieModaladdsjdw.hide();
+            newaccsjdw();
+        }
+        //初始化对象设计单位
+        function  newaccsjdw(){
+            $scope.addsjdw={
+                'id':'',
+                'designName':'',//设计单位名称
+                'designPerson':'',//设计单位负责人
+                'designPhone':'',//设计负责人电话
+                'designAddress':''//设计单位地址
+            }
+        }
+
+        $ionicModal.fromTemplateUrl('templates/xm-editsjdw.html', {  //打开view所在的model
+            scope: $scope,    //注入一个对象
+            animation: 'slide-in-up', //动画
+            backdropClickToClose:true  //点击背景是否隐藏默认true
+            //第一个输入是否获取焦点
+        }).then(function(modal){
+            $scope.newReplieModalseditsjdw = modal; //显示视图
+        });
+
+
+        $scope.editsjdw={
+            'id':'',
+            'designName':'',//设计单位名称
+            'designPerson':'',//设计单位负责人
+            'designPhone':'',//设计负责人电话
+            'designAddress':''//设计单位地址
+        }
+
+        //业主方详情
+        $scope.xqsjdw=function(k){
+            for(var i=0;i<sjdwadd.length;i++){
+                if(sjdwadd[i].id==k){
+                    $scope.editsjdw={
+                        'id':k,
+                        'designName':sjdwadd[i].designName,//业主单位名称
+                        'designPerson':sjdwadd[i].designPerson,//业主单位负责人
+                        'designPhone':sjdwadd[i].designPhone,//业主负责人电话
+                        'designAddress':sjdwadd[i].designAddress//业主单位地址
+
+                    }
+
+                }
+            }
+            $scope.newReplieModalseditsjdw.show();
+        }
+        //关闭页面
+        $scope.newReplieModalstsjdwedit=function(){
+            $scope.newReplieModalseditsjdw.hide();
+        }
+        //提交修改页面
+        $scope.newRepliesjdwedit=function(y){
+            if(y.designPerson==''){
+                $cordovaToast.showShortCenter('请填写设计单位负责人!');
+                return false;
+            }
+            if(!reg.test(y.designPhone)){
+                $cordovaToast.showShortCenter('请填写正确的设计单位负责人手机号码!');
+                return false;
+            }
+
+            for(var z=0;z<sjdwadd.length;z++){
+                if(y.id==sjdwadd[z].id){
+                    sjdwadd[z].designName=y.designName,//业主单位名称
+                        sjdwadd[z].designPerson=y.designPerson,//业主单位负责人
+                        sjdwadd[z].designPhone=y.designPhone,//业主负责人电话
+                        sjdwadd[z].designAddress=y.designAddress//业主单位地址
+                }
+            }
+            $scope.sjdwlist=sjdwadd;
+            $scope.newReplieModalseditsjdw.hide();
+//            console.log(sjdwadd);
+        }
+        //删除方法
+        $scope.delsjdw=function(y){
+            $ionicPopup.confirm({
+                title: '确认',
+                content: '确认删除?',
+                cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
+                cancelType: '', // String (默认: 'button-default')。取消按钮的类型。
+                okText: '确认', // String (默认: 'OK')。OK按钮的文字。
+                okType: '' // String (默认: 'button-positive')。OK按钮的类型。
+            }).then(function (res) {
+                if (res) {
+                    var filterarray = $.grep(sjdwadd,function(value){
+                        return value.id != y;//筛选出删除的
+                    });
+                    sjdwadd=filterarray;
+                    $scope.sjdwlist=sjdwadd;
+                    console.log(sjdwadd);
+
+                } else {
+                    console.log('You are not sure');
+                }
+            });
+
         }
     }])
 //项目详情
@@ -814,8 +1229,8 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             $ionicHistory.goBack();
         }
         $scope.spzt={};
-        $scope.ysp={};
-        $scope.sfbh={};
+        $scope.ysp=false;
+        $scope.sfbh=false;
         var projectsId=undefined;
         var ids=$stateParams.ids;
         var sion=sessionService.getsession();//获取缓存数据
@@ -1095,8 +1510,20 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
+        $scope.selectshow=false;
         var sion=sessionService.getsession();//获取缓存数据
-        $scope.tlk={taskDesc:'',completeDate:'','relationProject':'','hardId':sion.hardId,'sessionId':sion.sessionId,'userId':sion.userId};
+        $scope.tlk={taskDesc:'',completeDate:'',followupStatus:'','relationProject':'','hardId':sion.hardId,'sessionId':sion.sessionId,'userId':sion.userId};
+
+        $scope.showxmjd=function(x){
+            if(x!=null){
+              $scope.selectshow=true;
+            }else{
+               $scope.selectshow=false;
+               $scope.tlk.follwupStatus='';
+            }
+        }
+
+
 
         $scope.reqister=function(u){
             var d1=u.completeDate;
@@ -1109,9 +1536,9 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             u.completeDate=date;
 
             var url=API.ADDRW;
+            console.log(u);
             postServer.post(url,u).success(function(data,status,headers,config){
                 if(data.resultCode==1){
-                    console.log(data.resultInfo);
                     $ionicHistory.goBack();
                     $cordovaToast.showShortCenter(data.resultInfo);
                 }else{
@@ -1296,7 +1723,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             }
            pst=angular.fromJson(pst);
           $scope.reqister=function(ks) {
-            var obj=angular.extend({}, ks, pst);
+            var obj=angular.extend({}, ks, pst);//合并两个对象
             postServer.post(url, obj).success(function (data, status, headers, config) {
                 if(data.resultCode==1){
                     console.log(data.resultInfo);
@@ -1331,6 +1758,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
        $scope.wjmmclass="button button-small button-positive";
        $scope.wjmm="获取验证码";
         var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+
 
         $scope.hqyzm=function(){//点击获取验证码
             // alert(angular.element(document.querySelector('#tel')).val());//内置对象获取

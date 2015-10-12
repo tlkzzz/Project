@@ -1,0 +1,39 @@
+<div class="modal">
+
+    <ion-header-bar class="nav-title-slide-ios7 bar-positive">
+        <div class="buttons">
+            <button side="left" class="button button-clear button-icon ion-android-close" ng-click="newReplieModalst()"></button>
+        </div>
+        <h1 class="title">添加业主方</h1>
+        <div class="buttons">
+            <button class="button button-clear button-icon ion-android-done" ng-click="newReplie(addxzf)"></button>
+        </div>
+    </ion-header-bar>
+
+
+
+    <ion-content class="new-topics" scroll="true">
+
+        <div class="list list-inset margin-top-none">
+            <label class="item item-input">
+                <input  ng-model="addxzf.ownerName" type="text"  placeholder="单位名称">
+            </label>
+            <label class="item item-input">
+                <input  ng-model="addxzf.ownerPerson" type="text"  placeholder="项目负责人  (必填)">
+            </label>
+            <label class="item item-input">
+                <input  ng-model="addxzf.ownerPhone" type="tel"  placeholder="负责人联系电话  (必填)">
+            </label>
+            <label class="item item-input">
+                <input type="text"  ng-model="addxzf.technicalEngineer" placeholder="技术总工">
+            </label>
+            <label class="item item-input">
+                <input type="tel"  ng-model="addxzf.engineerPhone" placeholder="技术总工联系电话">
+            </label>
+            <label class="item item-input">
+                <textarea  ng-model="addxzf.ownerAddress" placeholder="单位地址"></textarea>
+            </label>
+        </div>
+    </ion-content>
+
+</div>

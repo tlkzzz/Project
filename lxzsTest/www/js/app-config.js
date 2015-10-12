@@ -8,7 +8,7 @@
   * @type {string}
  */
 var SETING={
-    version: '0.0.3'
+    version: '0.0.4'
 }
 
 
@@ -23,9 +23,10 @@ var PINGJ={
 
 
 //主机地址
-var API_HOST = 'http://aikong.f3322.net:9191/lxzsNew/';
-//var API_HOST = 'http://aikong.vicp.net:9191/lxzs/';
-//var API_HOST = 'http://192.168.10.45:8080/lxzs/';
+
+//var API_HOST = 'http://aikong.f3322.net:9191/lxzsNew/';
+var API_HOST = 'http://pm.bdfkflg.cn/';
+//var API_HOST = 'http://192.168.10.67:8080/lxzs/';
 var API = {
     /**
      * 登陆方法
@@ -123,7 +124,17 @@ var API = {
     /**
      * 下载app地址
      */
-    XZAPPURL:API_HOST
+    XZAPPURL:API_HOST,
+    /**
+     * 获取省
+     */
+    ADDXMS:API_HOST+"api/rest/projects/queryProvince/",
+
+    /**
+     * 获取市
+     */
+   ADDXMSS:API_HOST+"api/rest/projects/queryCity/"
+
 }
 
 /**

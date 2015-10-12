@@ -16,7 +16,7 @@
             <div class="list">
 
                 <label class="item item-input">
-                    <span class="input-label">任务描述</span>
+                    <span class="input-label">任务描述  (必填)</span>
                     <input type="text" ng-model="tlk.taskDesc" ng-maxlength="40"    required > <!--required必填-->
 
                 </label>
@@ -26,7 +26,7 @@
                 <!--</label>-->
 
                 <label class="item item-input">
-                    <span class="input-label">完成时间</span>
+                    <span class="input-label">完成时间  (必填)</span>
                     <input type="date" ng-model="tlk.completeDate" required>
                 </label>
                 <!--<label class="item item-input">-->
@@ -41,12 +41,19 @@
                     <div class="input-label">
                       关联项目
                     </div>
-                    <select style="padding-top: 0; padding-bottom: 0; padding-left: 0;" ng-model="tlk.relationProject" ng-options="x.projectsId as x.projectName for x in users">
+                    <select ng-change="showxmjd(tlk.relationProject)" style="padding-top: 0; padding-bottom: 0; padding-left: 0;" ng-model="tlk.relationProject" ng-options="x.projectsId as x.projectName for x in users">
                         <option value="">请选择</option>
+                        <!--<option ng-repeat="x in users" value="{{x.projectsId}}">-->
+                            <!--{{x.name}}-->
+                        <!--</option>-->
                     </select>
                 </label>
 
+                <label class="item item-input" ng-if="selectshow">
+                    <span class="input-label">项目进度</span>
+                    <input type="text" ng-model="tlk.followupStatus" ng-maxlength="80"    > <!--required必填-->
 
+                </label>
 
                 <!--<div class="item item-input-inset">-->
                     <!--<label class="item-input-wrapper">-->

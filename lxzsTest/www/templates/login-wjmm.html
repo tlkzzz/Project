@@ -18,20 +18,6 @@
                     <input style="padding-bottom: 0; padding-top: 0;" required  type="text" ng-model="test.indetifyingCode" ng-maxlength="6" placeholder="请输入验证码">
                     <a ng-class="wjmmclass" ng-disabled="ss" ng-click="hqyzm()"><span class="hc-code">{{wjmm}}</span></a>
                 </div>
-                <!--<div class="item item-input-inset">-->
-                    <!--<label class="item item-input" style="position:relative;">-->
-                        <!--<i class="icon ion-android-apps ion-android-apps-01"></i>-->
-                        <!--<input  required  type="text" ng-model="test.indetifyingCode" ng-maxlength="6" placeholder="请输入验证码">-->
-                    <!--</label>-->
-                    <!--<button ng-class="wjmmclass" ng-disabled="ss" ng-click="hqyzm()">-->
-                        <!--{{wjmm}}-->
-                    <!--</button>-->
-                <!--</div>-->
-                <!--<label class="item item-input" style="position:relative;">-->
-                    <!--<i class="icon ion-android-apps ion-android-apps-01"></i>-->
-                    <!--<input type="text" placeholder="请输入验证码">-->
-                <!--</label>-->
-                <!--<button ng-class="wjmmclass" ng-disabled="ss" ng-click="hqyzm()">{{wjmm}}</button>-->
                 <label class="item item-input">
                     <i class="ion-android-unlock ion-android-unlock-01"></i>
                     <input type="password"  ng-maxlength="10" ng-pattern="/^(?!\d+$)(?![A-Za-z]+$)[a-zA-Z0-9]{6,}$/" ng-model="test.newPassword" required placeholder="请输入新密码">

@@ -27,34 +27,14 @@
                 </div>
             </div>
 
-            <!--<div class="list">-->
-                <!--<h5 style="margin-bottom:0;">通话记录</h5>-->
-                <!--<div class="item item-inset">-->
-                    <!--<a href="#" class="call-history-list">-->
-                        <!--<i class="icon ion-ios-redo ion-call-in"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
-                    <!--</a>-->
-                    <!--<a href="#" class="call-history-list">-->
-                        <!--<i class="icon ion-ios-redo ion-call-in"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
-                    <!--</a>-->
-                    <!--<a href="#" class="call-history-list">-->
-                        <!--<i class="icon ion-ios-undo ion-call-out"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
-                    <!--</a>-->
-                    <!--<a href="#" class="call-history-list">-->
-                        <!--<i class="icon ion-ios-undo ion-call-out"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
-                    <!--</a>-->
-                    <!--<a href="#" class="call-history-list">-->
-                        <!--<i class="icon ion-ios-undo ion-call-out"></i><span class="gray">2015-07-15</span><span class="time gray">18:09</span><span class="min gray">3分钟</span>-->
-                    <!--</a>-->
-                <!--</div>-->
-            <!--</div>-->
 
             <div class="list">
-                <!--<label class="item  item-inset item-input" style="height:30px; border-bottom:0;">-->
-                    <!--<span class="input-label" style="width:70px; font-size:14px;">项目名称：</span>-->
-                    <!--<input type="text" value="项目名称">-->
-                <!--</label>-->
                 <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                    <span class="input-label" style="...">单位名称：</span>
+                    <span class="input-label" style="width:70px; font-size:14px;">项目号：</span>
+                    <input type="text" ng-disabled="true" value="{{kh.projectCode}}">
+                </label>
+                <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
+                    <span class="input-label" style="width:70px; font-size:14px">单位名称：</span>
                     <input type="text" ng-disabled="true" value="{{kh.unitName}}">
                 </label>
                 <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
@@ -65,6 +45,8 @@
                     <span class="input-label" style="width:70px; font-size:14px;">单位地址：</span>
                     <input type="text" ng-disabled="true" value="{{kh.unitAddress}}">
                 </label>
+
+
             </div>
 
 

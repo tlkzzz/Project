@@ -18,15 +18,13 @@
         </ion-header-bar>
 
   <ion-content>
-      <!--<div style="padding: 50px; text-align: center;"  ng-if="khlist==null">-->
-          <!--<h3>亲~~没有数据啦！</h3>-->
-      <!--</div>-->
+
 
       <div class="list">
           <div ng-repeat="list in khlist" class="item item-a-right item-inset">
               <a ng-href="#/khxxqk/{{ list.customerId }}">
                   <p class="font-size-big"><span class="name">{{list.customerName}}</span><span>{{list.customerPhone}}</span></p>
-                  <p class="font-size-small"><span class="date">{{list.createDate}}</span></p>
+                  <p class="font-size-small"><span class="date">{{list.createDate|date:"yyyy-MM-dd"}}</span></p>
               </a>
               <a class="item-icon-right" ng-click="sendDx(list.customerPhone)" style="padding:0;">
                   <i class="icon ion-email icon-email-01"></i>

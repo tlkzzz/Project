@@ -1,0 +1,63 @@
+<ion-view>
+
+    <ion-nav-title >
+        <div class="h1 title">修改任务</div>
+    </ion-nav-title>
+    <ion-nav-buttons>
+        <button class="button icon-left ion-ios-arrow-left button-clear" ng-click="goBack()"></button>
+    </ion-nav-buttons>
+
+    <ion-content class="padding" scroll="true" style="background:#EBEBEB;">
+
+
+    <form name="fn" ng-submit="reqister(tlk)">
+
+    <div class="warrper">
+
+        <div class="list">
+
+            <label class="item item-input">
+                <span class="input-label">任务描述  (必填)</span>
+                <input type="text" ng-model="tlk.taskDesc" ng-maxlength="40"    required > <!--required必填-->
+            </label>
+
+
+
+            <label class="item item-input">
+                <span class="input-label">完成时间  (必填)</span>
+                <input type="date" ng-model="tlk.completeDate" required>
+            </label>
+
+
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    关联项目  (必填)
+                </div>
+                <select  required ng-model="tlk.projectsId"  style="padding-top: 0; padding-bottom: 0; padding-left: 0;"  ng-options="x.projectsId as x.projectName for x in tlk.projectsList">
+                    <option value="">请选择</option>
+
+                </select>
+            </label>
+
+            <label class="item item-input" >
+                <span class="input-label">项目进度</span>
+                <input type="text" ng-model="tlk.followupStatus" ng-maxlength="80"    > <!--required必填-->
+
+            </label>
+
+
+        </div>
+
+    </div>
+
+    <div class="button-box"style=" margin-top: 8px; margin-right: 0; margin-left: 0;"><!--f.$invalid-->
+        <button type="submit"   ng-disabled="fn.$invalid" class="button button-block button-positive" >提交</button>
+    </div>
+
+</form>
+
+    </ion-content>
+
+
+</ion-view>

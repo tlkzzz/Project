@@ -156,46 +156,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
               }
           }
       })
-      .state('tab.rw.unfinished', {//
-          url: '/unfinished',
-          cache:'false',
-          views: {
-              'tab-rw-unfinished': {
-                  templateUrl: 'templates/tab-rw-unfinished.html'
-               //   controller: 'DashCtrl'
-              }
-          }
-      })
-      .state('tab.rw.outdated', {
-          url: '/outdated',
-          cache:'false',
-          views: {
-              'tab-rw-outdated': {
-                  templateUrl: 'templates/tab-rw-outdated.html'
-                 // controller: 'DashCtrl'
-              }
-          }
-      })
-      .state('tab.rw.finished', {
-          url: '/finished',
-          cache:'false',
-          views: {
-              'tab-rw-finished': {
-                  templateUrl: 'templates/tab-rw-finished.html'
-                //  controller: 'DashCtrl'
-              }
-          }
-      })
-//      .state('tab.ss', {  //ss这个可以随便取与herf中的地址没有关系
-//          url: '/chats/:chatId',
-//          views: {
-//              'tab-chats': {
-//                  templateUrl: 'templates/chat-detail.html',
-//                  controller: 'ChatDetailCtrl'
-//              }
-//          }
-//      })
-
             .state('wdts', {
                 url: '/wdts',
                 cache:'false',
@@ -232,10 +192,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','s
 
       })
       .state('xmxq', { //项目详情
-          url: '/xmxq/:ids',
+          url: '/xmxq/:ids/:idy/:idz',
           cache:'false',
           templateUrl: 'templates/xm-xq.html',
           controller: 'xmxqCtrl'
+
+      })
+      .state('rwlist', { //任务详情
+          url: '/rwlist/:ids',
+          cache:'false',
+          templateUrl: 'templates/rw-rwlist.html',
+          controller: 'rwlistCtrl'
+
+      })
+      .state('rwedit', { //任务详情
+          url: '/rwedit/:ids',
+          cache:'false',
+          templateUrl: 'templates/rw-edit.html',
+          controller: 'rweditCtrl'
+
+      })
+      .state('xmbh', { //项目驳回
+          url: '/xmbh/:ids:idy',
+          cache:'false',
+          templateUrl: 'templates/xm-bh.html',
+          controller: 'xmbhCtrl'
 
       })
       .state('wdxx', { //我的消息

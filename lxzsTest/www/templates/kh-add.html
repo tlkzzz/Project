@@ -20,9 +20,7 @@
                 <label class="item item-input">
                     <input type="tel" ng-model="kh.customerPhone" ng-pattern="/^1\d{10}$/" ng-maxlength="11" placeholder="联系电话  (必填)" required>
                 </label>
-                <!--<label class="item item-input">-->
-                    <!--<input type="text" placeholder="项目名称">-->
-                <!--</label>-->
+
                 <label class="item item-input">
                     <input type="text" ng-model="kh.unitName" ng-maxlength="40" placeholder="单位名称" >
                 </label>
@@ -31,6 +29,11 @@
                 </label>
                 <label class="item item-input">
                     <textarea ng-model="kh.unitAddress" ng-maxlength="50" placeholder="单位地址" ></textarea>
+                </label>
+                <label class="item item-input">
+                    <select  ng-model="kh.projectCode" ng-options="s.projectsId as s.projectName for s in users"  >
+                        <option  value="">请选择关联项目</option>
+                    </select>
                 </label>
             </div>
 

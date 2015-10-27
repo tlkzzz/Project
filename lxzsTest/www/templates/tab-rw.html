@@ -2,24 +2,82 @@
 
 
 
-<ion-view >
-    <ion-nav-title >
-        <div class="h1 title">任务</div>
-    </ion-nav-title>
+<!--<ion-view >-->
+    <!--<ion-nav-title >-->
+        <!--<div class="h1 title">任务</div>-->
+    <!--</ion-nav-title>-->
 
-    <ion-tabs class="tabs-top tabs-color-active-positive" >
-        <!-- 任务 Tab -->
-        <ion-tab title="待完成" href="#/tab/rw/unfinished" on-select="onTabSelected(1)">
-            <ion-nav-view name="tab-rw-unfinished"></ion-nav-view>
-        </ion-tab>
-        <!-- 项目 Tab -->
-        <ion-tab title="已过期" href="#/tab/rw/outdated" on-select="onTabSelected(3)">
-            <ion-nav-view name="tab-rw-outdated"></ion-nav-view>
-        </ion-tab>
-        <!-- 客户 Tab -->
-        <ion-tab title="已完成" href="#/tab/rw/finished" on-select="onTabSelected(2)">
-            <ion-nav-view name="tab-rw-finished"></ion-nav-view>
-        </ion-tab>
-    </ion-tabs>
+    <!--<ion-tabs class="tabs-top tabs-color-active-positive" >-->
+        <!--&lt;!&ndash; 任务 Tab &ndash;&gt;-->
+        <!--<ion-tab title="待完成" href="#/tab/rw/unfinished" on-select="onTabSelected(1)">-->
+            <!--<ion-nav-view name="tab-rw-unfinished"></ion-nav-view>-->
+        <!--</ion-tab>-->
+        <!--&lt;!&ndash; 项目 Tab &ndash;&gt;-->
+        <!--<ion-tab title="已过期" href="#/tab/rw/outdated" on-select="onTabSelected(3)">-->
+            <!--<ion-nav-view name="tab-rw-outdated"></ion-nav-view>-->
+        <!--</ion-tab>-->
+        <!--&lt;!&ndash; 客户 Tab &ndash;&gt;-->
+        <!--<ion-tab title="已完成" href="#/tab/rw/finished" on-select="onTabSelected(2)">-->
+            <!--<ion-nav-view name="tab-rw-finished"></ion-nav-view>-->
+        <!--</ion-tab>-->
+    <!--</ion-tabs>-->
 
+<!--</ion-view>-->
+
+
+<ion-view title="项目">
+
+
+
+    <ion-nav-buttons side="right">
+        <!--<button class="button icon ion-plus-round" ng-click="xzxm()"> </button>-->
+        <!--<button class="button button-clear icon ion-ios-world-outline" ng-click="lxr()"></button>-->
+        <button class="button button-clear icon ion-ios-plus-outline"  ng-click="xzxm()"></button>
+    </ion-nav-buttons>
+    <!--<a href="#" class=" item-icon-right">-->
+    <!--<i class="icon ion-android-mail"></i>-->
+    <!--</a>-->
+
+    <ion-header-bar class="bar-light bar-subheader" style="padding:0;">
+        <div class="bar bar-balanced  item-input-inset" style="border: 0; background: none;">
+
+            <label class="item-input-wrapper item-icon-left item-icon-red" style="border-radius: 0; -webkit-border-radius:0;">
+                <i class="icon ion-search" style="font-size: 20px; margin-right: 20px;"></i>
+                <input class="light-bg" style="padding-left: 20px;" type="search" placeholder="搜索"
+                       ng-model="xm">
+
+            </label>
+            <button class="" style="margin-left:10px; font-size:13px; color:#FFF; font-weight:400; border-radius:2px; padding:0 8px; background: #0c63ee; border: 0; height:28px" ng-click="clearSearch()">查询</button>
+        </div>
+    </ion-header-bar>
+
+
+
+
+
+    <ion-content class="padding">
+
+
+
+        <div class="list">
+            <div class="item item-button-right item-inset" ng-repeat="list in xmlist" ng-click="xmxq(list.projectsId,list.projectPower,list.projectCode)">
+                <a >
+                    <p class="font-size-big">{{list.projectName}}</p>
+                    <p class="font-size-small"><i class="icon ion-android-apps ion-android-apps-02"></i>{{list.projectCode}}</p>
+                </a>
+                <a ng-if="list.projectPower==1" class="button button-positive button-background-red">审批</a>
+                <a ng-if="list.projectPower==2" class="zt">已终止</a>
+                <a ng-if="list.projectPower==3" class="zt"><i class="sp"><img src="img/sp_icon.png" /></i>进行中</a>
+                <a ng-if="list.projectPower==4" class="zt">合同中</a>
+
+            </div>
+
+
+        </div>
+
+        <ion-infinite-scroll ng-if="shwomor" immediate-check="false" on-infinite="loadMore()"></ion-infinite-scroll>
+
+
+
+    </ion-content>
 </ion-view>

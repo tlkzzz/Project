@@ -8,7 +8,7 @@
   * @type {string}
  */
 var SETING={
-    version: '0.0.4'
+    version: '0.0.5'
 }
 
 
@@ -26,7 +26,8 @@ var PINGJ={
 
 //var API_HOST = 'http://aikong.f3322.net:9191/lxzsNew/';
 var API_HOST = 'http://pm.bdfkflg.cn/';
-//var API_HOST = 'http://192.168.10.67:8080/lxzs/';
+//var API_HOST = 'http://192.168.10.31:8080/lxzs/';
+
 var API = {
     /**
      * 登陆方法
@@ -81,6 +82,11 @@ var API = {
      * 添加项目
      */
     ADDXM:API_HOST+"api/rest/projects/addProjects",
+
+    /**
+     * 修改项目
+     */
+    EDITXM:API_HOST+"api/rest/projects/updateProjects",
     /**
      * 项目指派人
      */
@@ -95,9 +101,25 @@ var API = {
     ZPRWLIST:API_HOST+"api/rest/task/queryProjectList/",
 
     /**
-     * 任务查询
+     * 项目名称列表
      */
-    RWLIST:API_HOST+"api/rest/task/queryTaskList/",
+    RWLIST:API_HOST+"api/rest/task/queryProjrctsList/",
+    /**
+     * 任务list查询
+     */
+    RWLISTXQ:API_HOST+"api/rest/task/queryTaskList/",
+
+
+    /**
+     * 单个任务详情查询
+     */
+    RWXQ:API_HOST+"api/rest/task/getTask/",
+    /**
+     * 修改提交任务
+     */
+    XGTJRW:API_HOST+"api/rest/task/updateTask",
+
+
     /**
      * 完成任务
      */

@@ -45,8 +45,8 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
            var systems=$cordovaDevice.getPlatform();//操作系统
               var phoneTypes='';
               if(systems == 'iOS'){
-                 phoneTypes=2;//手机类型
-              }else if(systems =='Android'){
+                phoneTypes=2;//手机类型
+             }else if(systems =='Android'){
                   phoneTypes=1;
               }else{
                   phoneTypes=3;
@@ -65,21 +65,12 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                     "passWord":hash, //64再md5加密
                     "loginName":us
                 }
-            // console.log(params);
-//            $http({method: "POST",
-//                url: url,
-//                headers: {'Content-type': 'application/x-www-form-urlencoded'},
-//                data: params}).success(function(data, status) {
-//                alert(data.resultCode);
-//                console.log(data);
-//            // success handle code
-//            }).error(function(data, status) {
-//                alert(status);
-//            });
 
             params=angular.fromJson(params);
+            console.log(params);
             postServer.post(url,params).success(function(data,status,headers,config) {
                 $ionicLoading.hide();
+                console.log(data);
                 if(data.resultCode==1) {
                   console.log(data);
                     var seion={
@@ -95,7 +86,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                     }
 
 
-                    sessionService.addsession(seion);
+                   sessionService.addsession(seion);
                  if(ck==true){
                  localStorageServices.addMm(us,ps,ck); //保存密码
                  }else{
@@ -112,229 +103,32 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
 
 
 
-           // $cordovaProgress.showSimpleWithLabelDetail(true, "Loading", "detail");
-//            setTimeout(function () {
-//                $ionicLoading.hide();
-//                if(ck==true){
-//                 localStorageServices.addMm(us,ps,ck); //保存密码
-//                }else{
-//                 localStorageServices.delAll();
-//                }
-//               // $cordovaProgress.hide();
-//                $state.go("tab.rw");
-//                }, 2000);
 
         }
         $scope.wjmm=function(){
             $state.go("wjmm");
         }
 }])
-//任务
+//项目
 .controller('rwController',['$scope','postServer','$ionicPopup','$timeout','$cordovaToast','getServer','sessionService','$location','$state',function($scope,postServer,$ionicPopup,$timeout,$cordovaToast,getServer,sessionService,$location,$state) {
         $scope.rcb=function(){
             $state.go('rcb');//日程表
         }
-        var sion=sessionService.getsession();//获取缓存数据
-        $scope.onTabSelected=function(index){
-           if(index==1){
-               $scope.shwomor=true;
-               var currPage=0;  //当前页数
-               var pageSize=10; //每页条数
 
-               currPage=currPage+1;
-               var url=API.RWLIST+sion.hardId+'/'+sion.sessionId+"/"+sion.userId+'/'+index+'/'+currPage+'/'+pageSize;//获取url
-
-               //客户列表查询
-               getServer.get(url).success(function(data,status,headers,config){
-                   if(data.resultCode==1){
-                       $scope.rwlist=data.taskList;
-                       if(data.taskList.length<10){
-                           $scope.shwomor=false;
-                       }
-                       console.log(data);
-                   }else{
-                       $scope.rwlist=data.taskList;
-                       $cordovaToast.showShortCenter(data.resultInfo);
-                   }
-               }).error(function(data,status,headers,config){
-                   $cordovaToast.showShortCenter('连接服务器失败啦!');
-               });
-               $scope.loadMore=function(){
-                   $timeout( function() {
-                       currPage=currPage+1;
-                       var url=API.RWLIST+sion.hardId+'/'+sion.sessionId+"/"+sion.userId+'/'+index+'/'+currPage+'/'+pageSize;//获取url
-                        console.log(url);
-                       //客户列表查询
-                       getServer.get(url).success(function(data,status,headers,config){
-                           if(data.resultCode==1){
-                               for(var i=0;i<data.taskList.length;i++){
-                                   $scope.rwlist.push(data.taskList[i]);
-                               }
-                               if(data.taskList==0){
-                                   $scope.shwomor=false;
-                               }
-                               console.log(data);
-                           }else{
-                               $scope.shwomor=false;  //隐藏加载动画
-                               $scope.$broadcast('scroll.infiniteScrollComplete');//关闭加载事件
-                           }
-                       }).error(function(data,status,headers,config){
-                           $cordovaToast.showShortCenter('连接服务器失败啦!');
-                       });
-                       $scope.$broadcast('scroll.infiniteScrollComplete');
-
-                   }, 1000);
-
-               }
-
-           }else if(index==3){
-               $scope.shwomor=true;
-               var currPage=0;  //当前页数
-               var pageSize=10; //每页条数
-               currPage=currPage+1;
-               var url=API.RWLIST+sion.hardId+'/'+sion.sessionId+"/"+sion.userId+'/'+index+'/'+currPage+'/'+pageSize;//获取url
-
-               //客户列表查询
-               getServer.get(url).success(function(data,status,headers,config){
-                   if(data.resultCode==1){
-                       $scope.rwlist3=data.taskList;
-                       if(data.taskList.length<10){
-                           $scope.shwomor=false;
-                       }
-                       console.log(data);
-                   }else{
-                       $cordovaToast.showShortCenter(data.resultInfo);
-                   }
-               }).error(function(data,status,headers,config){
-                   console.log(data);
-                   $cordovaToast.showShortCenter('连接服务器失败啦!');
-               });
-               $scope.loadMores=function(){
-                   $timeout( function() {
-                       currPage=currPage+1;
-                        var url=API.RWLIST+sion.hardId+'/'+sion.sessionId+"/"+sion.userId+'/'+index+'/'+currPage+'/'+pageSize;//获取url
-                       //客户列表查询
-                       console.log(url);
-                       getServer.get(url).success(function(data,status,headers,config){
-                           if(data.resultCode==1){
-                               for(var i=0;i<data.taskList.length;i++){
-                                   $scope.rwlist3.push(data.taskList[i]);
-                               }
-                               if(data.taskList==0){
-                                   $scope.shwomor=false;
-                               }
-                               console.log(data);
-                           }else{
-                               $scope.shwomor=false;  //隐藏加载动画
-                               $scope.$broadcast('scroll.infiniteScrollComplete');//关闭加载事件
-                           }
-                       }).error(function(data,status,headers,config){
-                           $cordovaToast.showShortCenter('连接服务器失败啦!');
-                       });
-                       $scope.$broadcast('scroll.infiniteScrollComplete');
-
-                   }, 1000);
-
-               }
-           }else if(index==2){
-               $scope.shwomor=true;
-               var currPage=0;  //当前页数
-               var pageSize=10; //每页条数
-               currPage=currPage+1;
-               var url=API.RWLIST+sion.hardId+'/'+sion.sessionId+"/"+sion.userId+'/'+index+'/'+currPage+'/'+pageSize;//获取url
-
-               //客户列表查询
-               getServer.get(url).success(function(data,status,headers,config){
-                   if(data.resultCode==1){
-                       $scope.rwlist2=data.taskList;
-                       if(data.taskList.length<10){
-                           $scope.shwomor=false;
-                       }
-                       console.log(data);
-                   }else{
-                       $cordovaToast.showShortCenter(data.resultInfo);
-                   }
-               }).error(function(data,status,headers,config){
-                   console.log(data);
-                   $cordovaToast.showShortCenter('连接服务器失败啦!');
-               });
-               $scope.loadMoresss=function(){
-                   $timeout( function() {
-                       currPage=currPage+1;
-                       var url=API.RWLIST+sion.hardId+'/'+sion.sessionId+"/"+sion.userId+'/'+index+'/'+currPage+'/'+pageSize;//获取url
-                       //客户列表查询
-                       getServer.get(url).success(function(data,status,headers,config){
-                           if(data.resultCode==1){
-                               for(var i=0;i<data.taskList.length;i++){
-                                   $scope.rwlist2.push(data.taskList[i]);
-                               }
-                               if(data.taskList==0){
-                                   $scope.shwomor=false;
-                               }
-                               console.log(data);
-                           }else{
-                               $scope.shwomor=false;  //隐藏加载动画 
-                               $scope.$broadcast('scroll.infiniteScrollComplete');//关闭加载事件
-                           }
-                       }).error(function(data,status,headers,config){
-                           $scope.shwomor=false;  //隐藏加载动画
-                           $cordovaToast.showShortCenter('连接服务器失败啦!');
-                       });
-                       $scope.$broadcast('scroll.infiniteScrollComplete');
-
-                   }, 1000);
-               }
-           }
-       };
-
-
-        $scope.edit=function(u){
-            $ionicPopup.confirm({
-                title: '确认',
-                content: '是否完成此任务?',
-                cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
-                cancelType: '', // String (默认: 'button-default')。取消按钮的类型。
-                okText: '确认', // String (默认: 'OK')。OK按钮的文字。
-                okType: '' // String (默认: 'button-positive')。OK按钮的类型。
-            }).then(function (res) {
-                if (res) {
-                  var url=API.WCRW;
-                  var ps={'hardId':sion.hardId,'sessionId':sion.sessionId,'taskId':u,'taskStatus':2};
-                    ps=angular.fromJson(ps);
-                    postServer.post(url,ps).success(function(data,status,headers,config){
-                        if(data.resultCode==1){
-                            console.log(data);
-                            $scope.onTabSelected(1);
-                        }else{
-                            $cordovaToast.showShortCenter(data.resultInfo);
-                        }
-                    }).error(function(data,status,headers,config){
-                        console.log(data);
-                        $cordovaToast.showShortCenter('连接服务器失败啦!');
-                    });
-                } else {
-                    //console.log('You are not sure');
-                }
-            });
-        }
-}])
-//项目
-.controller('xmController',['$scope','$cordovaToast','$state','$timeout','sessionService','getServer','$cordovaContacts', function($scope,$cordovaToast,$state,$timeout,sessionService,getServer,$cordovaContacts) {
+//
         $scope.xzxm=function(){
             $state.go("addxm");
         };
-        $scope.xmxq=function(u){
-            $state.go("xmxq",{ids:u});
+        $scope.xmxq=function(u,s,y){
+            console.log(y);
+            if(s==1){
+                $state.go("xmbh",{ids:u,idy:y});
+            }else{
+                $state.go("xmxq",{ids:u,idy:y,idz:s});
+            }
+
         };
 
-
-        $scope.lxr=function(){
-//            $cordovaContacts.clone().then(function(result) {
-//                // Contact saved
-//            }, function(err) {
-//                // Contact error
-//            });
-        };
         $scope.shwomor=true;
 
 
@@ -402,7 +196,6 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             currPage=0;  //当前页数
             currPage=currPage+1;
             stsr=$scope.xm;
-            // alert($scope.khry);
             if(stsr==undefined){
                 stsr=null;
             }else if(stsr==''){
@@ -424,11 +217,208 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                 $cordovaToast.showShortCenter('连接服务器失败啦!');
             });
         }
+    }])
+//任务
+.controller('xmController',['$scope','$cordovaToast','$state','$timeout','sessionService','getServer','$cordovaContacts', function($scope,$cordovaToast,$state,$timeout,sessionService,getServer,$cordovaContacts) {
+        $scope.xzxm=function(){
+            $state.go("addxm");
+        };
+        $scope.xmxq=function(u){
+            $state.go("rwlistxq",{ids:u});
+        };
+
+        $scope.shwomor=true;
+
+
+        var currPage=0;  //当前页数
+        var stsr='';
+        stsr=$scope.xm;
+        if(stsr==undefined){
+            stsr=null;
+        }else if(stsr==''){
+            stsr=null;
+        }
+        var pageSize=10; //每页条数
+        var sion=sessionService.getsession();//获取缓存数据
+        currPage=currPage+1;
+        var url=API.RWLISTXQ+sion.hardId+'/'+sion.sessionId+'/'+sion.userId+'/'+stsr+'/'+currPage+'/'+pageSize;//获取url
+        console.log(url);
+        getServer.get(url).success(function(data,status,headers,config){
+            console.log(data);
+            if(data.resultCode==1){
+                $scope.rwlist=data.taskList;
+                if(data.taskList.length<10){
+                    $scope.shwomor=false;
+                }
+            }else{
+                $cordovaToast.showShortCenter(data.resultInfo);
+            }
+        }).error(function(data,status,headers,config){
+            $cordovaToast.showShortCenter('连接服务器失败啦!');
+        });
+        //查询项目名称列表下啦
+        var urls=API.RWLIST+sion.hardId+'/'+sion.sessionId+'/'+sion.userId;//获取url
+        console.log(urls);
+        getServer.get(urls).success(function(data,status,headers,config){
+            console.log(data);
+            if(data.resultCode==1){
+                $scope.ussssr=data.projrctList;
+            }else{
+                //$cordovaToast.showShortCenter(data.resultInfo);
+            }
+        }).error(function(data,status,headers,config){
+            $cordovaToast.showShortCenter('连接服务器失败啦!');
+        });
+        $scope.loadMore=function(){
+            $timeout( function() {
+                stsr=$scope.xm;
+                if(stsr==undefined){
+                    stsr=null;
+                }else if(stsr==''){
+                    stsr=null;
+                }
+                currPage=currPage+1;
+                var url=API.RWLISTXQ+sion.hardId+'/'+sion.sessionId+'/'+sion.userId+'/'+stsr+'/'+currPage+'/'+pageSize;//获取url
+                //客户列表查询
+                getServer.get(url).success(function(data,status,headers,config){
+                    if(data.resultCode==1){
+                        for(var i=0;i<data.taskList.length;i++){
+                            $scope.rwlist.push(data.taskList[i]);
+                        }
+                        if(data.taskList==0){
+                            $scope.shwomor=false;
+                        }
+                        console.log(data);
+                    }else{
+                        $scope.shwomor=false;  //隐藏加载动画
+                        $scope.$broadcast('scroll.infiniteScrollComplete');//关闭加载事件
+                    }
+                }).error(function(data,status,headers,config){
+                    $scope.shwomor=false;  //隐藏加载动画
+                    $cordovaToast.showShortCenter('连接服务器失败啦!');
+                });
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+
+            }, 1000);
+        }
+        $scope.clearSearch=function(x){
+            $scope.shwomor=true;
+            currPage=0;  //当前页数
+            currPage=currPage+1;
+            stsr=x;
+            if(stsr==undefined){
+                stsr=null;
+            }else if(stsr==''){
+                stsr=null;
+            }
+            var url=API.RWLISTXQ+sion.hardId+'/'+sion.sessionId+'/'+sion.userId+'/'+stsr+'/'+currPage+'/'+pageSize;//获取url
+            getServer.get(url).success(function(data,status,headers,config){
+                console.log(data);
+                if(data.resultCode==1){
+                    $scope.rwlist=data.taskList;
+                    if(data.taskList.length<10){
+                        $scope.shwomor=false;
+                    }
+                }else{
+                    $cordovaToast.showShortCenter(data.resultInfo);
+                }
+            }).error(function(data,status,headers,config){
+                console.log(data);
+                $cordovaToast.showShortCenter('连接服务器失败啦!');
+            });
+        }
 
 
 }])
+//任务详情
+.controller('rwlistCtrl',['$scope','$ionicHistory','postServer','$ionicPopup','$stateParams','$cordovaToast','$state','$timeout','sessionService','getServer','$cordovaContacts', function($scope,$ionicHistory,postServer,$ionicPopup,$stateParams,$cordovaToast,$state,$timeout,sessionService,getServer,$cordovaContacts) {
+        var ids=$stateParams.ids;
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
 
+        var sion=sessionService.getsession();//获取缓存数据
+        var url=API.RWXQ+sion.hardId+'/'+sion.sessionId+'/'+ids+'/'+sion.userId;//获取url
+        getServer.get(url).success(function(data,status,headers,config){
+            console.log(data);
+            if(data.resultCode==1){
+               $scope.tlk=data.task;
+            }else{
+                $cordovaToast.showShortCenter(data.resultInfo);
+            }
+        }).error(function(data,status,headers,config){
+            $cordovaToast.showShortCenter('连接服务器失败啦!');
+        });
 
+        //删除
+        $scope.delrw=function(y){
+            $ionicPopup.confirm({
+                title: '确认',
+                content: '是否删除任务?',
+                cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
+                cancelType: '', // String (默认: 'button-default')。取消按钮的类型。
+                okText: '确认', // String (默认: 'OK')。OK按钮的文字。
+                okType: '' // String (默认: 'button-positive')。OK按钮的类型。
+            }).then(function (res) {
+                if (res) {
+                  var urls=API.WCRW;
+                  var ps={'hardId':sion.hardId,'sessionId':sion.sessionId,'taskId':y};
+                    ps=angular.fromJson(ps);
+                    postServer.post(urls,ps).success(function(data,status,headers,config){
+                        console.log(data);
+                        if(data.resultCode==1){
+                            $ionicHistory.goBack();
+                            $cordovaToast.showShortCenter(data.resultInfo);
+                        }else{
+                            $cordovaToast.showShortCenter(data.resultInfo);
+                        }
+                    }).error(function(data,status,headers,config){
+                        console.log(data);
+                        $cordovaToast.showShortCenter('连接服务器失败啦!');
+                    });
+                } else {
+                    //console.log('You are not sure');
+                }
+            });
+        }
+        }])
+//任务修改
+.controller('rweditCtrl',function($scope,$filter,postServer,$ionicHistory,$stateParams,$cordovaToast,sessionService,$cordovaContacts) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
+        var stlk=angular.fromJson($stateParams.ids);
+        $scope.tlk=stlk;
+        //$scope.tlk.completeDate=new Date();
+        var  dates = $filter('date')($scope.tlk.completeDate, "yyyy-MM-dd")
+        var d = new Date(dates);
+        $scope.tlk.completeDate=d;
+       var sion=sessionService.getsession();//获取缓存数据
+       var tlks={
+            'hardId':sion.hardId,
+            'sessionId':sion.sessionId,
+            'userId':sion.userId
+       }
+      var tpp=angular.fromJson(tlks);
+        $scope.reqister=function(u){
+            var obj=angular.extend({}, u, tpp);//合并两个对象
+            var  dates = $filter('date')(obj.completeDate, "yyyy-MM-dd");
+            obj.completeDate=dates;
+            var urls=API.XGTJRW;//获取url
+            console.log(obj);
+            postServer.post(urls,obj).success(function(data,status,headers,config){
+                console.log(data);
+                if(data.resultCode==1){
+                    $ionicHistory.goBack();
+                    $cordovaToast.showShortCenter(data.resultInfo);
+                }else{
+                    $cordovaToast.showShortCenter(data.resultInfo);
+                }
+            }).error(function(data,status,headers,config){
+                $cordovaToast.showShortCenter('连接服务器失败啦!');
+            });
+        }
+    })
 //客户
 .controller('khController',['$scope','$cordovaToast','$cordovaSms','$ionicPopup','$timeout','sessionService','$state','getServer', function($scope,$cordovaToast,$cordovaSms,$ionicPopup,$timeout,sessionService,$state,getServer) {
         //添加客户
@@ -449,11 +439,11 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         var sion=sessionService.getsession();//获取缓存数据
 
             currPage=currPage+1;
-            console.log(1+"---"+stsr+"--"+currPage);
 
-        var url=API.KHLIST+sion.hardId+'/'+sion.sessionId+'/'+stsr+'/'+sion.areaCode+'/'+currPage+'/'+pageSize;//获取url
+        var url=API.KHLIST+sion.hardId+'/'+sion.sessionId+'/'+stsr+'/'+sion.areaCode+'/'+sion.userId+'/'+currPage+'/'+pageSize;//获取url
        //客户列表查询
         getServer.get(url).success(function(data,status,headers,config){
+            console.log(data);
             if(data.resultCode==1){
 
                 $scope.khlist=data.custList;
@@ -477,8 +467,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                     stsr=null;
                 }
                // console.log(currPage+"88");
-                var url=API.KHLIST+sion.hardId+'/'+sion.sessionId+'/'+stsr+'/'+sion.areaCode+'/'+currPage+'/'+pageSize;//获取url
-                console.log(2+"---"+stsr+"--"+currPage);
+                var url=API.KHLIST+sion.hardId+'/'+sion.sessionId+'/'+stsr+'/'+sion.areaCode+'/'+sion.userId+'/'+currPage+'/'+pageSize;//获取url
                 //客户列表查询
                 getServer.get(url).success(function(data,status,headers,config){
                     if(data.resultCode==1){
@@ -506,13 +495,12 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             currPage=0;  //当前页数
             currPage=currPage+1;
                stsr=$scope.khry;
-           // alert($scope.khry);
             if(stsr==undefined){
                 stsr=null;
             }else if(stsr==''){
                 stsr=null;
             }
-                var urls=API.KHLIST+sion.hardId+'/'+sion.sessionId+'/'+stsr+'/'+sion.areaCode+'/'+currPage+'/'+pageSize;//获取url
+                var urls=API.KHLIST+sion.hardId+'/'+sion.sessionId+'/'+stsr+'/'+sion.areaCode+'/'+sion.userId+'/'+currPage+'/'+pageSize;//获取url
                 //客户列表查询
                 getServer.get(urls).success(function(data,status,headers,config){
                     if(data.resultCode==1){
@@ -563,11 +551,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
 
 }])
 
-//待完成,已过期,完成
-.controller('DashCtrl'['$scope', function($scope) {
 
-
-}])
 //我的同事
 .controller('wdtsCtrl',['$scope','$cordovaToast','$state','$ionicHistory','sessionService','getServer', function($scope,$cordovaToast,$state,$ionicHistory,sessionService,getServer) {
         $scope.goBack=function(){
@@ -576,6 +560,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         var sion=sessionService.getsession();//获取缓存数据
         var url=API.BMLIST+sion.hardId+"/"+sion.sessionId+'/'+sion.departId+'/'+sion.areaCode;
         getServer.get(url).success(function(data,status,headers,config){
+            console.log(data);
             if(data.resultCode==1){
                 $scope.list=data.departList;
                 console.log(data);
@@ -588,7 +573,6 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
 
         $scope.opens=function(x,y){
             if(x!=0){
-                //console.log(u);
                 $state.go('bm',{ids:y});
             }
         }
@@ -598,6 +582,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
+
         var ids=$stateParams.ids;
         var sion=sessionService.getsession();//获取缓存数据
         var url=API.BMRYLIST+sion.hardId+"/"+sion.sessionId+"/"+ids;
@@ -610,6 +595,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         }).error(function(data,status,headers,config){
             $cordovaToast.showShortCenter('连接服务器失败啦!');
         });
+
         //发送短信
         $scope.sendDx=function(y){
             $scope.date = {
@@ -634,11 +620,25 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
 
     }])
 //新增客户
- .controller('addkhCtrl',['$scope','$cordovaToast','postServer','sessionService','$ionicHistory','$ionicModal','$cordovaContacts', function($scope,$cordovaToast,postServer,sessionService,$ionicHistory,$ionicModal,$cordovaContacts) {
+ .controller('addkhCtrl',['$scope','getServer','$cordovaToast','postServer','sessionService','$ionicHistory','$ionicModal','$cordovaContacts', function($scope,getServer,$cordovaToast,postServer,sessionService,$ionicHistory,$ionicModal,$cordovaContacts) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
         var sion=sessionService.getsession();//获取缓存数据
+
+        var  urls=API.ZPRWLIST+sion.hardId+'/'+sion.sessionId+'/'+sion.userId;
+        getServer.get(urls).success(function(data,status,headers,config){
+            if(data.resultCode==1){
+                console.log(data);
+                $scope.users=data.projrctList;
+            }else{
+                //$cordovaToast.showShortCenter(data.resultInfo);
+
+            }
+        }).error(function(data,status,headers,config){
+            $cordovaToast.showShortCenter('连接服务器失败啦!');
+        });
+
         $scope.kh={
             'hardId':sion.hardId,
             'sessionId':sion.sessionId,
@@ -648,12 +648,13 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             'customerJob':'',
             'unitAddress':'',
             'userId':sion.userId,
-            'areaCode':sion.areaCode
+            'areaCode':sion.areaCode,
+            'projectAreaCode':''
         }
 
         $scope.reqister=function(kh){
-            console.log(kh);
             var url=API.ADDKH;
+            console.log(kh);
             postServer.post(url,kh).success(function(data,status,headers,config){
             if(data.resultCode==1){
                 console.log(data.resultInfo);
@@ -834,39 +835,23 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         var url=API.ADDXM;
 
         $scope.reqister=function(xm){
-            var ax={
-                'id':'',
-                'ownerName':xm.ownerName,//业主单位名称
-                'ownerPerson':xm.ownerPerson,//业主单位负责人
-                'ownerPhone':xm.ownerPhone,//业主负责人电话
-                'ownerAddress':xm.ownerAddress,//业主单位地址
-                'technicalEngineer':xm.technicalEngineer,//技术总工
-                'engineerPhone':xm.engineerPhone//技术总工电话
-            }
-           var  as={
-                'id':'',
-                'designName':xm.designName,//设计单位名称
-                'designPerson':xm.designPerson,//设计单位负责人
-                'designPhone':xm.designPhone,//设计负责人电话
-                'designAddress':xm.designAddress//设计单位地址
-            }
-            yzfadd.push(ax);
-            sjdwadd.push(as);
 
-//            var osr=yzfadd.toString();
-//            console.log(angular.fromJson(osr));
+            if(yzfadd.length==0 && sjdwadd.length==0){
+                $cordovaToast.showShortCenter('必须填写一个业主方或者单位!');
+                return false;
+            }
+
             xm.yzflist=yzfadd;
             xm.sjdwlist=sjdwadd;
+
+
 //          pst=angular.fromJson(pst);
 //           var obj=angular.extend({}, xm, pst);//合并两个对象
 //            obj=angular.fromJson(xm);//字符串装json对象
             obj=angular.toJson(xm);  //json对象转字符串
             console.log(obj);
             postServer.post(url,obj).success(function(data,status,headers,config){
-//                console.log(data);
-//                console.log(status);
-//                console.log(headers);
-//                console.log(config);
+
                 if(data.resultCode==1){
                 console.log(data.resultInfo);
                     $ionicHistory.goBack();
@@ -914,10 +899,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
         $scope.newReplie=function(x){//
 
-//          if(x.ownerName==''){
-//              $cordovaToast.showShortCenter('请填写业单位名称!');
-//              return false;
-//          }
+
             if(x.ownerPerson==''){
                 $cordovaToast.showShortCenter('请填写业主单位负责人!');
                 return false;
@@ -935,9 +917,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
 
 
             obc=obc+1;
-//            console.log(obc);
             x.id=obc;
-//            console.log(x);
             yzfadd.push(x);
             console.log(yzfadd);
             $scope.contact=yzfadd;
@@ -1223,30 +1203,53 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
 
         }
     }])
-//项目详情
-    .controller('xmxqCtrl',['$scope','$ionicPopup','$cordovaToast','$ionicHistory','$ionicModal','postServer','sessionService','$stateParams','getServer', function($scope,$ionicPopup,$cordovaToast,$ionicHistory,$ionicModal,postServer,sessionService,$stateParams,getServer) {
+
+    //项目驳回
+.controller('xmbhCtrl',['$scope','$ionicPopup','$cordovaToast','$ionicHistory','$ionicModal','postServer','sessionService','$stateParams','getServer', function($scope,$ionicPopup,$cordovaToast,$ionicHistory,$ionicModal,postServer,sessionService,$stateParams,getServer) {
         $scope.goBack=function(){
             $ionicHistory.goBack();
         }
-        $scope.spzt={};
-        $scope.ysp=false;
-        $scope.sfbh=false;
+        $scope.toggleGroup = function(group) {
+            group.id = !group.id;
+        };
+        $scope.toggleGroups = function(group) {
+            group.id = !group.id;
+        };
+
+
+        $scope.isGroupShown = function(group) {
+            return group.id;
+        };
+        $scope.isGroupShowns = function(group) {
+            return group.id;
+        };
+
+
+        $scope.pp={};
+        $scope.pp.yzf=false;
+        $scope.showyzf=function(){
+            var t=$scope.pp.yzf;
+            if(t==true){
+                $scope.pp.yzf=false;
+            }else{
+                $scope.pp.yzf=true;
+            }
+        }
         var projectsId=undefined;
         var ids=$stateParams.ids;
+        var idy=$stateParams.idy;
         var sion=sessionService.getsession();//获取缓存数据
-        var url=API.XMXQ+sion.hardId+'/'+sion.sessionId+'/'+ids;
+        var url=API.XMXQ+sion.hardId+'/'+sion.sessionId+'/'+ids+'/'+idy;
         getServer.get(url).success(function(data,status,headers,config){
+             console.log(data);
             if(data.resultCode==1){
-                if(data.addProject.projectType==1){
-                    $scope.ysp=true;
-                    $scope.sfbh=false;
-                    $scope.spzt=true;
-                }else{
-                    $scope.sfbh=true;
-                    $scope.ysp=false;
+               for(var i=0;i<data.addProject.ownerList.length;i++){
+                   data.addProject.ownerList[i].id=false;
+               }
+                for(var k=0;k<data.addProject.designList.length;k++){
+                    data.addProject.designList[k].id=false;
                 }
-                $scope.x=data.addProject;
-                console.log(data);
+                $scope.xm=data.addProject;
             }else{
                 $cordovaToast.showShortCenter(data.resultInfo);
             }
@@ -1275,7 +1278,6 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                     tr=angular.fromJson(tr);
                     postServer.post(urlss,tr).success(function(data,status,headers,config){
                         if(data.resultCode==1){
-                            console.log(data.resultInfo);
                             $ionicHistory.goBack();
                             $cordovaToast.showShortCenter(data.resultInfo);
                         }else{
@@ -1349,14 +1351,14 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                         'salePerson':strid
                     }
                     tr=angular.fromJson(tr);
+                    console.log(tr);
                     postServer.post(urlss,tr).success(function(data,status,headers,config){
                         if(data.resultCode==1){
                             console.log(data);
-                            $scope.ysp=true;
-                            $scope.sfbh=false;
-                            $scope.spzt=true;
                             $scope.newReplieModal.hide();
                             strid=undefined;
+                            $ionicHistory.goBack();
+                            $cordovaToast.showShortCenter(data.resultInfo);
                         }else{
                             $cordovaToast.showShortCenter(data.resultInfo);
                         }
@@ -1373,6 +1375,453 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             $scope.newReplieModal.hide();
         }
 
+    }])
+
+//项目详情
+    .controller('xmxqCtrl',['$scope','$ionicPopup','$cordovaToast','$ionicHistory','$ionicModal','postServer','sessionService','$stateParams','getServer', function($scope,$ionicPopup,$cordovaToast,$ionicHistory,$ionicModal,postServer,sessionService,$stateParams,getServer) {
+        $scope.goBack=function(){
+            $ionicHistory.goBack();
+        }
+        $scope.pp={};
+        $scope.pp.yzf=false;
+        $scope.pp.sjdw=false;
+        $scope.pp.zbf=false;
+        //$scope.visible = !$scope.visible;
+        $scope.showyzf=function(){
+            var t=$scope.pp.yzf;
+            if(t==true){
+                $scope.pp.yzf=false;
+            }else{
+                $scope.pp.yzf=true;
+            }
+        }
+        $scope.showsjdw=function(){
+            var t=$scope.pp.sjdw;
+            if(t==true){
+                $scope.pp.sjdw=false;
+            }else{
+                $scope.pp.sjdw=true;
+            }
+        }
+        $scope.zbfshow=function(){
+            var t=$scope.pp.zbf;
+            if(t==true){
+                $scope.pp.zbf=false;
+            }else{
+                $scope.pp.zbf=true;
+            }
+        }
+        var sion=sessionService.getsession();//获取缓存数据
+        $scope.xm={
+            'userId':sion.userId, //用户ID
+            'projectsheng':'',//省
+            'projectAreaCode':'',//市
+            'resourceSituation':'',//资源情况
+            'projectsName':'',//项目名称
+            'projectsAdd':'',//项目地址
+            'projectsScale':'',//建设规模
+            'structuralStyle':'',//结构形式
+            'functionDesc':'',//使用功能和平面布局
+            'projectsProgress':'',//目前项目进展
+            'followupStatus':'',//目前跟进状态
+            'ownerName':'',//业主单位名称
+            'ownerPerson':'',//业主单位负责人
+            'ownerPhone':'',//业主负责人电话
+            'ownerAddress':'',//业主单位地址
+            'technicalEngineer':'',//技术总工
+            'engineerPhone':'',//技术总工电话
+            'designName':'',//设计单位名称
+            'designPerson':'',//设计单位负责人
+            'designPhone':'',//设计单位电话
+            'designAddress':'',//设计单位地址
+            'enginName':'',//土建单位名称
+            'enginPerson':'',//土建单位负责人
+            'enginPhone':'',//土建单位电话
+            'enginAddress':'',//土建单位地址
+            'hardId':sion.hardId,
+            'sessionId':sion.sessionId,
+            'areaCode':sion.areaCode, //区域id
+            'yzflist':'',
+            'sjdwlist':''
+
+        }
+        var projectsId=undefined;
+        var ids=$stateParams.ids;
+        var idy=$stateParams.idy;
+        var idz=$stateParams.idz;
+        var xmzt='';
+        if(idz==2){
+            xmzt='已终止';
+        }else if(idz==3){
+            xmzt='进行中';
+        }else if(idz==4){
+            xmzt='合同中';
+        }
+        $scope.xmzts=xmzt;
+        var url=API.XMXQ+sion.hardId+'/'+sion.sessionId+'/'+ids+'/'+idy;
+        getServer.get(url).success(function(data,status,headers,config){
+            if(data.resultCode==1){
+                $scope.xm=data.addProject;
+                console.log(data);
+            }else{
+                $cordovaToast.showShortCenter(data.resultInfo);
+            }
+        }).error(function(data,status,headers,config){
+            $cordovaToast.showShortCenter('连接服务器失败啦!');
+        });
+
+        $scope.reqister=function(u){
+
+            var urlss=API.EDITXM;
+            u.userId=sion.userId; //用户ID
+            u.hardId=sion.hardId;
+            u.sessionId=sion.sessionId;
+            u.yzflist=yzfadd;
+            u.sjdwlist=sjdwadd;
+            obj=angular.toJson(u);  //json对象转字符串
+            //console.log(obj);
+            postServer.post(urlss,obj).success(function(data,status,headers,config){
+                if(data.resultCode==1){
+                    console.log(data.resultInfo);
+                    $ionicHistory.goBack();
+                    $cordovaToast.showShortCenter(data.resultInfo);
+                }else{
+//                    console.log(data.resultInfo);
+                    $cordovaToast.showShortCenter(data.resultInfo);
+                }
+            }).error(function(data,status,headers,config){
+                $cordovaToast.showShortCenter('连接服务器失败啦!');
+            });
+        }
+
+        //初始化对象业主方
+        function  newaccyzf(){
+            $scope.addxzf={
+                'id':'',
+                'ownerName':'',//业主单位名称
+                'ownerPerson':'',//业主单位负责人
+                'ownerPhone':'',//业主负责人电话
+                'ownerAddress':'',//业主单位地址
+                'technicalEngineer':'',//技术总工
+                'engineerPhone':''//技术总工电话
+            }
+        }
+
+        $scope.addxzf={
+            'id':'',
+            'ownerName':'',//业主单位名称
+            'ownerPerson':'',//业主单位负责人
+            'ownerPhone':'',//业主负责人电话
+            'ownerAddress':'',//业主单位地址
+            'technicalEngineer':'',//技术总工
+            'engineerPhone':''//技术总工电话
+        }
+
+
+        //添加业主方页面
+        $ionicModal.fromTemplateUrl('templates/xm-addyzf.html', {  //打开view所在的model
+            scope: $scope,    //注入一个对象
+            animation: 'slide-in-up', //动画
+            backdropClickToClose:true  //点击背景是否隐藏默认true
+            //第一个输入是否获取焦点
+        }).then(function(modal){
+            $scope.newReplieModal = modal; //显示视图
+        });
+
+        //添加业主方弹出页面
+        $scope.showLayer=function(){
+            $scope.newReplieModal.show();
+        }
+        $scope.contact=[];
+        var yzfadd=[];
+        var obc=1;
+        //提交数据页面
+        var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+        $scope.newReplie=function(x){//
+
+            if(x.ownerPerson==''){
+                $cordovaToast.showShortCenter('请填写业主单位负责人!');
+                return false;
+            }
+            if(!reg.test(x.ownerPhone)){
+                $cordovaToast.showShortCenter('请填写正确的业主负责人手机号码!');
+                return false;
+            }
+            if(x.engineerPhone!=''){
+                if(!reg.test(x.engineerPhone)){
+                    $cordovaToast.showShortCenter('请填写正确的技术总工手机号码!');
+                    return false;
+                }
+            }
+            obc=obc+1;
+//            console.log(obc);
+            x.id=obc;
+//            console.log(x);
+            yzfadd.push(x);
+            console.log(yzfadd);
+            $scope.contact=yzfadd;
+            $scope.newReplieModal.hide();
+            newaccyzf();
+
+
+        }
+        //关闭页面
+        $scope.newReplieModalst=function(){
+            $scope.newReplieModal.hide();
+            newaccyzf();
+        }
+        $ionicModal.fromTemplateUrl('templates/xm-edityzf.html', {  //打开view所在的model
+            scope: $scope,    //注入一个对象
+            animation: 'slide-in-up', //动画
+            backdropClickToClose:true  //点击背景是否隐藏默认true
+            //第一个输入是否获取焦点
+        }).then(function(modal){
+            $scope.newReplieModals = modal; //显示视图
+        });
+
+
+        $scope.editxzf={
+            'id':'',
+            'ownerName':'',//业主单位名称
+            'ownerPerson':'',//业主单位负责人
+            'ownerPhone':'',//业主负责人电话
+            'ownerAddress':'',//业主单位地址
+            'technicalEngineer':'',//技术总工
+            'engineerPhone':''//技术总工电话
+        }
+
+        //业主方详情
+        $scope.xqyzf=function(k){
+            for(var i=0;i<yzfadd.length;i++){
+                if(yzfadd[i].id==k){
+                    $scope.editxzf={
+                        'id':k,
+                        'ownerName':yzfadd[i].ownerName,//业主单位名称
+                        'ownerPerson':yzfadd[i].ownerPerson,//业主单位负责人
+                        'ownerPhone':yzfadd[i].ownerPhone,//业主负责人电话
+                        'ownerAddress':yzfadd[i].ownerAddress,//业主单位地址
+                        'technicalEngineer':yzfadd[i].technicalEngineer,//技术总工
+                        'engineerPhone':yzfadd[i].engineerPhone//技术总工电话
+                    }
+
+                }
+            }
+            $scope.newReplieModals.show();
+            console.log(k);
+
+        }
+        //关闭页面
+        $scope.scnewReplieModals=function(){
+            $scope.newReplieModals.hide();
+
+        }
+        //提交修改页面
+        $scope.tjnewReplie=function(y){
+            if(y.ownerPerson==''){
+                $cordovaToast.showShortCenter('请填写业主单位负责人!');
+                return false;
+            }
+            if(!reg.test(y.ownerPhone)){
+                $cordovaToast.showShortCenter('请填写正确的业主负责人手机号码!');
+                return false;
+            }
+            if(y.engineerPhone!=''){
+                if(!reg.test(y.engineerPhone)){
+                    $cordovaToast.showShortCenter('请填写正确的技术总工手机号码!');
+                    return false;
+                }
+            }
+
+            for(var z=0;z<yzfadd.length;z++){
+                if(y.id==yzfadd[z].id){
+                    yzfadd[z].ownerName=y.ownerName,//业主单位名称
+                        yzfadd[z].ownerPerson=y.ownerPerson,//业主单位负责人
+                        yzfadd[z].ownerPhone=y.ownerPhone,//业主负责人电话
+                        yzfadd[z].ownerAddress=y.ownerAddress,//业主单位地址
+                        yzfadd[z].technicalEngineer=y.technicalEngineer,//技术总工
+                        yzfadd[z].engineerPhone=y.engineerPhone//技术总工电话
+                }
+            }
+//            console.log(yzfadd);
+            $scope.contact=yzfadd;
+            $scope.newReplieModals.hide();
+        }
+        //删除方法
+        $scope.delyzf=function(y){
+            $ionicPopup.confirm({
+                title: '确认',
+                content: '确认删除?',
+                cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
+                cancelType: '', // String (默认: 'button-default')。取消按钮的类型。
+                okText: '确认', // String (默认: 'OK')。OK按钮的文字。
+                okType: '' // String (默认: 'button-positive')。OK按钮的类型。
+            }).then(function (res) {
+                if (res) {
+                    var filterarray = $.grep(yzfadd,function(value){
+                        return value.id != y;//筛选出大于5的
+                    });
+                    yzfadd=filterarray;
+                    $scope.contact=yzfadd;
+                    console.log(yzfadd);
+
+                } else {
+                    console.log('You are not sure');
+                }
+            });
+        }
+
+        //------------------------------------------------------设计单位
+        $scope.addsjdw={
+            'id':'',
+            'designName':'',//设计单位名称
+            'designPerson':'',//设计单位负责人
+            'designPhone':'',//设计负责人电话
+            'designAddress':''//设计单位地址
+        }
+
+
+        //添加设计单位页面
+        $ionicModal.fromTemplateUrl('templates/xm-addsjdw.html', {  //打开view所在的model
+            scope: $scope,    //注入一个对象
+            animation: 'slide-in-up', //动画
+            backdropClickToClose:true  //点击背景是否隐藏默认true
+            //第一个输入是否获取焦点
+        }).then(function(modal){
+            $scope.newReplieModaladdsjdw = modal; //显示视图
+        });
+
+        //添加业主方弹出页面
+        $scope.showSjdw=function(){
+            $scope.newReplieModaladdsjdw.show();
+        }
+
+        $scope.sjdwlist=[];
+        var sjdwadd=[];
+        var cbo=1;
+        //提交数据页面
+        $scope.newRepliesjdw=function(x){
+
+            if(x.designPerson==''){
+                $cordovaToast.showShortCenter('请填写设计单位负责人!');
+                return false;
+            }
+            if(!reg.test(x.designPhone)){
+                $cordovaToast.showShortCenter('请填写正确的设计单位负责人手机号码!');
+                return false;
+            }
+
+            cbo=cbo+1;
+            x.id=cbo;
+            sjdwadd.push(x);
+            console.log(sjdwadd);
+            $scope.sjdwlist=sjdwadd;
+            $scope.newReplieModaladdsjdw.hide();
+            newaccsjdw();
+
+
+        }
+        //关闭页面
+        $scope.newReplieModalstsjdw=function(){
+            $scope.newReplieModaladdsjdw.hide();
+            newaccsjdw();
+        }
+        //初始化对象设计单位
+        function  newaccsjdw(){
+            $scope.addsjdw={
+                'id':'',
+                'designName':'',//设计单位名称
+                'designPerson':'',//设计单位负责人
+                'designPhone':'',//设计负责人电话
+                'designAddress':''//设计单位地址
+            }
+        }
+
+        $ionicModal.fromTemplateUrl('templates/xm-editsjdw.html', {  //打开view所在的model
+            scope: $scope,    //注入一个对象
+            animation: 'slide-in-up', //动画
+            backdropClickToClose:true  //点击背景是否隐藏默认true
+            //第一个输入是否获取焦点
+        }).then(function(modal){
+            $scope.newReplieModalseditsjdw = modal; //显示视图
+        });
+
+
+        $scope.editsjdw={
+            'id':'',
+            'designName':'',//设计单位名称
+            'designPerson':'',//设计单位负责人
+            'designPhone':'',//设计负责人电话
+            'designAddress':''//设计单位地址
+        }
+
+        //业主方详情
+        $scope.xqsjdw=function(k){
+            for(var i=0;i<sjdwadd.length;i++){
+                if(sjdwadd[i].id==k){
+                    $scope.editsjdw={
+                        'id':k,
+                        'designName':sjdwadd[i].designName,//业主单位名称
+                        'designPerson':sjdwadd[i].designPerson,//业主单位负责人
+                        'designPhone':sjdwadd[i].designPhone,//业主负责人电话
+                        'designAddress':sjdwadd[i].designAddress//业主单位地址
+
+                    }
+
+                }
+            }
+            $scope.newReplieModalseditsjdw.show();
+        }
+        //关闭页面
+        $scope.newReplieModalstsjdwedit=function(){
+            $scope.newReplieModalseditsjdw.hide();
+        }
+        //提交修改页面
+        $scope.newRepliesjdwedit=function(y){
+            if(y.designPerson==''){
+                $cordovaToast.showShortCenter('请填写设计单位负责人!');
+                return false;
+            }
+            if(!reg.test(y.designPhone)){
+                $cordovaToast.showShortCenter('请填写正确的设计单位负责人手机号码!');
+                return false;
+            }
+
+            for(var z=0;z<sjdwadd.length;z++){
+                if(y.id==sjdwadd[z].id){
+                    sjdwadd[z].designName=y.designName,//业主单位名称
+                        sjdwadd[z].designPerson=y.designPerson,//业主单位负责人
+                        sjdwadd[z].designPhone=y.designPhone,//业主负责人电话
+                        sjdwadd[z].designAddress=y.designAddress//业主单位地址
+                }
+            }
+            $scope.sjdwlist=sjdwadd;
+            $scope.newReplieModalseditsjdw.hide();
+//            console.log(sjdwadd);
+        }
+        //删除方法
+        $scope.delsjdw=function(y){
+            $ionicPopup.confirm({
+                title: '确认',
+                content: '确认删除?',
+                cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
+                cancelType: '', // String (默认: 'button-default')。取消按钮的类型。
+                okText: '确认', // String (默认: 'OK')。OK按钮的文字。
+                okType: '' // String (默认: 'button-positive')。OK按钮的类型。
+            }).then(function (res) {
+                if (res) {
+                    var filterarray = $.grep(sjdwadd,function(value){
+                        return value.id != y;//筛选出删除的
+                    });
+                    sjdwadd=filterarray;
+                    $scope.sjdwlist=sjdwadd;
+                    console.log(sjdwadd);
+
+                } else {
+                    console.log('You are not sure');
+                }
+            });
+
+        }
     }])
 //我的消息
     .controller('wdxxCtrl',['$scope','$ionicHistory', function($scope,$ionicHistory) {
@@ -1402,28 +1851,11 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                 okType: '' // String (默认: 'button-positive')。OK按钮的类型。
             }).then(function (res) {
                 if (res) {
-                  //  $ionicHistory.clearCache();
-//                    var url=API.TCDL;
-//                    var sion=sessionService.getsession();//获取缓存数据
-//                    var da={
-//                        'hardId':sion.hardId,
-//                        'sessionId':sion.sessionId,
-//                        'userId':sion.userId
-//                    }
-//                    da=angular.fromJson(da);
-//                    postServer.post(url,da).success(function(data,status,headers,config){
-//                        if(data.resultCode==1){
                            var cach=$cacheFactory.get('cacheId');
                                // cach.remove('sion');
                                 cach.removeAll();
                             $state.go("login");
                             console.log(cach.get('sion'));
-//                        }else{
-//                            $cordovaToast.showShortCenter(data.resultInfo);
-//                        }
-//                    }).error(function(data,status,headers,config){
-//                        $cordovaToast.showShortCenter('连接服务器失败啦!');
-//                    });
                 } else {
                     //console.log('You are not sure');
                 }
@@ -1491,13 +1923,10 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                         var ul=t.netPath;
                         window.open(ul);
                     }
-
                   } else {
                       // 取消更新
                   }
               });
-
-
           }
 
     }])
@@ -1512,7 +1941,9 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         }
         $scope.selectshow=false;
         var sion=sessionService.getsession();//获取缓存数据
-        $scope.tlk={taskDesc:'',completeDate:'',followupStatus:'','relationProject':'','hardId':sion.hardId,'sessionId':sion.sessionId,'userId':sion.userId};
+
+
+        $scope.tlk={taskDesc:'',completeDate:new Date(),followupStatus:'','relationProject':'','hardId':sion.hardId,'sessionId':sion.sessionId,'userId':sion.userId};
 
         $scope.showxmjd=function(x){
             if(x!=null){
@@ -1523,17 +1954,12 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             }
         }
 
-
-
         $scope.reqister=function(u){
-            var d1=u.completeDate;
             var d2=new Date();//取今天的日期
-             if(d1<d2){
-                 $cordovaToast.showShortCenter("完成时间必须大于今天");
-                 return false;
-             }
-          var  date = $filter('date')(d1, "yyyy-MM-dd");
-            u.completeDate=date;
+            var d1=u.completeDate;
+
+          var  dates = $filter('date')(d1, "yyyy-MM-dd");
+            u.completeDate=dates;
 
             var url=API.ADDRW;
             console.log(u);
@@ -1549,11 +1975,6 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                 $cordovaToast.showShortCenter('连接服务器失败啦!');
             });
         }
-
-
-            // 触发一个按钮点击，或一些其他目标
-         //   $scope.showPopup = function () {
-
                 var  urls=API.ZPRWLIST+sion.hardId+'/'+sion.sessionId+'/'+sion.userId;
                 getServer.get(urls).success(function(data,status,headers,config){
                     if(data.resultCode==1){
@@ -1566,13 +1987,6 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                 }).error(function(data,status,headers,config){
                     $cordovaToast.showShortCenter('连接服务器失败啦!');
                 });
-
-
-
-
-
-
-
     }])
 //修改密码
     .controller('xgmmCtrl',['$scope','$cordovaToast','postServer','sessionService','$ionicHistory', function($scope,$cordovaToast,postServer,sessionService,$ionicHistory) {
@@ -1629,15 +2043,14 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             'unitName':'',
             'customerJob':''
         };
-
         var ids=$stateParams.ids;
         var sion=sessionService.getsession();//获取缓存数据
         var url=API.KHGRXX+sion.hardId+'/'+sion.sessionId+'/'+ids;//获取url
         getServer.get(url).success(function(data,status,headers,config){
+            console.log(data);
             if(data.resultCode==1){
-                //$scope.khlist=data.custList;
                 $scope.kh=data.cust;
-                console.log($scope.kh);
+
             }else{
                 $cordovaToast.showShortCenter(data.resultInfo);
             }
@@ -1703,10 +2116,6 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                 });
 
         }
-
-
-
-
     }])
 //修改客户信息修改
     .controller('editkhCtrl',['$scope','$cordovaToast','$filter','$ionicHistory','sessionService','$stateParams','postServer',function($scope,$cordovaToast,$filter,$ionicHistory,sessionService,$stateParams,postServer) {
@@ -1724,6 +2133,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
            pst=angular.fromJson(pst);
           $scope.reqister=function(ks) {
             var obj=angular.extend({}, ks, pst);//合并两个对象
+            console.log(obj);
             postServer.post(url, obj).success(function (data, status, headers, config) {
                 if(data.resultCode==1){
                     console.log(data.resultInfo);
@@ -1765,7 +2175,6 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             tel=$scope.test.phone;
             if(!reg.test(tel) ){
                 $cordovaToast.showShortCenter("请输入正确的手机号码");
-               // alert('请输入正确的手机号码');
                 return  false;
             }
             var hardId=hardIds;
@@ -1848,10 +2257,4 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             //alert(currentDate);
        // alert($filter("date")(currentDate.valueOf(), "yyyy-MM-dd hh:mm:ss"));
 
-    }])
-
-
-
-
-
-;
+    }]);

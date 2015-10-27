@@ -1,141 +1,106 @@
-<ion-view view-title="项目详情">
-
+<ion-view view-title="项目修改({{xmzts}})">
     <ion-nav-buttons>
         <button class="button icon-left ion-ios-arrow-left button-clear" ng-click="goBack()"></button>
     </ion-nav-buttons>
 
-    <ion-content class="padding">
 
+    <ion-content class="padding" scroll="true"  style="background:#EBEBEB">
+        <form name="fn" ng-submit="reqister(xm)">
+            <div class="warrper" style="padding-bottom:78px;">
 
-        <div class="warrper">
-
-            <div class="xm-title">
-                <div class="xm-name">{{x.projectsName}}</div>
-                <div class="xm-date">{{x.createDate}}</div>
-            </div>
-
-
-
-            <div class="list">
-            <p class="list-title">项目详情：</p>
-            <label class="item  item-inset item-input" style="height:30px; border-bottom:0;">
-            <span class="input-label" style="width:70px; font-size:14px;">项目地址：</span>
-            <input type="text" ng-disabled="true" ng-model="x.projectsAdd">
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-            <span class="input-label" style="width:70px; font-size:14px;">建设规模：</span>
-            <input type="text"  ng-disabled="true" ng-model="x.projectsScale">
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-            <span class="input-label" style="width:70px; font-size:14px;">结构形式：</span>
-            <input type="text" ng-disabled="true"  ng-model="x.structuralStyle">
-            </label>
-                    <label class="item-inset item-input" style="border-bottom:0;">
-                        <span class="input-label" style="width:80px; font-size:14px;">使用功能<br />平面布局<br />描述：</span>
-                        <div style="min-height:70px; line-height:1.5; padding-right:33px;">{{x.functionDesc}}</div>
+                <div class="list list-inset">
+                    <label class="item item-input">
+                        <input type="text" ng-disabled="true"  ng-model="xm.projectsName" placeholder="项目名称  (必填)" ng-maxlength="40" required>
                     </label>
 
-                    <label class="item-inset item-input" style="border-bottom:0;">
-                        <span class="input-label" style="width:80px; font-size:14px;">项目进展：</span>
-                        <div style="min-height:0px; line-height:1.5;">{{x.projectsProgress}}</div>
+                    <label class="item item-input">
+                        <input type="text" ng-disabled="true"  ng-model="xm.projectsAdd" placeholder="详细地址  (必填)" ng-maxlength="50" required>
                     </label>
-                    <label class="item-inset item-input" style="border-bottom:1px solid #e4e4e4;">
-                        <span class="input-label" style="width:80px; font-size:14px;">跟进状态：</span>
-                        <div style="min-height:0px; line-height:1.5;">{{x.followupStatus}}</div>
+                    <label class="item item-input">
+                        <textarea  ng-model="xm.projectsScale" placeholder="建设规模 "  ng-maxlength="90"></textarea>
+                    </label>
+                    <label class="item item-input">
+                        <textarea  ng-model="xm.structuralStyle" placeholder="结构形式 " ng-maxlength="90" ></textarea>
+                    </label>
+                    <label class="item item-input">
+                        <textarea  ng-model="xm.functionDesc" placeholder="使用功能和平面布局描述  " ng-maxlength="90" ></textarea>
+                    </label>
+                    <label class="item item-input">
+                        <textarea  ng-model="xm.projectsProgress" placeholder="目前项目进展  (必填)" ng-maxlength="90" required></textarea>
+                    </label>
+                    <label class="item item-input">
+                        <textarea  ng-model="xm.resourceSituation" placeholder="资源情况  (必填)" ng-maxlength="90" required></textarea>
+                    </label>
+                    <label class="item item-input">
+                        <textarea  ng-model="xm.followupStatus" placeholder="目前跟进状态  (必填)" ng-maxlength="90" required></textarea>
                     </label>
                 </div>
-        </div>
-  <!-- ng-repeat="t in ownerList  |orderBy:contactOrder"-->
-        <div class="list" style=" border-bottom:1px solid #e4e4e4; padding-bottom:15px;" ng-repeat="t in x.ownerList  |orderBy:contactOrder ">
-            <!--<p class="list-title">业主方<span ng-bind="$index+1"></span>：</p>-->
-            <p class="list-title">业主方{{$index+1}}：</p>
-            <label class="item  item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">业主单位名称：</span>
-                <input type="text"  ng-disabled="true"  ng-model="t.ownerName" >
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">业主单位负责人：</span>
-                <input type="text"  ng-disabled="true"  ng-model="t.ownerPerson" >
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">业主负责人电话：</span>
-                <input type="text"  ng-disabled="true"  ng-model="t.ownerPhone" >
-            </label>
-            <label class="item  item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">业主单位地址：</span>
-                <input type="text"  ng-disabled="true"  ng-model="x.ownerAddress" >
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">技术总工：</span>
-                <input type="text"  ng-disabled="true"  ng-model="t.technicalEngineer" >
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">技术总工电话：</span>
-                <input type="text"  ng-disabled="true"  ng-model="t.engineerPhone" >
-            </label>
-        </div>
+
+                <div class="drop-down-box">
+                    <div ng-click="showLayer()" class="drop-down-list"><p>业主方</p><i class="drop-add"><img src="img/drop-add.png" /></i></div>
+
+                    <div class="drop-down-list"  ng-repeat="p in xm.ownerList  |orderBy:contactOrder" >
+                        <a class=""" ><p>{{p.ownerPerson}}({{p.ownerPhone}})</p></a>
+                    </div>
+
+                    <div class="drop-down-list"  ng-repeat="t in contact  |orderBy:contactOrder" >
+                        <a class="" ng-click="xqyzf(t.id)" ><p>{{t.ownerPerson}}({{t.ownerPhone}})</p></a><i  class="drop-more" style="margin-right: 11px;"><img ng-click="delyzf(t.id)" src="img/yzdel.png"></i>
+                    </div>
+                    <!--<a class="xm-add" ng-click="showLayer()">新增业主方</a>-->
+                </div>
 
 
-        <div class="list" style=" border-bottom:1px solid #e4e4e4; padding-bottom:15px;" ng-repeat="k in x.designList  |orderBy:contactOrder" >
-            <p class="list-title">设计单位{{$index+1}}：</p>
-            <label class="item  item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">设计单位名称：</span>
-                <input type="text"  ng-disabled="true"  ng-model="k.designName" >
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">设计单位负责人：</span>
-                <input type="text"  ng-disabled="true"  ng-model="k.designPerson" >
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">设计单位电话：</span>
-                <input type="text"  ng-disabled="true"  ng-model="k.designPhone" >
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">设计单位地址：</span>
-                <input type="text"  ng-disabled="true"  ng-model="k.designAddress" >
-            </label>
-        </div>
+                <div class="drop-down-box">
+                    <div ng-click="showSjdw()" class="drop-down-list"><p>设计单位</p><i class="drop-add"><img src="img/drop-add.png" /></i></div>
 
-        <div class="list" style=" border-bottom:1px solid #e4e4e4; padding-bottom:15px;">
-            <p class="list-title">土建总包方（未做深化图纸项目可不填）：</p>
-            <label class="item  item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">土建单位名称：</span>
-                <input type="text"  ng-disabled="true"  ng-model="x.enginName" >
-            </label>
-            <label class="item  item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">土建单位负责人：</span>
-                <input type="text"  ng-disabled="true"  ng-model="x.enginPerson" >
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">土建单位电话：</span>
-                <input type="text"  ng-disabled="true"  ng-model="x.enginPhone" >
-            </label>
-            <label class="item item-inset item-input" style="height:30px; border-bottom:0;">
-                <span class="input-label" style="width:70px; font-size:14px;">土建单位地址：</span>
-                <input type="text"  ng-disabled="true"  ng-model="x.enginAddress" >
-            </label>
+                    <div class="drop-down-list"  ng-repeat="k in xm.designList  |orderBy:contactOrder" >
+                        <a class=""" ><p>{{k.designPerson}}({{k.designPhone}})</p></a>
+                    </div>
+
+
+
+                    <div class="drop-down-list"  ng-repeat="t in sjdwlist  |orderBy:contactOrder" >
+                        <a class="" ng-click="xqsjdw(t.id)" ><p>{{t.designPerson}}({{t.designPhone}})</p></a><i  class="drop-more" style="margin-right: 11px;"><img ng-click="delsjdw(t.id)" src="img/yzdel.png"></i>
+                    </div>
+                    <!--<a class="xm-add" ng-click="showSjdw()">新增设计单位</a>-->
+                </div>
+
+
+                <div class="drop-down-box">
+                    <div ng-click="zbfshow()" class="drop-down-list"><p>土建总包方（未做深化图纸项目可不填）</p><i class="drop-down"><img src="img/drop-down.png" /></i></div>
+                    <div ng-show="pp.zbf">
+                        <div class="list list-inset margin-top-none">
+                            <label class="item item-input">
+                                <input  type="text"  ng-model="xm.enginName" ng-maxlength="40" placeholder="单位名称">
+                            </label>
+                            <label class="item item-input">
+                                <input  type="text"  ng-model="xm.enginPerson"ng-maxlength="20" placeholder="项目负责人">
+                            </label>
+                            <label class="item item-input">
+                                <input  type="tel"  ng-model="xm.enginPhone" ng-pattern="/^1\d{10}$/" ng-maxlength="11" placeholder="联系手机号码">
+                            </label>
+                            <label class="item item-input">
+                                <textarea  ng-model="xm.enginAddress" ng-maxlength="50" placeholder="单位地址"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="button-box" style=" margin-bottom: 70px; margin-top: 8px; margin-right: 0; margin-left: 0;">
+                    <!--<button    ng-disabled="true" class="button button-block button-positive">已审批</button>-->
+                    <button type="submit"   ng-disabled="fn.$invalid" class="button button-block button-positive">提交</button>
+                </div>
+
+
+
+
+
 
             </div>
 
-            <div class="button-box">
-            <div  ng-show="sfbh">
-            <button  ng-click="xmbh(x.projectsId)" class="button button-full button-positive" style="display: inline-block; width: 49%">驳回</button>
-            <button  ng-click="zpr(x.projectsId)" class="button button-full button-positive" style="display: inline-block; width: 49%">指派</button>
-            </div>
-            <button ng-show="ysp" ng-disabled="spzt" class="button button-full button-positive">已审批</button>
-            </div>
-
-        </div>
-
-
-
-
-
-
-
-
-
-
+        </form>
     </ion-content>
 
 

@@ -17,26 +17,14 @@
                 <i class="icon ion-search" style="font-size: 20px; margin-right: 20px;"></i>
                 <input class="light-bg" style="padding-left: 20px;" type="search" placeholder="搜索"
                        ng-model="lxr">
-                       <!--ng-keyup="change(lxr)"-->
-                       <!--ng-focus="searchFocused = true"-->
-                       <!--ng-blur="searchFocused = false"-->
-                       <!--ng-change="scrollTop()">-->
-                <!--<button ng-if="lxr.length"class="button button-icon ion-ios-close-outline input-button" ng-click="clearinput()">-->
-                <!--</button>-->
+
             </label>
         </div>
     </ion-header-bar>
 
 
 	<ion-content class="new-topics" scroll="true">
-        <!--<ion-list>-->
-            <!--<ion-item ng-repeat="t in contacts |filter:lxr |orderBy:contactOrder" class="item item-icon-right">-->
-                <!--<p>{{t.displayName}}</p>-->
-                <!--<p ng-repeat="k in t.phoneNumbers">{{k.value}}</p>-->
-                <!--<span class="badge badge-clear">{{t.phoneNumbers}}</span>-->
-            <!--</ion-item>-->
 
-        <!--</ion-list>-->
         <div class="list">
 
             <label class="item item-radio" ng-repeat="t in contacts |filter:lxr |orderBy:contactOrder" ng-click="addsj(t.displayName,t.phoneNumbers)">

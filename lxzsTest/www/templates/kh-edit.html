@@ -15,11 +15,11 @@
                     <input type="text" ng-model="kh.customerName" ng-minlength="1" placeholder="客户姓名  (必填)" required>
                 </label>
                 <label class="item item-input">
-                    <input type="tel" ng-model="kh.customerPhone" ng-minlength="11"  ng-minlength="11"  placeholder="联系电话  (必填)" required >
+                    <input type="tel" ng-model="kh.customerPhone" ng-minlength="11" ng-pattern="/^1\d{10}$/" ng-minlength="11"  placeholder="联系电话  (必填)" required >
                 </label>
-                <!--<label class="item item-input">-->
-                    <!--<input type="text" placeholder="项目名称">-->
-                <!--</label>-->
+                <label class="item item-input" ng-if="kh.productCode!='' " >
+                    <input type="text" ng-disabled="true" ng-model="kh.projectCode">
+                </label>
                 <label class="item item-input">
                     <input type="text" ng-model="kh.unitName" ng-maxlength="20" placeholder="单位名称">
                 </label>
@@ -35,7 +35,7 @@
         </div>
 
 
-        <div class="button-box" style=" margin-top: 8px;">
+        <div class="button-box" style=" margin-top: 8px; margin-right: 0; margin-left: 0;">
             <button  type="submit"  ng-disabled="fn.$invalid" class="button button-block button-positive" >提交</button>
         </div>
 

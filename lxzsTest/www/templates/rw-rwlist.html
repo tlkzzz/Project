@@ -1,0 +1,47 @@
+<ion-view title="任务详情">
+    <ion-nav-buttons>
+        <button class="button icon-left ion-ios-arrow-left button-clear" ng-click="goBack()"></button>
+    </ion-nav-buttons>
+
+    <ion-content class="padding" scroll="true" style="background:#EBEBEB;">
+            <div class="warrper">
+
+                <div class="list">
+
+                    <label class="item item-input">
+                        <span class="input-label">任务描述</span>
+                        <textarea ng-disabled="true"  ng-model="tlk.taskDesc"  ></textarea>
+                    </label>
+
+
+
+                    <label class="item item-input">
+                        <span class="input-label">完成时间</span>
+                        <input ng-disabled="true" type="text" ng-model="tlk.completeDate |date:'yyyy-MM-dd' " >
+                    </label>
+
+
+                    <label class="item item-input">
+                        <span class="input-label">
+                            关联项目
+                        </span>
+                        <input type="text" ng-disabled="true" ng-model="tlk.projectName">
+                    </label>
+
+                    <label class="item item-input">
+                        <span class="input-label">项目进度</span>
+                        <input type="text" ng-disabled="true" ng-model="tlk.followupStatus" > <!--required必填-->
+                    </label>
+
+
+                </div>
+
+            </div>
+
+            <div class="button-box"style=" margin-top: 8px; margin-right: 0; margin-left: 0;"><!--f.$invalid-->
+                <a ng-disabled="tlk.control==1" ng-href="#/rwedit/{{tlk}}" class="button button-block button-positive" >修改</a>
+                <a ng-disabled="tlk.control==1" ng-click="delrw(tlk.taskId)" class="button button-block button-positive" >删除</a>
+            </div>
+
+    </ion-content>
+</ion-view>

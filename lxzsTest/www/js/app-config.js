@@ -8,7 +8,7 @@
   * @type {string}
  */
 var SETING={
-    version: '0.0.5'
+    version: '0.0.6'
 }
 
 
@@ -24,9 +24,9 @@ var PINGJ={
 
 //主机地址
 
-//var API_HOST = 'http://aikong.f3322.net:9191/lxzsNew/';
-var API_HOST = 'http://pm.bdfkflg.cn/';
-//var API_HOST = 'http://192.168.10.31:8080/lxzs/';
+var API_HOST = 'http://aikong.f3322.net:9191/lxzsNew/';
+//var API_HOST = 'http://pm.bdfkflg.cn/';
+//var API_HOST = 'http://192.168.10.31:8081/lxzs/';
 
 var API = {
     /**

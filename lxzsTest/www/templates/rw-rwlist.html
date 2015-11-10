@@ -28,10 +28,10 @@
                         <input type="text" ng-disabled="true" ng-model="tlk.projectName">
                     </label>
 
-                    <label class="item item-input">
-                        <span class="input-label">项目进度</span>
-                        <input type="text" ng-disabled="true" ng-model="tlk.followupStatus" > <!--required必填-->
-                    </label>
+                    <!--<label class="item item-input">-->
+                        <!--<span class="input-label">项目进度</span>-->
+                        <!--<input type="text" ng-disabled="true" ng-model="tlk.followupStatus" > &lt;!&ndash;required必填&ndash;&gt;-->
+                    <!--</label>-->
 
 
                 </div>
@@ -39,8 +39,8 @@
             </div>
 
             <div class="button-box"style=" margin-top: 8px; margin-right: 0; margin-left: 0;"><!--f.$invalid-->
-                <a ng-disabled="tlk.control==1" ng-href="#/rwedit/{{tlk}}" class="button button-block button-positive" >修改</a>
-                <a ng-disabled="tlk.control==1" ng-click="delrw(tlk.taskId)" class="button button-block button-positive" >删除</a>
+                <a ng-disabled="tlk.control!=1" ng-href="#/rwedit/{{tlk}}" class="button button-block button-positive" >修改</a>
+                <a ng-disabled="tlk.control!=1" ng-click="delrw(tlk.taskId)" class="button button-block button-positive" >删除</a>
             </div>
 
     </ion-content>

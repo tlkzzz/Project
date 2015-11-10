@@ -10,46 +10,130 @@
 
             <div class="list list-inset">
                 <label class="item item-input">
-                    <input type="text" ng-model="xm.projectsName" placeholder="项目名称  (必填)" ng-maxlength="40" required>
+                    <input ng-disabled="true" type="text" ng-model="xm.createUnit" placeholder="申报单位">
                 </label>
                 <label class="item item-input">
-                    <select  ng-change="selectss(xm.projectsheng)" ng-model="xm.projectsheng" ng-options="x.provinceId as x.provinceName for x in usss">
-                        <option  value="">请选择省</option>
-                    </select>
-                    <!--<select  ng-model="xm.projectAreaCode" ng-options="s.cityId as s.cityName for s in ussssr"  required>-->
-                        <!--<option  value="">请选择  (必填)</option>-->
-                    <!--</select>-->
+                    <input type="tel" ng-model="xm.unitPhone"   placeholder="单位联系电话  (必填)" required></input>
                 </label>
                 <label class="item item-input">
-                    <!--<select  ng-change="selectss(xm.projectsheng)" ng-model="xm.projectsheng" ng-options="x.provinceId as x.provinceName for x in usss">-->
-                        <!--<option  value="">请选择</option>-->
-                    <!--</select>-->
-                    <select  ng-model="xm.projectAreaCode" ng-options="s.cityId as s.cityName for s in ussssr"  required>
-                        <option  value="">请选择市  (必填)</option>
-                    </select>
+                    <input type="text" ng-disabled="true" ng-model="xm.createDate" placeholder="申请时间"></input>
                 </label>
                 <label class="item item-input">
-                    <input type="text"  ng-model="xm.projectsAdd" placeholder="详细地址  (必填)" ng-maxlength="50" required>
+                    <input type="text" ng-disabled="true" ng-model="xm.declarePerson" placeholder="申报人"></input>
                 </label>
                 <label class="item item-input">
-                    <textarea  ng-model="xm.projectsScale" placeholder="建设规模 "  ng-maxlength="90"></textarea>
+                    <input type="tel" ng-model="xm.declarePersonPhone" placeholder="申报人联系电话  (必填)" required></input>
                 </label>
                 <label class="item item-input">
-                    <textarea  ng-model="xm.structuralStyle" placeholder="结构形式 " ng-maxlength="90" ></textarea>
+                    <input type="text" ng-model="xm.unitPerson" placeholder="单位负责人  (必填)" required></input>
                 </label>
                 <label class="item item-input">
-                    <textarea  ng-model="xm.functionDesc" placeholder="使用功能和平面布局描述  " ng-maxlength="90" ></textarea>
-                </label>
-                <label class="item item-input">
-                    <textarea  ng-model="xm.projectsProgress" placeholder="目前项目进展  (必填)" ng-maxlength="90" required></textarea>
-                </label>
-                <label class="item item-input">
-                    <textarea  ng-model="xm.resourceSituation" placeholder="资源情况  (必填)" ng-maxlength="90" required></textarea>
-                </label>
-                <label class="item item-input">
-                    <textarea  ng-model="xm.followupStatus" placeholder="目前跟进状态  (必填)" ng-maxlength="90" required></textarea>
+                    <input type="tel" ng-model="xm.unitPersonPhone" placeholder="联系电话  (必填)" required></input>
                 </label>
             </div>
+
+
+            <div class="drop-down-box">
+                <div ng-click="showxmbj()" class="drop-down-list"><p>项目背景</p><i class="drop-down"><img src="img/drop-down.png" /></i></div>
+                <div ng-show="pp.xmbj">
+                    <div class="list list-inset margin-top-none">
+
+                            <input type="hidden" ng-model="xm.userId">
+                            <input type="hidden" ng-model="xm.hardId">
+                            <input type="hidden" ng-model="xm.sessionId">
+                            <input type="hidden" ng-model="xm.areaCode">
+
+                            <label class="item item-input">
+                                <input type="text" ng-model="xm.projectsName" placeholder="项目名称  (必填)"  required>
+                            </label>
+                            <label class="item item-input">
+                                <input type="text" ng-model="xm.anotherName" placeholder="另用名" >
+                            </label>
+                            <label class="item item-input">
+                                <select  ng-change="selectss(xm.projectsheng)" ng-model="xm.projectsheng" ng-options="x.provinceId as x.provinceName for x in usss">
+                                    <option  value="">请选择省</option>
+                                </select>
+                                <!--<select  ng-model="xm.projectAreaCode" ng-options="s.cityId as s.cityName for s in ussssr"  required>-->
+                                <!--<option  value="">请选择  (必填)</option>-->
+                                <!--</select>-->
+                            </label>
+                            <label class="item item-input">
+                                <!--<select  ng-change="selectss(xm.projectsheng)" ng-model="xm.projectsheng" ng-options="x.provinceId as x.provinceName for x in usss">-->
+                                <!--<option  value="">请选择</option>-->
+                                <!--</select>-->
+                                <select  ng-model="xm.projectAreaCode" ng-options="s.cityId as s.cityName for s in ussssr"  required>
+                                    <option  value="">请选择市  (必填)</option>
+                                </select>
+                            </label>
+                        <label class="item item-input">
+                            <input type="text"  ng-model="xm.projectsAdd" placeholder="详细地址  (必填)" ng-maxlength="90" required>
+                        </label>
+                            <label class="item item-input">
+                                <input type="text"  ng-model="xm.purpose" placeholder="建筑用途  (必填)" ng-maxlength="90" required >
+                            </label>
+                            <label class="item item-input">
+                                <input type="text"  ng-model="xm.coverAcreage" placeholder="占地面积  (必填)"  ng-maxlength="90" required></input>
+                            </label>
+                            <label class="item item-input">
+                                <input type="tel" ng-model="xm.buildAcreage" placeholder="建筑面积" ng-maxlength="90" ></input>
+                            </label>
+                            <label class="item item-input">
+                                <input type="tel"  ng-model="xm.hollowFloorAcreage" placeholder="拟用空心楼盖层数" ng-maxlength="90" ></input>
+                            </label>
+                            <label class="item item-input">
+                                <input type="tel" ng-model="xm.buildHeight" placeholder="建筑高度" ng-maxlength="90" ></input>
+                            </label>
+                            <label class="item item-input">
+                                <input type="tel" ng-model="xm.buildLayers" placeholder="建筑层数" ng-maxlength="90" ></input>
+                            </label>
+
+                            <label class="item item-input">
+                                <input type="tel" ng-model="xm.hollowFloorNumber" placeholder="拟用空心楼盖层数" ng-maxlength="90" ></input>
+                            </label>
+                            <label class="item item-input">
+                                <input type="tel" ng-model="xm.undergroundAcreage" placeholder="地下总面积" ng-maxlength="90" ></input>
+                            </label>
+                            <label class="item item-input">
+                                <input type="tel" ng-model="xm.undergroundNumber" placeholder="地下层数" ng-maxlength="90" ></input>
+                            </label>
+                            <label class="item item-input">
+                                <input type="tel" ng-model="xm.undergroundSingleAcreage" placeholder="地下单层面积" ng-maxlength="90" ></input>
+                            </label>
+
+
+                            <label class="item item-input">
+                                <select  ng-model="xm.projectCurrentStatus" ng-options="x.id as x.name for x in usssk" required>
+                                    <option  value="">项目目前状态(必须)</option>
+                                </select>
+                            </label>
+                        <label class="item item-input">
+                            <select  ng-model="xm.investorEconomyStatus" ng-options="x.id as x.name for x in ussskt" required>
+                                <option  value="">项目投资人经济状态(必须)</option>
+                            </select>
+                        </label>
+
+
+                        <div style="min-height:47px; line-height:47px; border:1px solid #e4e4e4; padding-left:16px;">
+                            <!--<label ng-repeat="t in contactts  | orderBy:contactOrder"  style="margin-right:5px;">-->
+                     <!--<input  style="vertical-align:middle; margin:-2px 3px 0 0;"-->
+                             <!--type="checkbox" ng-checked="xm.followupStatus"  value="t.id"  ng-model="t.id"/>{{t.name}}</label>-->
+                            <!--<label ng-repeat="t in contactts  | orderBy:contactOrder" ng-show="t.id==4" style="margin-right:5px;"><input  style="vertical-align:middle; margin:-2px 3px 0 0;" type="checkbox"  name="followupStatus" value="t.id"   ng-model="t.id"  />{{t.name}}</label>-->
+
+
+                            <label style="margin-right:5px;"><input  style="vertical-align:middle; margin:-2px 3px 0 0;" type="checkbox" ng-model="xm.followupStatus.value1"/>建设方沟通 </label>
+                            <label style="margin-right:5px;"><input  style="vertical-align:middle; margin:-2px 3px 0 0;" type="checkbox" ng-model="xm.followupStatus.value2" />设计院沟通</label>
+                            <label style="margin-right:5px;"><input  style="vertical-align:middle; margin:-2px 3px 0 0;" type="checkbox" ng-model="xm.followupStatus.value3" />施工方沟通</label>
+                            <label style="margin-right:5px;"><input  style="vertical-align:middle; margin:-2px 3px 0 0;" type="checkbox" ng-click="isSelected()" ng-model="xm.followupStatus.value4" />其他关系</label>
+
+                        </div>
+                        <label class="item item-input" ng-show="pp.qtgx">
+                            <input type="text" ng-model="xm.followupContext"  placeholder="其他关系" ng-maxlength="50" >
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
 
             <div class="drop-down-box">
                 <div ng-click="showLayer()" class="drop-down-list"><p>业主方</p><i class="drop-add"><img src="img/drop-add.png" /></i></div>

@@ -67,12 +67,12 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                 }
 
             params=angular.fromJson(params);
-            console.log(params);
+          //  console.log(params);
             postServer.post(url,params).success(function(data,status,headers,config) {
                 $ionicLoading.hide();
-                console.log(data);
+               // console.log(data);
                 if(data.resultCode==1) {
-                  console.log(data);
+                 // console.log(data);
                     var seion={
                         "sessionId" : data.sessionId,//会话id
                         "userId" : data.userObject.userId,//用户id
@@ -120,7 +120,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             $state.go("addxm");
         };
         $scope.xmxq=function(u,s,y){
-            console.log(y);
+           // console.log(y);
             if(s==1){
                 $state.go("xmbh",{ids:u,idy:y});
             }else{
@@ -145,7 +145,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         currPage=currPage+1;
         var url=API.XMLIST+sion.hardId+'/'+sion.sessionId+'/'+sion.userId+'/'+stsr+'/'+sion.areaCode+'/'+currPage+'/'+pageSize;//获取url
         getServer.get(url).success(function(data,status,headers,config){
-            console.log(data);
+           // console.log(data);
             if(data.resultCode==1){
                 $scope.xmlist=data.projrctList;
                 if(data.projrctList.length<10){
@@ -178,7 +178,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                         if(data.taskList==0){
                             $scope.shwomor=false;
                         }
-                        console.log(data);
+                       // console.log(data);
                     }else{
                         $scope.shwomor=false;  //隐藏加载动画
                         $scope.$broadcast('scroll.infiniteScrollComplete');//关闭加载事件
@@ -213,7 +213,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                     $cordovaToast.showShortCenter(data.resultInfo);
                 }
             }).error(function(data,status,headers,config){
-                console.log(data);
+              //  console.log(data);
                 $cordovaToast.showShortCenter('连接服务器失败啦!');
             });
         }
@@ -242,7 +242,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         var sion=sessionService.getsession();//获取缓存数据
         currPage=currPage+1;
         var url=API.RWLISTXQ+sion.hardId+'/'+sion.sessionId+'/'+sion.userId+'/'+stsr+'/'+currPage+'/'+pageSize;//获取url
-        console.log(url);
+      //  console.log(url);
         getServer.get(url).success(function(data,status,headers,config){
             console.log(data);
             if(data.resultCode==1){
@@ -258,9 +258,9 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         });
         //查询项目名称列表下啦
         var urls=API.RWLIST+sion.hardId+'/'+sion.sessionId+'/'+sion.userId;//获取url
-        console.log(urls);
+       // console.log(urls);
         getServer.get(urls).success(function(data,status,headers,config){
-            console.log(data);
+          //  console.log(data);
             if(data.resultCode==1){
                 $scope.ussssr=data.projrctList;
             }else{
@@ -288,7 +288,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                         if(data.taskList==0){
                             $scope.shwomor=false;
                         }
-                        console.log(data);
+                      //  console.log(data);
                     }else{
                         $scope.shwomor=false;  //隐藏加载动画
                         $scope.$broadcast('scroll.infiniteScrollComplete');//关闭加载事件
@@ -313,7 +313,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             }
             var url=API.RWLISTXQ+sion.hardId+'/'+sion.sessionId+'/'+sion.userId+'/'+stsr+'/'+currPage+'/'+pageSize;//获取url
             getServer.get(url).success(function(data,status,headers,config){
-                console.log(data);
+               // console.log(data);
                 if(data.resultCode==1){
                     $scope.rwlist=data.taskList;
                     if(data.taskList.length<10){
@@ -340,7 +340,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         var sion=sessionService.getsession();//获取缓存数据
         var url=API.RWXQ+sion.hardId+'/'+sion.sessionId+'/'+ids+'/'+sion.userId;//获取url
         getServer.get(url).success(function(data,status,headers,config){
-            console.log(data);
+           // console.log(data);
             if(data.resultCode==1){
                $scope.tlk=data.task;
             }else{
@@ -365,7 +365,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                   var ps={'hardId':sion.hardId,'sessionId':sion.sessionId,'taskId':y};
                     ps=angular.fromJson(ps);
                     postServer.post(urls,ps).success(function(data,status,headers,config){
-                        console.log(data);
+                       // console.log(data);
                         if(data.resultCode==1){
                             $ionicHistory.goBack();
                             $cordovaToast.showShortCenter(data.resultInfo);
@@ -405,9 +405,9 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             var  dates = $filter('date')(obj.completeDate, "yyyy-MM-dd");
             obj.completeDate=dates;
             var urls=API.XGTJRW;//获取url
-            console.log(obj);
+           // console.log(obj);
             postServer.post(urls,obj).success(function(data,status,headers,config){
-                console.log(data);
+               // console.log(data);
                 if(data.resultCode==1){
                     $ionicHistory.goBack();
                     $cordovaToast.showShortCenter(data.resultInfo);
@@ -443,7 +443,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         var url=API.KHLIST+sion.hardId+'/'+sion.sessionId+'/'+stsr+'/'+sion.areaCode+'/'+sion.userId+'/'+currPage+'/'+pageSize;//获取url
        //客户列表查询
         getServer.get(url).success(function(data,status,headers,config){
-            console.log(data);
+           // console.log(data);
             if(data.resultCode==1){
 
                 $scope.khlist=data.custList;
@@ -477,7 +477,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                         if(data.custList==0){
                           $scope.shwomor=false;
                         }
-                        console.log(data);
+                      //  console.log(data);
                     }else{
                         $scope.shwomor=false;  //隐藏加载动画
                         $scope.$broadcast('scroll.infiniteScrollComplete');//关闭加载事件
@@ -504,7 +504,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                 //客户列表查询
                 getServer.get(urls).success(function(data,status,headers,config){
                     if(data.resultCode==1){
-                          console.log(data);
+                       //   console.log(data);
                         $scope.khlist=data.custList;
                         if(data.custList.length<10){
                             $scope.shwomor=false;
@@ -560,10 +560,10 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         var sion=sessionService.getsession();//获取缓存数据
         var url=API.BMLIST+sion.hardId+"/"+sion.sessionId+'/'+sion.departId+'/'+sion.areaCode;
         getServer.get(url).success(function(data,status,headers,config){
-            console.log(data);
+           // console.log(data);
             if(data.resultCode==1){
                 $scope.list=data.departList;
-                console.log(data);
+               // console.log(data);
             }else {
                 $cordovaToast.showShortCenter(data.resultInfo);
             }
@@ -629,7 +629,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         var  urls=API.ZPRWLIST+sion.hardId+'/'+sion.sessionId+'/'+sion.userId;
         getServer.get(urls).success(function(data,status,headers,config){
             if(data.resultCode==1){
-                console.log(data);
+               // console.log(data);
                 $scope.users=data.projrctList;
             }else{
                 //$cordovaToast.showShortCenter(data.resultInfo);
@@ -654,7 +654,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
 
         $scope.reqister=function(kh){
             var url=API.ADDKH;
-            console.log(kh);
+           // console.log(kh);
             postServer.post(url,kh).success(function(data,status,headers,config){
             if(data.resultCode==1){
                 console.log(data.resultInfo);
@@ -736,24 +736,25 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             $ionicHistory.goBack();
         }
         $scope.pp={};
-        $scope.pp.yzf=false;
+        $scope.pp.xmbj=false;
         $scope.pp.sjdw=false;
         $scope.pp.zbf=false;
         //$scope.visible = !$scope.visible;
-        $scope.showyzf=function(){
-          var t=$scope.pp.yzf;
+//        $scope.showyzf=function(){
+//          var t=$scope.pp.yzf;
+//            if(t==true){
+//                $scope.pp.yzf=false;
+//            }else{
+//                $scope.pp.yzf=true;
+//            }
+//        }
+//        项目背景
+        $scope.showxmbj=function(){
+            var t=$scope.pp.xmbj;
             if(t==true){
-                $scope.pp.yzf=false;
+                $scope.pp.xmbj=false;
             }else{
-                $scope.pp.yzf=true;
-            }
-        }
-        $scope.showsjdw=function(){
-            var t=$scope.pp.sjdw;
-            if(t==true){
-                $scope.pp.sjdw=false;
-            }else{
-                $scope.pp.sjdw=true;
+                $scope.pp.xmbj=true;
             }
         }
         $scope.zbfshow=function(){
@@ -764,14 +765,37 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                 $scope.pp.zbf=true;
             }
         }
+
         var sion=sessionService.getsession();//获取缓存数据
         //选择省市
-        var urlss=API.ADDXMS+sion.hardId+'/'+sion.sessionId;
+        var urlss=API.ADDXMS+sion.hardId+'/'+sion.sessionId+'/'+sion.userId;
         getServer.get(urlss).success(function(data,status,headers,config){
+            console.log(data);
             if(data.resultCode==1){
-                console.log(data);
-                $scope.usss=data.provinceList;
 
+              var k=data.provinceList[0];
+                console.log(k);
+                var smst={
+                    'createUnit': k.createUnit,//单位
+                    'createDate': k.createDate,//申请时间
+                    'declarePerson': k.declarePerson,//申报人
+                    'declarePersonPhone': k.declarePersonPhone,//申报人联系电话
+                    'userId':sion.userId, //用户ID
+                    'hardId':sion.hardId,
+                    'sessionId':sion.sessionId,
+                    'areaCode':sion.areaCode //区域id
+
+
+
+                }
+                $scope.usss= k.provinceList;//省
+                $scope.ussskt= k.economyList;//投资经纪人状态
+                $scope.usssk= k.currentList;//项目目前状态
+                $scope.contactts= k.followupList;//业务跟进状态
+
+
+
+                $scope.xm=smst;
             }else{
                 console.log(data.resultInfo);
 //                $cordovaToast.showShortCenter(data.resultInfo);
@@ -798,25 +822,64 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             }
 
         }
+        $scope.pp.qtgx=false;
+        var abcstr=false;
+        $scope.isSelected=function(){
+         var x=$scope.xm.followupStatus.value4;
+            if(!x){
+                $scope.pp.qtgx=false;
+                $scope.xm.followupContext='';
+                abcstr=false;
+            }else{
+                $scope.pp.qtgx=true;
+                abcstr=true;
+            }
+        }
 
-            $scope.xm={
-            'userId':sion.userId, //用户ID
+
+        $scope.xm={
+
+            'unitPhone':'',//单位联系电话
+            'unitPerson':'',//单位负责人
+            'unitPersonPhone':'',//联系电话
+            'createDate':'',//申报时间
+             //项目背景
             'projectsheng':'',//省
             'projectAreaCode':'',//市
-            'resourceSituation':'',//资源情况
-            'projectsName':'',//项目名称
             'projectsAdd':'',//项目地址
-            'projectsScale':'',//建设规模
-            'structuralStyle':'',//结构形式
-            'functionDesc':'',//使用功能和平面布局
-            'projectsProgress':'',//目前项目进展
-            'followupStatus':'',//目前跟进状态
+            'projectsName':'',//项目名称
+            'anotherName':'',//另用名
+
+
+            'purpose':'',//建筑用途
+            'coverAcreage':'',//占地面积
+            'buildAcreage':'',//建筑面积
+            'hollowFloorAcreage':'',//拟用空心楼盖层数
+            'buildHeight':'',//建筑高度
+            'buildLayers':'',//建筑层数
+            'hollowFloorNumber':'',//拟用空心楼盖层数
+            'undergroundAcreage':'',//地下总面积
+            'undergroundNumber':'',//地下层数
+            'undergroundSingleAcreage':'',//地下单层面积
+
+            'projectCurrentStatus':'',//目前项目状态
+            'followupStatus': {
+                value1 :  '1',
+                value2 :  '2',
+                value3 :  '3',
+                value4 :  '4'
+             },//业务跟进状态
+            'investorEconomyStatus':'',//投资人经济状态
+            'followupContext':'',
+
+             //业主方
             'ownerName':'',//业主单位名称
             'ownerPerson':'',//业主单位负责人
             'ownerPhone':'',//业主负责人电话
             'ownerAddress':'',//业主单位地址
             'technicalEngineer':'',//技术总工
             'engineerPhone':'',//技术总工电话
+                //设计单位
             'designName':'',//设计单位名称
             'designPerson':'',//设计单位负责人
             'designPhone':'',//设计单位电话
@@ -825,9 +888,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             'enginPerson':'',//土建单位负责人
             'enginPhone':'',//土建单位电话
             'enginAddress':'',//土建单位地址
-            'hardId':sion.hardId,
-            'sessionId':sion.sessionId,
-            'areaCode':sion.areaCode, //区域id
+
              'yzflist':'',
              'sjdwlist':''
 
@@ -844,12 +905,39 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             xm.yzflist=yzfadd;
             xm.sjdwlist=sjdwadd;
 
-
 //          pst=angular.fromJson(pst);
 //           var obj=angular.extend({}, xm, pst);//合并两个对象
 //            obj=angular.fromJson(xm);//字符串装json对象
+           // console.log(xm.followupStatus.value3);
+            var valuestr='';
+            if(xm.followupStatus.value3){
+                valuestr=valuestr+'3,';
+            }
+            if(xm.followupStatus.value1){
+                valuestr=valuestr+'1,';
+            }
+            if(xm.followupStatus.value2){
+                valuestr=valuestr+'2,';
+            }
+            if(xm.followupStatus.value4){
+                valuestr=valuestr+'4,';
+            }
+            if(valuestr==''){
+                $cordovaToast.showShortCenter('请选择一个checkbox');
+            }
+
+            if(abcstr){
+                if(xm.followupContext==''){
+                    $cordovaToast.showShortCenter('请填写其他关系!');
+                    return false;
+                }
+            }
+            xm.followupStatus=valuestr;
+           // console.log(xm.followupStatus);
             obj=angular.toJson(xm);  //json对象转字符串
             console.log(obj);
+
+
             postServer.post(url,obj).success(function(data,status,headers,config){
 
                 if(data.resultCode==1){
@@ -1215,8 +1303,16 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         $scope.toggleGroups = function(group) {
             group.id = !group.id;
         };
-
-
+        $scope.pp={};
+        $scope.pp.xmbj=false;
+        $scope.showxmbj=function(){
+            var t=$scope.pp.xmbj;
+            if(t==true){
+                $scope.pp.xmbj=false;
+            }else{
+                $scope.pp.xmbj=true;
+            }
+        }
         $scope.isGroupShown = function(group) {
             return group.id;
         };
@@ -1225,7 +1321,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         };
 
 
-        $scope.pp={};
+
         $scope.pp.yzf=false;
         $scope.showyzf=function(){
             var t=$scope.pp.yzf;
@@ -1250,6 +1346,17 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                     data.addProject.designList[k].id=false;
                 }
                 $scope.xm=data.addProject;
+                $scope.cheboos={
+                    value1:data.addProject.followupList[0].value1,
+                    value2:data.addProject.followupList[1].value2,
+                    value3:data.addProject.followupList[2].value3,
+                    value4:data.addProject.followupList[3].value4
+                };
+
+                if(data.addProject.followupList[3].value4=='true'){
+                    $scope.pp.qtgx=true;
+                }
+
             }else{
                 $cordovaToast.showShortCenter(data.resultInfo);
             }
@@ -1386,6 +1493,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         $scope.pp.yzf=false;
         $scope.pp.sjdw=false;
         $scope.pp.zbf=false;
+        $scope.pp.zbfs=false;
         //$scope.visible = !$scope.visible;
         $scope.showyzf=function(){
             var t=$scope.pp.yzf;
@@ -1403,6 +1511,14 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                 $scope.pp.sjdw=true;
             }
         }
+        $scope.showxmbj=function(){
+            var t=$scope.pp.zbfs;
+            if(t==true){
+                $scope.pp.zbfs=false;
+            }else{
+                $scope.pp.zbfs=true;
+            }
+        }
         $scope.zbfshow=function(){
             var t=$scope.pp.zbf;
             if(t==true){
@@ -1413,17 +1529,47 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         }
         var sion=sessionService.getsession();//获取缓存数据
         $scope.xm={
+            //基础信息
+            'createUnit': '',//单位
+            'createDate': '',//申请时间
+            'declarePerson': '',//申报人
+            'declarePersonPhone': '',//申报人联系电话
+            'unitPhone':'',//单位联系电话
+            'unitPerson':'',//单位负责人
+            'unitPersonPhone':'',//联系电话
+            'createDate':'',//申报时间
             'userId':sion.userId, //用户ID
+
+           //基础信息
             'projectsheng':'',//省
             'projectAreaCode':'',//市
-            'resourceSituation':'',//资源情况
-            'projectsName':'',//项目名称
             'projectsAdd':'',//项目地址
-            'projectsScale':'',//建设规模
-            'structuralStyle':'',//结构形式
-            'functionDesc':'',//使用功能和平面布局
-            'projectsProgress':'',//目前项目进展
-            'followupStatus':'',//目前跟进状态
+            'projectsName':'',//项目名称
+            'anotherName':'',//另用名
+
+
+            'purpose':'',//建筑用途
+            'coverAcreage':'',//占地面积
+            'buildAcreage':'',//建筑面积
+            'hollowFloorAcreage':'',//拟用空心楼盖层数
+            'buildHeight':'',//建筑高度
+            'buildLayers':'',//建筑层数
+            'hollowFloorNumber':'',//拟用空心楼盖层数
+            'undergroundAcreage':'',//地下总面积
+            'undergroundNumber':'',//地下层数
+            'undergroundSingleAcreage':'',//地下单层面积
+            'projectCurrentStatus':'',//目前项目状态
+            'followupStatuss': {
+                'value4' :  '4',
+                'value1' :  '1',
+                'value2' :  '2',
+                'value3' :  '3'
+
+            },//业务跟进状态
+            'investorEconomyStatus':'',//投资人经济状态
+            'followupContext':'',
+
+
             'ownerName':'',//业主单位名称
             'ownerPerson':'',//业主单位负责人
             'ownerPhone':'',//业主负责人电话
@@ -1445,6 +1591,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             'sjdwlist':''
 
         }
+
         var projectsId=undefined;
         var ids=$stateParams.ids;
         var idy=$stateParams.idy;
@@ -1457,12 +1604,47 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
         }else if(idz==4){
             xmzt='合同中';
         }
+            var abcstr=false;
+        //$scope.xm.followupStatuss.value4=false;
+        $scope.isSelected=function(x){
+//            var x=$scope.xm.followupStatuss.value4;
+           if(x==undefined){
+               $scope.pp.qtgx=false;
+               $scope.xm.followupContext='';
+               abcstr=false;
+           }else {
+               if (x == false) {
+                   $scope.pp.qtgx = false;
+                   $scope.xm.followupContext = '';
+                   abcstr = false;
+               } else {
+                   $scope.pp.qtgx = true;
+                   abcstr = true;
+               }
+           }
+        }
         $scope.xmzts=xmzt;
         var url=API.XMXQ+sion.hardId+'/'+sion.sessionId+'/'+ids+'/'+idy;
         getServer.get(url).success(function(data,status,headers,config){
+            console.log(data);
             if(data.resultCode==1){
                 $scope.xm=data.addProject;
-                console.log(data);
+                $scope.cheboos={
+                    value1:data.addProject.followupList[0].value1,
+                    value2:data.addProject.followupList[1].value2,
+                    value3:data.addProject.followupList[2].value3,
+                    value4:data.addProject.followupList[3].value4
+                    };
+
+                if(data.addProject.followupList[3].value4=='true'){
+                    $scope.pp.qtgx=true;
+                }
+
+               console.log($scope.cheboos);
+               // console.log(data);
+//                $scope.ussskt= k.economyList;//投资经纪人状态
+//                $scope.usssk= k.currentList;//项目目前状态
+//                $scope.contactts= k.followupList;//业务跟进状态
             }else{
                 $cordovaToast.showShortCenter(data.resultInfo);
             }
@@ -1478,8 +1660,34 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             u.sessionId=sion.sessionId;
             u.yzflist=yzfadd;
             u.sjdwlist=sjdwadd;
+
+            var valuestr='';
+            if(u.followupStatuss.value3){
+                valuestr=valuestr+'3,';
+            }
+            if(u.followupStatuss.value1){
+                valuestr=valuestr+'1,';
+            }
+            if(u.followupStatuss.value2){
+                valuestr=valuestr+'2,';
+            }
+            if(u.followupStatuss.value4){
+                valuestr=valuestr+'4,';
+            }
+            if(valuestr==''){
+                $cordovaToast.showShortCenter('请选择一个checkbox');
+                return false;
+            }
+            if(abcstr){
+               if(u.followupContext==''){
+                   $cordovaToast.showShortCenter('请填写其他关系!');
+                   return false;
+               }
+            }
+
+            u.followupStatus=valuestr;
             obj=angular.toJson(u);  //json对象转字符串
-            //console.log(obj);
+            console.log(obj);
             postServer.post(urlss,obj).success(function(data,status,headers,config){
                 if(data.resultCode==1){
                     console.log(data.resultInfo);
@@ -1962,7 +2170,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             u.completeDate=dates;
 
             var url=API.ADDRW;
-            console.log(u);
+            //  console.log(u);
             postServer.post(url,u).success(function(data,status,headers,config){
                 if(data.resultCode==1){
                     $ionicHistory.goBack();
@@ -2081,7 +2289,7 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                      obj=angular.fromJson(obj);
                     postServer.post(urls,obj).success(function(data,status,headers,config){
                         if(data.resultCode==1){
-                            console.log(data.resultInfo);
+                            //console.log(data.resultInfo);
                             $ionicHistory.goBack();
                             $cordovaToast.showShortCenter(data.resultInfo);
                         }else{
@@ -2133,10 +2341,10 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
            pst=angular.fromJson(pst);
           $scope.reqister=function(ks) {
             var obj=angular.extend({}, ks, pst);//合并两个对象
-            console.log(obj);
+            //console.log(obj);
             postServer.post(url, obj).success(function (data, status, headers, config) {
                 if(data.resultCode==1){
-                    console.log(data.resultInfo);
+                   // console.log(data.resultInfo);
                     $ionicHistory.goBack();
                     $cordovaToast.showShortCenter(data.resultInfo);
 
@@ -2182,10 +2390,10 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
             var obj={'phone':tel,'hardId':hardId};
             obj=angular.fromJson(obj);
 
-            console.log(obj);
+           // console.log(obj);
             postServer.post(url, obj).success(function (data, status, headers, config) {
                 if(data.resultCode==1){
-                    console.log(data);
+                   // console.log(data);
                     $scope.ss=true;
                     $scope.wjmmclass="button button-small button-calm";
                     $scope.n=60;

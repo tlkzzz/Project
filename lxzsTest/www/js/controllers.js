@@ -780,6 +780,9 @@ angular.module('starter.controllers', ['ionic','starter.filter'])
                     'createDate': k.createDate,//申请时间
                     'declarePerson': k.declarePerson,//申报人
                     'declarePersonPhone': k.declarePersonPhone,//申报人联系电话
+                    'unitPerson': k.unitPerson,//申报人
+                    'unitPhone': k.unitPhone,//申报人
+                    'unitPersonPhone': k.unitPersonPhone,//申报人联系电话
                     'userId':sion.userId, //用户ID
                     'hardId':sion.hardId,
                     'sessionId':sion.sessionId,
